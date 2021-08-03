@@ -5,7 +5,7 @@ export default class QuestionModel {
     private _id: number,
     private _text: string,
     private _answers: AnswerModel[],
-    private _isRight: boolean
+    private _isRight: boolean = false
   ) {}
 
   get id() {

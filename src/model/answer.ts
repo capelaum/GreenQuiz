@@ -5,6 +5,14 @@ export default class AnswerModel {
     private _isRevealed: boolean = false
   ) {}
 
+  static isCorrect(value: string) {
+    return new AnswerModel(value, true);
+  }
+
+  static isWrong(value: string) {
+    return new AnswerModel(value, false);
+  }
+
   get value() {
     return this._value;
   }

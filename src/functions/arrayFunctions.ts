@@ -1,4 +1,4 @@
-import AnswerModel from "../model/answer";
+import AnswerModel from "../models/answer";
 
 export function shuffleNumbers(numbers: number[]): number[] {
   return numbers

@@ -1,20 +1,20 @@
 export default class AnswerModel {
   constructor(
-    private _value: string,
+    private text: string,
     private _isCorrect: boolean,
     private _isRevealed: boolean = false
   ) {}
 
-  static isCorrect(value: string) {
-    return new AnswerModel(value, true);
+  static isCorrect(text: string) {
+    return new AnswerModel(text, true);
   }
 
-  static isWrong(value: string) {
-    return new AnswerModel(value, false);
+  static isWrong(text: string) {
+    return new AnswerModel(text, false);
   }
 
   get value() {
-    return this._value;
+    return this.text;
   }
 
   get isCorrect() {

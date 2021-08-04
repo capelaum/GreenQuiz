@@ -1,3 +1,4 @@
+import { shuffleAnswers } from "../functions/arrayFunctions";
 import AnswerModel from "./answer";
 
 export default class QuestionModel {
@@ -30,5 +31,15 @@ export default class QuestionModel {
     }
 
     return false;
+  }
+
+  shuffleAnswers(): QuestionModel {
+    let shuffledAnswers = shuffleAnswers(this._answers);
+    return new QuestionModel(
+      this._id,
+      this._text,
+      shuffledAnswers,
+      this._isRight
+    );
   }
 }

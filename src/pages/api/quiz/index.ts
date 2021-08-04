@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { shuffleNumbers } from "../../../functions/arrayFunctions";
 import questions from "../questionsDb";
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-  res.status(200).json(questions.map(question => question.id));
-};
+export default function getQuiz(req: NextApiRequest, res: NextApiResponse) {
+  const questionsIds = questions.map(question => question.id);
+  res.status(200).json(shuffleNumbers(questionsIds));
+}

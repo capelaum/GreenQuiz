@@ -33,13 +33,19 @@ export default class QuestionModel {
     return false;
   }
 
-  shuffleAnswers(): QuestionModel {
-    let shuffledAnswers = shuffleAnswers(this._answers);
-    return new QuestionModel(
-      this._id,
-      this._text,
-      shuffledAnswers,
-      this._isRight
-    );
+  selectAnswer(index: number) {
+    const isRight = this.answers[index]?.isCorrect;
+    const answers = this.answers.map((answer, i) => {
+      const selectedAnswer = index === i;
+      const shouldReveal = selectedAnswer || answer.isCorrect;
+      return shouldReveal ? answer.reveal() : answer;
+    });
+
+    return new QuestionModel(this.id, this.text, answers, isRight);
+  }
+
+  shuffleAnswers() {
+    let shuffledAnswers = shuffleAnswers(this.answers);
+    return new QuestionModel(this.id, this.text, shuffledAnswers, this.isRight);
   }
 }

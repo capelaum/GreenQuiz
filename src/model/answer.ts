@@ -24,4 +24,8 @@ export default class AnswerModel {
   get isRevealed() {
     return this._isRevealed;
   }
+
+  reveal() {
+    return new AnswerModel(this.text, this.isCorrect, true);
+  }
 }

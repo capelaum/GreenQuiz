@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
 
 import { Question } from "../components/Question";
 import AnswerModel from "../models/answer";
@@ -7,13 +8,20 @@ import QuestionModel from "../models/question";
 
 import styles from "../styles/Home.module.scss";
 
+const questionTest = new QuestionModel(1, "Qual é a melhor cor?", [
+  AnswerModel.isWrong("Verde"),
+  AnswerModel.isWrong("Vermelha"),
+  AnswerModel.isWrong("Azul"),
+  AnswerModel.isCorrect("Preta"),
+]);
+
 export default function Home() {
-  const questionTest = new QuestionModel(1, "Melhor cor?", [
-    AnswerModel.isWrong("Verde"),
-    AnswerModel.isWrong("Vermelha"),
-    AnswerModel.isWrong("Azul"),
-    AnswerModel.isCorrect("Preta"),
-  ]);
+  const [question, setQuestion] = useState(questionTest);
+
+  function onResponse(index: number) {
+    console.log(index);
+    setQuestion(question.selectAnswer(index));
+  }
 
   return (
     <div className={styles.container}>
@@ -24,7 +32,7 @@ export default function Home() {
       </Head>
 
       <div className={styles.questionContainer}>
-        <Question question={questionTest} />
+        <Question question={question} onResponse={onResponse} />
       </div>
     </div>
   );

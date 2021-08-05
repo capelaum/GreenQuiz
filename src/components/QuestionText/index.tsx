@@ -6,8 +6,8 @@ interface QuestionTextProps {
 
 export function QuestionText({ text }: QuestionTextProps) {
   return (
-    <div className={styles.questionText}>
-      <div className={styles.text}>
+    <div className={styles.questionTextContainer}>
+      <div className={styles.questionText}>
         <span>{text}</span>
       </div>
     </div>

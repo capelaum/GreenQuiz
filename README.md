@@ -1,6 +1,12 @@
 # Next-Quiz
 
-Quiz web application made with Next.js. This quiz has a random questions and choices order.
+Quiz web application made with Next.js.
+
+## Features
+
+- Random choices
+- Random questions
+- Timer
 
 [next]: https://nextjs.org/docs
 [sass]: https://sass-lang.com

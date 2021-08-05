@@ -1,6 +1,6 @@
 export default class AnswerModel {
   constructor(
-    private text: string,
+    private _text: string,
     private _isCorrect: boolean,
     private _isRevealed: boolean = false
   ) {}
@@ -13,8 +13,8 @@ export default class AnswerModel {
     return new AnswerModel(text, false);
   }
 
-  get value() {
-    return this.text;
+  get text() {
+    return this._text;
   }
 
   get isCorrect() {

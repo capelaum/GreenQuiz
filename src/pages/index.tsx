@@ -19,7 +19,6 @@ export default function Home() {
   const [question, setQuestion] = useState(questionTest);
 
   function onResponse(index: number) {
-    console.log(index);
     setQuestion(question.selectAnswer(index));
   }
 

@@ -10,6 +10,13 @@
   display: flex;
   flex: 1;
   position: relative;
+
+  cursor: pointer;
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
 }
 
 .front,
@@ -26,6 +33,31 @@
   align-items: center;
   border-radius: 12px;
   padding: 15px;
+}
+
+.back {
+  & > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border-radius: 12px;
+  }
+
+  .right {
+    background-color: #2baa6d;
+  }
+
+  .wrong {
+    background-color: #e44a4c;
+  }
+
+  .right .text,
+  .wrong .text {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
 }
 
 .letter {

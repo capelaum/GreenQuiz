@@ -35,6 +35,11 @@ export default class QuestionModel {
 
   selectAnswer(index: number) {
     const isRight = this.answers[index]?.isCorrect;
+    const hasRevealed = this.answers.some(answer => answer.isRevealed);
+
+    if (hasRevealed)
+      return new QuestionModel(this.id, this.text, this.answers, isRight);
+
     const answers = this.answers.map((answer, i) => {
       const selectedAnswer = index === i;
       const shouldReveal = selectedAnswer || answer.isCorrect;

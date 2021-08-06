@@ -26,11 +26,15 @@ export default class QuestionModel {
   }
 
   get isAnswered() {
-    for (let answer of this._answers) {
+    for (let answer of this.answers) {
       if (answer.isRevealed) return true;
     }
 
     return false;
+  }
+
+  get isNotAnswered() {
+    return !this.isAnswered;
   }
 
   selectAnswer(index: number) {

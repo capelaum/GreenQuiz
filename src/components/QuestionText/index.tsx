@@ -8,7 +8,7 @@ export function QuestionText({ text }: QuestionTextProps) {
   return (
     <div className={styles.questionTextContainer}>
       <div className={styles.questionText}>
-        <span>{text}</span>
+        <h2>{text}</h2>
       </div>
     </div>
   );

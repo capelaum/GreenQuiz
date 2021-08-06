@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Question } from "../components/Question";
 import AnswerModel from "../models/answer";
@@ -17,9 +17,20 @@ const questionTest = new QuestionModel(1, "Qual é a melhor cor?", [
 
 export default function Home() {
   const [question, setQuestion] = useState(questionTest);
+  const questionRef = useRef<QuestionModel>();
+
+  useEffect(() => {
+    questionRef.current = question;
+  }, [question]);
 
   function onResponse(index: number) {
     setQuestion(question.selectAnswer(index));
+  }
+
+  function finishedTime() {
+    if (questionRef.current.isNotAnswered) {
+      setQuestion(question.selectAnswer(-1));
+    }
   }
 
   return (
@@ -31,7 +42,12 @@ export default function Home() {
       </Head>
 
       <div className={styles.questionContainer}>
-        <Question question={question} onResponse={onResponse} />
+        <Question
+          question={question}
+          onResponse={onResponse}
+          duration={5}
+          finishedTime={finishedTime}
+        />
       </div>
     </div>
   );

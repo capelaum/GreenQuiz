@@ -2,6 +2,7 @@ import React from "react";
 import QuestionModel from "../../models/question";
 import { Answer } from "../Answer";
 import { QuestionText } from "../QuestionText";
+import { Timer } from "../Timer";
 
 import styles from "./styles.module.scss";
 
@@ -15,9 +16,16 @@ const letters = [
 interface QuestionProps {
   question: QuestionModel;
   onResponse: (index: number) => void;
+  duration?: number;
+  finishedTime: () => void;
 }
 
-export function Question({ question, onResponse }: QuestionProps) {
+export function Question({
+  question,
+  onResponse,
+  duration,
+  finishedTime,
+}: QuestionProps) {
   function renderAnswers() {
     return question.answers.map((answer, i) => {
       return (
@@ -36,6 +44,7 @@ export function Question({ question, onResponse }: QuestionProps) {
   return (
     <div className={styles.question}>
       <QuestionText text={question.text} />
+      <Timer duration={duration ?? 15} finishedTime={finishedTime} />
       {renderAnswers()}
     </div>
   );

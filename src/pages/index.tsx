@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "../components/Button";
 
 import { Question } from "../components/Question";
 import AnswerModel from "../models/answer";
@@ -49,6 +50,7 @@ export default function Home() {
           finishedTime={finishedTime}
         />
       </div>
+      <Button text="Próximo" href="/results" />
     </div>
   );
 }

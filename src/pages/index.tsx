@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../components/Button";
 
-import { Question } from "../components/Question";
+import { Quiz } from "../components/Quiz";
 import AnswerModel from "../models/answer";
 import QuestionModel from "../models/question";
 
@@ -34,6 +32,10 @@ export default function Home() {
     }
   }
 
+  function handleAnsweredQuestion(question: QuestionModel) {}
+
+  function handleNextQuestion() {}
+
   return (
     <div className={styles.container}>
       <Head>
@@ -43,14 +45,13 @@ export default function Home() {
       </Head>
 
       <div className={styles.questionContainer}>
-        <Question
+        <Quiz
           question={question}
-          onResponse={onResponse}
-          duration={5}
-          finishedTime={finishedTime}
+          lastQuestion={true}
+          handleAnsweredQuestion={handleAnsweredQuestion}
+          handleNextQuestion={handleNextQuestion}
         />
       </div>
-      <Button text="Próximo" href="/results" />
     </div>
   );
 }

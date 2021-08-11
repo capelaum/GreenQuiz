@@ -23,6 +23,12 @@ export function Quiz({
     }
   }
 
+  // function finishedTime() {
+  //   if (questionRef.current.isNotAnswered) {
+  //     setQuestion(question.selectAnswer(-1));
+  //   }
+  // }
+
   return (
     <div className={styles.quiz}>
       {question ? (

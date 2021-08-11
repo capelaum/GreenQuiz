@@ -14,23 +14,37 @@ const questionTest = new QuestionModel(1, "Qual é a melhor cor?", [
   AnswerModel.isCorrect("Preta"),
 ]);
 
+const BASE_URL = "http://localhost:3000/api";
+
 export default function Home() {
-  const [question, setQuestion] = useState(questionTest);
+  const [question, setQuestion] = useState<QuestionModel>(questionTest);
+  const [questionIds, setQuestionIds] = useState<number[]>([]);
   const questionRef = useRef<QuestionModel>();
 
+  async function loadQuestionIds() {
+    const response = await fetch(`${BASE_URL}/quiz`);
+    const questionIds = await response.json();
+    console.log("🚀 ~ questionIds", questionIds);
+
+    setQuestionIds(questionIds);
+  }
+
+  async function loadQuestion(questionId: number) {
+    const response = await fetch(`${BASE_URL}/questions/${questionId}`);
+    const questionJSON = await response.json();
+    console.log("🚀 ~ questionJSON", questionJSON);
+  }
+
   useEffect(() => {
-    questionRef.current = question;
-  }, [question]);
+    loadQuestionIds();
+    // questionRef.current = question;
+  }, []);
 
-  function onResponse(index: number) {
-    setQuestion(question.selectAnswer(index));
-  }
-
-  function finishedTime() {
-    if (questionRef.current.isNotAnswered) {
-      setQuestion(question.selectAnswer(-1));
+  useEffect(() => {
+    if (questionIds.length > 0) {
+      loadQuestion(questionIds[0]);
     }
-  }
+  }, [questionIds]);
 
   function handleAnsweredQuestion(question: QuestionModel) {}
 
@@ -44,14 +58,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.questionContainer}>
-        <Quiz
-          question={question}
-          lastQuestion={true}
-          handleAnsweredQuestion={handleAnsweredQuestion}
-          handleNextQuestion={handleNextQuestion}
-        />
-      </div>
+      <Quiz
+        question={question}
+        lastQuestion={true}
+        handleAnsweredQuestion={handleAnsweredQuestion}
+        handleNextQuestion={handleNextQuestion}
+      />
     </div>
   );
 }

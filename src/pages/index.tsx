@@ -18,21 +18,23 @@ const BASE_URL = "http://localhost:3000/api";
 
 export default function Home() {
   const [question, setQuestion] = useState<QuestionModel>(questionTest);
-  const [questionIds, setQuestionIds] = useState<number[]>([]);
+  const [questionsIds, setQuestionsIds] = useState<number[]>([]);
+  const [rightQuestions, setRightQuestions] = useState<number>(0);
   const questionRef = useRef<QuestionModel>();
 
   async function loadQuestionIds() {
     const response = await fetch(`${BASE_URL}/quiz`);
     const questionIds = await response.json();
-    console.log("🚀 ~ questionIds", questionIds);
+    // console.log("🚀 ~ questionIds", questionIds);
 
-    setQuestionIds(questionIds);
+    setQuestionsIds(questionIds);
   }
 
   async function loadQuestion(questionId: number) {
     const response = await fetch(`${BASE_URL}/questions/${questionId}`);
-    const questionJSON = await response.json();
-    console.log("🚀 ~ questionJSON", questionJSON);
+    const question = await response.json();
+    const newQuestion = QuestionModel.createInstanceFromObject(question);
+    setQuestion(newQuestion);
   }
 
   useEffect(() => {
@@ -41,12 +43,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (questionIds.length > 0) {
-      loadQuestion(questionIds[0]);
+    if (questionsIds.length > 0) {
+      loadQuestion(questionsIds[0]);
     }
-  }, [questionIds]);
+  }, [questionsIds]);
 
-  function handleAnsweredQuestion(question: QuestionModel) {}
+  function handleAnsweredQuestion(answeredQuestion: QuestionModel) {
+    setQuestion(answeredQuestion);
+    const isRight = answeredQuestion.isRight;
+    setRightQuestions(rightQuestions + (isRight ? 1 : 0));
+  }
 
   function handleNextQuestion() {}
 

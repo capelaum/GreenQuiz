@@ -28,4 +28,8 @@ export default class AnswerModel {
   reveal() {
     return new AnswerModel(this.text, this.isCorrect, true);
   }
+
+  static createInstanceFromObject(answer: AnswerModel): AnswerModel {
+    return new AnswerModel(answer._text, answer._isCorrect, answer._isRevealed);
+  }
 }

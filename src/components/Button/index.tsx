@@ -10,7 +10,7 @@ interface ButtonProps {
 
 export function Button({ text, href, onClick }: ButtonProps) {
   return (
-    <Link href={href ?? ""} passHref>
+    <Link href={href ?? "/"} passHref>
       <button className={styles.button} onClick={onClick}>
         {text}
       </button>

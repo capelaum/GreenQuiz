@@ -57,4 +57,17 @@ export default class QuestionModel {
     let shuffledAnswers = shuffleAnswers(this.answers);
     return new QuestionModel(this.id, this.text, shuffledAnswers, this.isRight);
   }
+
+  static createInstanceFromObject(question: QuestionModel): QuestionModel {
+    const answers = question._answers.map(answer =>
+      AnswerModel.createInstanceFromObject(answer)
+    );
+
+    return new QuestionModel(
+      question._id,
+      question._text,
+      answers,
+      question._isRight
+    );
+  }
 }

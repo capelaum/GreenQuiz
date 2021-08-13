@@ -89,6 +89,8 @@ export default function Home() {
         <meta name="description" content="Next Quiz" />
       </Head>
 
+      <div className={styles.score}>Score: {score}</div>
+
       <Quiz
         question={question}
         lastQuestion={getNextQuestionId() === undefined}

@@ -13,7 +13,7 @@ export default function Results() {
 
   return (
     <div className={styles.result}>
-      <h1>Resultado</h1>
+      <h1>🎉 Resultado 🎉</h1>
       <div className={styles.statisticContainer}>
         <Statistic text={"Perguntas"} value={total} />
         <Statistic text={"Score"} value={score} bgColor="#9CD2A4" />

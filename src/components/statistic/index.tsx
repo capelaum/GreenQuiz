@@ -15,6 +15,7 @@ export default function Statistic({
 }: StatisticProps) {
   return (
     <div className={styles.statistic}>
+      <h3 className={styles.text}>{text}</h3>
       <div
         className={styles.value}
         style={{
@@ -24,7 +25,6 @@ export default function Statistic({
       >
         {value}
       </div>
-      <div className={text}>{text}</div>
     </div>
   );
 }

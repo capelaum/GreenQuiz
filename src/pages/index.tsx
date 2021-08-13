@@ -14,13 +14,12 @@ export default function Home() {
 
   const [question, setQuestion] = useState<QuestionModel>();
   const [questionsIds, setQuestionsIds] = useState<number[]>([]);
-  const [rightQuestions, setRightQuestions] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
   const questionRef = useRef<QuestionModel>();
 
-  async function loadQuestionIds() {
+  async function loadQuestionsIds() {
     const response = await fetch(`${BASE_URL}/quiz`);
     const questionIds = await response.json();
-    // console.log("🚀 ~ questionIds", questionIds);
 
     setQuestionsIds(questionIds);
   }
@@ -33,9 +32,12 @@ export default function Home() {
   }
 
   useEffect(() => {
-    loadQuestionIds();
-    // questionRef.current = question;
+    loadQuestionsIds();
   }, []);
+
+  useEffect(() => {
+    questionRef.current = question;
+  }, [question]);
 
   useEffect(() => {
     if (questionsIds.length > 0) {
@@ -43,10 +45,20 @@ export default function Home() {
     }
   }, [questionsIds]);
 
+  function finishedTime() {
+    if (questionRef.current.isNotAnswered) {
+      setQuestion(question.selectOption(-1));
+    }
+
+    setTimeout(() => {
+      handleNextQuestion();
+    }, 5000);
+  }
+
   function handleAnsweredQuestion(answeredQuestion: QuestionModel) {
     setQuestion(answeredQuestion);
     const isRight = answeredQuestion.isRight;
-    setRightQuestions(rightQuestions + (isRight ? 1 : 0));
+    setScore(score + (isRight ? 1 : 0));
   }
 
   function getNextQuestionId() {
@@ -68,7 +80,7 @@ export default function Home() {
       pathname: "/result",
       query: {
         total: questionsIds.length,
-        score: rightQuestions,
+        score,
       },
     });
   }
@@ -86,6 +98,7 @@ export default function Home() {
         lastQuestion={getNextQuestionId() === undefined}
         handleAnsweredQuestion={handleAnsweredQuestion}
         handleNextQuestion={handleNextQuestion}
+        finishedTime={finishedTime}
       />
     </div>
   );

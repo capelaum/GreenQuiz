@@ -1,26 +1,26 @@
-import AnswerModel from "../../models/answer";
+import OptionModel from "../../models/option";
 
 import styles from "./styles.module.scss";
 
-interface AnswerProps {
-  answer: AnswerModel;
+interface OptionProps {
+  option: OptionModel;
   index: number;
   letter: string;
   letterColor: string;
   onResponse: (index: number) => void;
 }
 
-export function Answer({
-  answer,
+export function Option({
+  option,
   index,
   letter,
   letterColor,
   onResponse,
-}: AnswerProps) {
+}: OptionProps) {
   return (
-    <div className={styles.answer} onClick={() => onResponse(index)}>
-      <div className={styles.answerContent}>
-        {!answer.isRevealed ? (
+    <div className={styles.option} onClick={() => onResponse(index)}>
+      <div className={styles.optionContent}>
+        {!option.isRevealed ? (
           <div className={styles.front}>
             <div
               className={styles.letter}
@@ -28,19 +28,19 @@ export function Answer({
             >
               {letter}
             </div>
-            <div className={styles.answerText}>{answer.text}</div>
+            <div className={styles.optionText}>{option.text}</div>
           </div>
         ) : (
           <div className={styles.back}>
-            {answer.isCorrect ? (
+            {option.isCorrect ? (
               <div className={styles.right}>
                 <div>A resposta certa é...</div>
-                <div className={styles.text}>{answer.text}</div>
+                <div className={styles.text}>{option.text}</div>
               </div>
             ) : (
               <div className={styles.wrong}>
                 <div>A resposta informada está errada...</div>
-                <div className={styles.text}>{answer.text}</div>
+                <div className={styles.text}>{option.text}</div>
               </div>
             )}
           </div>

@@ -12,6 +12,6 @@ export default function getQuestions(
   );
 
   return selectedQuestion
-    ? res.status(200).json(selectedQuestion.shuffleAnswers())
+    ? res.status(200).json(selectedQuestion.shuffleOptions())
     : res.status(204).send("Este conteúdo não existe 😐");
 }

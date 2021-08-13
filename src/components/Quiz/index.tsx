@@ -9,6 +9,7 @@ interface QuizProps {
   lastQuestion: boolean;
   handleAnsweredQuestion: (question: QuestionModel) => void;
   handleNextQuestion: () => void;
+  finishedTime: () => void;
 }
 
 export function Quiz({
@@ -16,18 +17,13 @@ export function Quiz({
   lastQuestion,
   handleAnsweredQuestion,
   handleNextQuestion,
+  finishedTime,
 }: QuizProps) {
   function onResponse(index: number) {
     if (question.isNotAnswered) {
-      handleAnsweredQuestion(question.selectAnswer(index));
+      handleAnsweredQuestion(question.selectOption(index));
     }
   }
-
-  // function finishedTime() {
-  //   if (questionRef.current.isNotAnswered) {
-  //     setQuestion(question.selectAnswer(-1));
-  //   }
-  // }
 
   return (
     <div className={styles.quiz}>
@@ -36,7 +32,7 @@ export function Quiz({
           question={question}
           duration={15}
           onResponse={onResponse}
-          finishedTime={handleNextQuestion}
+          finishedTime={finishedTime}
         />
       ) : (
         false

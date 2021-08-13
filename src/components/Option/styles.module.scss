@@ -1,4 +1,4 @@
-.answer {
+.option {
   display: flex;
   min-width: 500px;
   width: 100%;
@@ -6,7 +6,7 @@
   margin: 10px;
 }
 
-.answerContent {
+.optionContent {
   display: flex;
   flex: 1;
   position: relative;
@@ -74,7 +74,7 @@
   margin-right: 20px;
 }
 
-.answerText {
+.optionText {
   font-size: 1.3rem;
   font-weight: 700;
 }

@@ -1,11 +1,11 @@
-import { shuffleAnswers } from "../functions/arrayFunctions";
-import AnswerModel from "./answer";
+import { shuffleOptions } from "../functions/arrayFunctions";
+import OptionModel from "./option";
 
 export default class QuestionModel {
   constructor(
     private _id: number,
     private _text: string,
-    private _answers: AnswerModel[],
+    private _options: OptionModel[],
     private _isRight: boolean = false
   ) {}
 
@@ -17,8 +17,8 @@ export default class QuestionModel {
     return this._text;
   }
 
-  get answers() {
-    return this._answers;
+  get options() {
+    return this._options;
   }
 
   get isRight() {
@@ -26,8 +26,8 @@ export default class QuestionModel {
   }
 
   get isAnswered() {
-    for (let answer of this.answers) {
-      if (answer.isRevealed) return true;
+    for (let option of this.options) {
+      if (option.isRevealed) return true;
     }
 
     return false;
@@ -37,36 +37,36 @@ export default class QuestionModel {
     return !this.isAnswered;
   }
 
-  selectAnswer(index: number) {
-    const isRight = this.answers[index]?.isCorrect;
-    const hasRevealed = this.answers.some(answer => answer.isRevealed);
+  selectOption(index: number) {
+    const isRight = this.options[index]?.isCorrect;
+    const hasRevealed = this.options.some(option => option.isRevealed);
 
     if (hasRevealed)
-      return new QuestionModel(this.id, this.text, this.answers, isRight);
+      return new QuestionModel(this.id, this.text, this.options, isRight);
 
-    const answers = this.answers.map((answer, i) => {
-      const selectedAnswer = index === i;
-      const shouldReveal = selectedAnswer || answer.isCorrect;
-      return shouldReveal ? answer.reveal() : answer;
+    const options = this.options.map((option, i) => {
+      const selectedOption = index === i;
+      const shouldReveal = selectedOption || option.isCorrect;
+      return shouldReveal ? option.reveal() : option;
     });
 
-    return new QuestionModel(this.id, this.text, answers, isRight);
+    return new QuestionModel(this.id, this.text, options, isRight);
   }
 
-  shuffleAnswers() {
-    let shuffledAnswers = shuffleAnswers(this.answers);
-    return new QuestionModel(this.id, this.text, shuffledAnswers, this.isRight);
+  shuffleOptions() {
+    let shuffledOptions = shuffleOptions(this.options);
+    return new QuestionModel(this.id, this.text, shuffledOptions, this.isRight);
   }
 
   static createInstanceFromObject(question: QuestionModel): QuestionModel {
-    const answers = question._answers.map(answer =>
-      AnswerModel.createInstanceFromObject(answer)
+    const options = question._options.map(option =>
+      OptionModel.createInstanceFromObject(option)
     );
 
     return new QuestionModel(
       question._id,
       question._text,
-      answers,
+      options,
       question._isRight
     );
   }

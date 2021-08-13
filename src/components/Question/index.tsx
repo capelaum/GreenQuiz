@@ -1,6 +1,6 @@
 import React from "react";
 import QuestionModel from "../../models/question";
-import { Answer } from "../Answer";
+import { Option } from "../Option";
 import { QuestionText } from "../QuestionText";
 import { Timer } from "../Timer";
 
@@ -26,12 +26,12 @@ export function Question({
   duration,
   finishedTime,
 }: QuestionProps) {
-  function renderAnswers() {
-    return question.answers.map((answer, i) => {
+  function renderOptions() {
+    return question.options.map((option, i) => {
       return (
-        <Answer
+        <Option
           key={`${question.id}-${i}`}
-          answer={answer}
+          option={option}
           index={i}
           letter={letters[i].value}
           letterColor={letters[i].color}
@@ -49,7 +49,7 @@ export function Question({
         duration={duration ?? 15}
         finishedTime={finishedTime}
       />
-      {renderAnswers()}
+      {renderOptions()}
     </div>
   );
 }

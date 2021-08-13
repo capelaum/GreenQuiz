@@ -1,4 +1,4 @@
-import AnswerModel from "../models/answer";
+import OptionModel from "../models/option";
 
 export function shuffleNumbers(numbers: number[]): number[] {
   return numbers
@@ -7,9 +7,9 @@ export function shuffleNumbers(numbers: number[]): number[] {
     .map(obj => obj.value);
 }
 
-export function shuffleAnswers(answers: AnswerModel[]): AnswerModel[] {
-  return answers
-    .map(answer => ({ answer, aleatory: Math.random() }))
+export function shuffleOptions(options: OptionModel[]): OptionModel[] {
+  return options
+    .map(option => ({ option, aleatory: Math.random() }))
     .sort((obj1, obj2) => obj1.aleatory - obj2.aleatory)
-    .map(obj => obj.answer);
+    .map(obj => obj.option);
 }

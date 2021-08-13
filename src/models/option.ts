@@ -1,4 +1,4 @@
-export default class AnswerModel {
+export default class OptionModel {
   constructor(
     private _text: string,
     private _isCorrect: boolean,
@@ -6,11 +6,11 @@ export default class AnswerModel {
   ) {}
 
   static isCorrect(text: string) {
-    return new AnswerModel(text, true);
+    return new OptionModel(text, true);
   }
 
   static isWrong(text: string) {
-    return new AnswerModel(text, false);
+    return new OptionModel(text, false);
   }
 
   get text() {
@@ -26,10 +26,10 @@ export default class AnswerModel {
   }
 
   reveal() {
-    return new AnswerModel(this.text, this.isCorrect, true);
+    return new OptionModel(this.text, this.isCorrect, true);
   }
 
-  static createInstanceFromObject(answer: AnswerModel): AnswerModel {
-    return new AnswerModel(answer._text, answer._isCorrect, answer._isRevealed);
+  static createInstanceFromObject(option: OptionModel): OptionModel {
+    return new OptionModel(option._text, option._isCorrect, option._isRevealed);
   }
 }

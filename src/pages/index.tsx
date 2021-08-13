@@ -36,29 +36,28 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    questionRef.current = question;
-  }, [question]);
-
-  useEffect(() => {
     if (questionsIds.length > 0) {
       loadQuestion(questionsIds[0]);
     }
   }, [questionsIds]);
+
+  useEffect(() => {
+    questionRef.current = question;
+  }, [question]);
 
   function finishedTime() {
     if (questionRef.current.isNotAnswered) {
       setQuestion(question.selectOption(-1));
     }
 
-    setTimeout(() => {
-      handleNextQuestion();
-    }, 5000);
+    // setTimeout(() => {
+    //   handleNextQuestion();
+    // }, 5000);
   }
 
   function handleAnsweredQuestion(answeredQuestion: QuestionModel) {
     setQuestion(answeredQuestion);
-    const isRight = answeredQuestion.isRight;
-    setScore(score + (isRight ? 1 : 0));
+    setScore(score + (answeredQuestion.isRight ? 1 : 0));
   }
 
   function getNextQuestionId() {

@@ -15,14 +15,14 @@ const letters = [
 
 interface QuestionProps {
   question: QuestionModel;
-  onResponse: (index: number) => void;
+  selectOption: (index: number) => void;
   duration?: number;
   finishedTime: () => void;
 }
 
 export function Question({
   question,
-  onResponse,
+  selectOption,
   duration,
   finishedTime,
 }: QuestionProps) {
@@ -35,7 +35,7 @@ export function Question({
           index={i}
           letter={letters[i].value}
           letterColor={letters[i].color}
-          onResponse={onResponse}
+          selectOption={selectOption}
         />
       );
     });

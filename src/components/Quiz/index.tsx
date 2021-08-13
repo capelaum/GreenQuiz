@@ -19,7 +19,7 @@ export function Quiz({
   handleNextQuestion,
   finishedTime,
 }: QuizProps) {
-  function onResponse(index: number) {
+  function selectOption(index: number) {
     if (question.isNotAnswered) {
       handleAnsweredQuestion(question.selectOption(index));
     }
@@ -30,8 +30,8 @@ export function Quiz({
       {question ? (
         <Question
           question={question}
-          duration={15}
-          onResponse={onResponse}
+          duration={5}
+          selectOption={selectOption}
           finishedTime={finishedTime}
         />
       ) : (

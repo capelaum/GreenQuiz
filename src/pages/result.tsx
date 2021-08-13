@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Button } from "../components/Button";
-import Statistic from "../components/statistic";
+import Statistic from "../components/Statistic";
 
 import styles from "../styles/Result.module.scss";
 

@@ -4,18 +4,26 @@
   width: 100%;
   height: 80px;
   margin: 10px;
+
+  perspective: 1000px;
 }
 
 .optionContent {
   display: flex;
   flex: 1;
   position: relative;
+  transform-style: preserve-3d;
 
   cursor: pointer;
   transition: filter 0.3s;
+  transition: transform 0.8s;
 
-  &:hover {
+  &:not(.revealedOption):hover {
     filter: brightness(0.9);
+  }
+
+  &.revealedOption {
+    transform: rotateY(180deg);
   }
 }
 
@@ -25,6 +33,8 @@
   height: 100%;
   width: 100%;
   position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .front {
@@ -36,6 +46,8 @@
 }
 
 .back {
+  transform: rotateY(180deg);
+
   & > div {
     display: flex;
     flex-direction: column;

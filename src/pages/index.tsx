@@ -15,7 +15,6 @@ export default function Home() {
   const [question, setQuestion] = useState<QuestionModel>();
   const [questionsIds, setQuestionsIds] = useState<number[]>([]);
   const [score, setScore] = useState<number>(0);
-  const questionRef = useRef<QuestionModel>();
 
   async function loadQuestionsIds() {
     const response = await fetch(`${BASE_URL}/quiz`);
@@ -41,15 +40,10 @@ export default function Home() {
     }
   }, [questionsIds]);
 
-  useEffect(() => {
-    questionRef.current = question;
-  }, [question]);
-
   function finishedTime() {
-    if (questionRef.current.isNotAnswered) {
+    if (question.isNotAnswered) {
       setQuestion(question.selectOption(-1));
     }
-
     // setTimeout(() => {
     //   handleNextQuestion();
     // }, 5000);

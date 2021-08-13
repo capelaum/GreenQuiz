@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { Button } from "../components/Button";
 import Statistic from "../components/Statistic";
@@ -12,18 +13,24 @@ export default function Results() {
   const percent = Math.round((score / total) * 100);
 
   return (
-    <div className={styles.result}>
-      <h1>🎉 Resultado 🎉</h1>
-      <div className={styles.statisticContainer}>
-        <Statistic text={"Perguntas"} value={total} />
-        <Statistic text={"Score"} value={score} bgColor="#9CD2A4" />
-        <Statistic
-          text={"Percentual"}
-          value={`${percent}%`}
-          bgColor="#DE6A33"
-        />
+    <>
+      <Head>
+        <title>Next Quiz | Resultado</title>
+        <meta name="description" content="Next Quiz" />
+      </Head>
+      <div className={styles.result}>
+        <h1>🎉 Resultado 🎉</h1>
+        <div className={styles.statisticContainer}>
+          <Statistic text={"Perguntas"} value={total} />
+          <Statistic text={"Score"} value={score} bgColor="#9CD2A4" />
+          <Statistic
+            text={"Percentual"}
+            value={`${percent}%`}
+            bgColor="#DE6A33"
+          />
+        </div>
+        <Button href="/" text="Tentar novamente" />
       </div>
-      <Button href="/" text="Tentar novamente" />
-    </div>
+    </>
   );
 }

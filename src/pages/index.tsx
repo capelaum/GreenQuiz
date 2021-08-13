@@ -1,23 +1,18 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 import { Quiz } from "../components/Quiz";
-import AnswerModel from "../models/answer";
 import QuestionModel from "../models/question";
 
 import styles from "../styles/Home.module.scss";
 
-const questionTest = new QuestionModel(1, "Qual é a melhor cor?", [
-  AnswerModel.isWrong("Verde"),
-  AnswerModel.isWrong("Vermelha"),
-  AnswerModel.isWrong("Azul"),
-  AnswerModel.isCorrect("Preta"),
-]);
-
 const BASE_URL = "http://localhost:3000/api";
 
 export default function Home() {
-  const [question, setQuestion] = useState<QuestionModel>(questionTest);
+  const router = useRouter();
+
+  const [question, setQuestion] = useState<QuestionModel>();
   const [questionsIds, setQuestionsIds] = useState<number[]>([]);
   const [rightQuestions, setRightQuestions] = useState<number>(0);
   const questionRef = useRef<QuestionModel>();
@@ -54,7 +49,29 @@ export default function Home() {
     setRightQuestions(rightQuestions + (isRight ? 1 : 0));
   }
 
-  function handleNextQuestion() {}
+  function getNextQuestionId() {
+    const nextQuestionId = questionsIds.indexOf(question?.id) + 1;
+    return questionsIds[nextQuestionId];
+  }
+
+  function handleNextQuestion() {
+    const nextQuestionId = getNextQuestionId();
+    nextQuestionId ? goToNextQuestion(nextQuestionId) : finishQuiz();
+  }
+
+  function goToNextQuestion(nextQuestionId: number) {
+    loadQuestion(nextQuestionId);
+  }
+
+  function finishQuiz() {
+    router.push({
+      pathname: "/result",
+      query: {
+        total: questionsIds.length,
+        score: rightQuestions,
+      },
+    });
+  }
 
   return (
     <div className={styles.container}>
@@ -66,7 +83,7 @@ export default function Home() {
 
       <Quiz
         question={question}
-        lastQuestion={true}
+        lastQuestion={getNextQuestionId() === undefined}
         handleAnsweredQuestion={handleAnsweredQuestion}
         handleNextQuestion={handleNextQuestion}
       />

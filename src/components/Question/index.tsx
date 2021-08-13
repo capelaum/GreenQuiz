@@ -30,7 +30,7 @@ export function Question({
     return question.answers.map((answer, i) => {
       return (
         <Answer
-          key={i}
+          key={`${question.id}-${i}`}
           answer={answer}
           index={i}
           letter={letters[i].value}
@@ -44,7 +44,11 @@ export function Question({
   return (
     <div className={styles.question}>
       <QuestionText text={question.text} />
-      <Timer duration={duration ?? 15} finishedTime={finishedTime} />
+      <Timer
+        key={question.id}
+        duration={duration ?? 15}
+        finishedTime={finishedTime}
+      />
       {renderAnswers()}
     </div>
   );

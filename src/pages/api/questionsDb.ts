@@ -27,7 +27,7 @@ const questions: QuestionModel[] = [
     AnswerModel.isCorrect("Matilha"),
   ]),
 
-  new QuestionModel(
+  /* new QuestionModel(
     204,
     "Qual é o triângulo que tem todos os lados diferentes?",
     [
@@ -136,7 +136,7 @@ const questions: QuestionModel[] = [
     AnswerModel.isWrong("Barão de Mauá"),
     AnswerModel.isWrong("Marquês de Pombal"),
     AnswerModel.isCorrect("Duque de Caxias"),
-  ]),
+  ]), */
 ];
 
 export default questions;

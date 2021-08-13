@@ -34,7 +34,7 @@ export function Quiz({
       {question ? (
         <Question
           question={question}
-          duration={5}
+          duration={15}
           onResponse={onResponse}
           finishedTime={handleNextQuestion}
         />

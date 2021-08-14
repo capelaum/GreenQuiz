@@ -1,18 +1,13 @@
 import styles from "./styles.module.scss";
 
-interface StatisticProps {
+interface QuizStatsProps {
   value: any;
   text: string;
   bgColor?: string;
   fontColor?: string;
 }
 
-export default function Statistic({
-  value,
-  text,
-  bgColor,
-  fontColor,
-}: StatisticProps) {
+export function QuizStats({ value, text, bgColor, fontColor }: QuizStatsProps) {
   return (
     <div className={styles.statistic}>
       <h3 className={styles.text}>{text}</h3>

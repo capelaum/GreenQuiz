@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Button } from "../components/Button";
-import Statistic from "../components/Statistic";
+import { QuizStats } from "../components/QuizStats";
 
 import styles from "../styles/Result.module.scss";
 
-export default function Results() {
+export default function Result() {
   const router = useRouter();
 
   const total = +router.query.total;
@@ -20,10 +20,10 @@ export default function Results() {
       </Head>
       <div className={styles.result}>
         <h1>🎉 Resultado 🎉</h1>
-        <div className={styles.statisticContainer}>
-          <Statistic text={"Perguntas"} value={total} />
-          <Statistic text={"Score"} value={score} bgColor="#9CD2A4" />
-          <Statistic
+        <div className={styles.quizStatsContainer}>
+          <QuizStats text={"Perguntas"} value={total} />
+          <QuizStats text={"Score"} value={score} bgColor="#9CD2A4" />
+          <QuizStats
             text={"Percentual"}
             value={`${percent}%`}
             bgColor="#DE6A33"

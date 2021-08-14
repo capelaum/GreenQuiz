@@ -7,12 +7,16 @@
   justify-content: center;
 }
 
-.score {
+.stats {
   position: absolute;
-  right: 0;
   top: 0;
+  right: 0;
   margin: 20px;
   padding: 10px 15px;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: #261864;
   border-radius: 7px;
+}
+
+.score {
+  top: 50px;
 }

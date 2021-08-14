@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 interface QuizProps {
   question: QuestionModel;
   lastQuestion: boolean;
-  handleAnsweredQuestion: (question: QuestionModel) => void;
+  handleSelectedOption: (question: QuestionModel) => void;
   handleNextQuestion: () => void;
   finishedTime: () => void;
 }
@@ -15,13 +15,13 @@ interface QuizProps {
 export function Quiz({
   question,
   lastQuestion,
-  handleAnsweredQuestion,
+  handleSelectedOption,
   handleNextQuestion,
   finishedTime,
 }: QuizProps) {
   function selectOption(index: number) {
     if (question.isNotAnswered) {
-      handleAnsweredQuestion(question.selectOption(index));
+      handleSelectedOption(question.selectOption(index));
     }
   }
 

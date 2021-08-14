@@ -1,5 +1,5 @@
 import React from "react";
-import QuestionModel from "../../models/question";
+import { useQuestion } from "../../hooks/useQuestion";
 import { Option } from "../Option";
 import { QuestionText } from "../QuestionText";
 import { Timer } from "../Timer";
@@ -13,19 +13,15 @@ const letters = [
   { value: "D", color: "#BCE596" },
 ];
 
-interface QuestionProps {
-  question: QuestionModel;
-  selectOption: (index: number) => void;
-  duration?: number;
-  finishedTime: () => void;
-}
+export function Question() {
+  const { question, handleSelectedOption } = useQuestion();
 
-export function Question({
-  question,
-  selectOption,
-  duration,
-  finishedTime,
-}: QuestionProps) {
+  function selectOption(index: number) {
+    if (question.isNotAnswered) {
+      handleSelectedOption(question.selectOption(index));
+    }
+  }
+
   function renderOptions() {
     return question.options.map((option, i) => {
       return (
@@ -44,11 +40,7 @@ export function Question({
   return (
     <div className={styles.question}>
       <QuestionText text={question.text} />
-      <Timer
-        key={question.id}
-        duration={duration ?? 15}
-        finishedTime={finishedTime}
-      />
+      <Timer key={question.id} duration={5} />
       {renderOptions()}
     </div>
   );

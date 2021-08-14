@@ -2,11 +2,13 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Button } from "../components/Button";
 import { QuizStats } from "../components/QuizStats";
+import { useQuestion } from "../hooks/useQuestion";
 
 import styles from "../styles/Result.module.scss";
 
 export default function Result() {
   const router = useRouter();
+  const { resetQuiz } = useQuestion();
 
   const total = +router.query.total;
   const score = +router.query.score;
@@ -29,7 +31,7 @@ export default function Result() {
             bgColor="#DE6A33"
           />
         </div>
-        <Button href="/" text="Tentar novamente" />
+        <Button onClick={resetQuiz} text="Tentar novamente" />
       </div>
     </>
   );

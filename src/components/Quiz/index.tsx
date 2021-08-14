@@ -1,46 +1,19 @@
-import QuestionModel from "../../models/question";
+import { useQuestion } from "../../hooks/useQuestion";
 import { Button } from "../Button";
 import { Question } from "../Question";
 
 import styles from "./styles.module.scss";
 
-interface QuizProps {
-  question: QuestionModel;
-  lastQuestion: boolean;
-  handleSelectedOption: (question: QuestionModel) => void;
-  handleNextQuestion: () => void;
-  finishedTime: () => void;
-}
-
-export function Quiz({
-  question,
-  lastQuestion,
-  handleSelectedOption,
-  handleNextQuestion,
-  finishedTime,
-}: QuizProps) {
-  function selectOption(index: number) {
-    if (question.isNotAnswered) {
-      handleSelectedOption(question.selectOption(index));
-    }
-  }
+export function Quiz() {
+  const { question, getNextQuestionId, handleNextQuestion } = useQuestion();
 
   return (
     <div className={styles.quiz}>
-      {question ? (
-        <Question
-          question={question}
-          duration={5}
-          selectOption={selectOption}
-          finishedTime={finishedTime}
-        />
-      ) : (
-        false
-      )}
+      {question ? <Question /> : false}
 
       <Button
         onClick={handleNextQuestion}
-        text={lastQuestion ? "Finalizar" : "Próxima"}
+        text={getNextQuestionId() === undefined ? "Finalizar" : "Próxima"}
       />
     </div>
   );

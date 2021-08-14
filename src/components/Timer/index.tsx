@@ -1,17 +1,19 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { useQuestion } from "../../hooks/useQuestion";
 import styles from "./styles.module.scss";
 
 interface TimerProps {
   key: number;
   duration: number;
-  finishedTime: () => void;
 }
 
-export function Timer({ duration, finishedTime }: TimerProps) {
+export function Timer({ duration }: TimerProps) {
+  const { finishedTime } = useQuestion();
+
   return (
     <div className={styles.timer}>
       <CountdownCircleTimer
-        duration={duration}
+        duration={duration ?? 15}
         size={100}
         isPlaying
         onComplete={finishedTime}

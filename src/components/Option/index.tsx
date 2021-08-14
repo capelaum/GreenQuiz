@@ -1,26 +1,26 @@
+import { useQuestion } from "../../hooks/useQuestion";
 import OptionModel from "../../models/option";
 
 import styles from "./styles.module.scss";
 
 interface OptionProps {
   option: OptionModel;
-  index: number;
+  optionIndex: number;
   letter: string;
   letterColor: string;
-  selectOption: (index: number) => void;
 }
 
 export function Option({
   option,
-  index,
+  optionIndex,
   letter,
   letterColor,
-  selectOption,
 }: OptionProps) {
+  const { selectOption } = useQuestion();
   const revealedOption = option.isRevealed ? styles.revealedOption : "";
 
   return (
-    <div className={styles.option} onClick={() => selectOption(index)}>
+    <div className={styles.option} onClick={() => selectOption(optionIndex)}>
       <div className={`${styles.optionContent} ${revealedOption}`}>
         <div className={styles.front}>
           <div

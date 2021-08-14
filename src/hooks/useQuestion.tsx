@@ -20,7 +20,7 @@ interface QuestionContextData {
   getNextQuestionId: () => void;
   handleNextQuestion: () => void;
   finishedTime: () => void;
-  handleSelectedOption: (answeredQuestion: QuestionModel) => void;
+  selectOption: (index: number) => void;
   resetQuiz: () => void;
 }
 
@@ -64,9 +64,12 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     questionRef.current = question;
   }, [question]);
 
-  function handleSelectedOption(answeredQuestion: QuestionModel) {
-    setQuestion(answeredQuestion);
-    setScore(score + (answeredQuestion.isRight ? 1 : 0));
+  function selectOption(index: number) {
+    if (question.isNotAnswered) {
+      const answeredQuestion = question.selectOption(index);
+      setQuestion(answeredQuestion);
+      setScore(score + (answeredQuestion.isRight ? 1 : 0));
+    }
   }
 
   function getNextQuestionId() {
@@ -122,7 +125,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
         score,
         handleNextQuestion,
         getNextQuestionId,
-        handleSelectedOption,
+        selectOption,
         finishedTime,
         resetQuiz,
       }}

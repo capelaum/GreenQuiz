@@ -14,24 +14,17 @@ const letters = [
 ];
 
 export function Question() {
-  const { question, handleSelectedOption } = useQuestion();
-
-  function selectOption(index: number) {
-    if (question.isNotAnswered) {
-      handleSelectedOption(question.selectOption(index));
-    }
-  }
+  const { question } = useQuestion();
 
   function renderOptions() {
-    return question.options.map((option, i) => {
+    return question.options.map((option, index) => {
       return (
         <Option
-          key={`${question.id}-${i}`}
+          key={`${question.id}-${index}`}
           option={option}
-          index={i}
-          letter={letters[i].value}
-          letterColor={letters[i].color}
-          selectOption={selectOption}
+          optionIndex={index}
+          letter={letters[index].value}
+          letterColor={letters[index].color}
         />
       );
     });

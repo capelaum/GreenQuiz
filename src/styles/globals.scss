@@ -5,13 +5,18 @@
 }
 
 :root {
-  --bg-color: #6c54d8;
+  --bg-color: #70DF7C;
 }
 
 body {
   font-family: "Poppins", sans-serif;
   background-color: var(--bg-color);
   color: #fff;
+
+  background-image: url('/recycle-people.png'), url('/recycle-symbol.png');
+  background-position: right bottom, left;
+  background-repeat: no-repeat;
+  background-size: 50vh, 40vh;
 }
 
 @media (max-width: 1080px) {

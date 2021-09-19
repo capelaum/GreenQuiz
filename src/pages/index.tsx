@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Next Quiz</title>
+        <title>Green Quiz</title>
         <meta name="description" content="Next Quiz" />
       </Head>
 

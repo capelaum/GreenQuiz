@@ -12,6 +12,11 @@ body {
   font-family: "Poppins", sans-serif;
   background-color: var(--bg-color);
   color: #fff;
+
+  background-image: url('/recycle-people.png');
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  background-size: 50vh;
 }
 
 @media (max-width: 1080px) {

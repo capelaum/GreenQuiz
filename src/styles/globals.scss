@@ -13,10 +13,10 @@ body {
   background-color: var(--bg-color);
   color: #fff;
 
-  background-image: url('/recycle-people.png');
-  background-position: right bottom;
+  background-image: url('/recycle-people.png'), url('/recycle-symbol.png');
+  background-position: right bottom, left;
   background-repeat: no-repeat;
-  background-size: 50vh;
+  background-size: 50vh, 40vh;
 }
 
 @media (max-width: 1080px) {

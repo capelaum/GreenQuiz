@@ -23,9 +23,21 @@ export default function Menu() {
             <a>Iniciar Quiz</a>
           </Link>
         </li>
-        <li>Ranking</li>
-        <li>Prêmios</li>
-        <li>Instruções</li>
+        <li>
+          <Link href="/ranking">
+            <a>Ranking</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/awards">
+            <a>Prêmios</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/instructions">
+            <a>Instruções</a>
+          </Link>
+        </li>
         <li className={styles.exitButton}>Sair</li>
       </ul>
     </div>

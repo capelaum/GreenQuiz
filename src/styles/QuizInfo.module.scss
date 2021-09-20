@@ -1,0 +1,31 @@
+.quizInfo {
+  background-color: #fff;
+  max-width: 700px;
+  margin-top: 80px;
+  padding: 20px;
+
+  h2 {
+    font-weight: 500;
+    font-size: 24px;
+    padding-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+
+    span {
+      color: var(--red);
+      font-weight: 500;
+    }
+  }
+
+  border-radius: 8px;
+}
+
+.buttonsContainer {
+  margin-top: 40px;
+
+  button {
+    margin: 0 20px;
+  }
+}

@@ -58,11 +58,11 @@
   }
 
   .right {
-    background-color: #2baa6d;
+    background-color: var(--green);
   }
 
   .wrong {
-    background-color: #e44a4c;
+    background-color: var(--red);
   }
 
   .right .text,

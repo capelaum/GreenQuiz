@@ -31,7 +31,7 @@ export default function Result() {
             bgColor="#DE6A33"
           />
         </div>
-        <Button onClick={resetQuiz} text="Tentar novamente" />
+        <Button onClick={resetQuiz} text="Menu" />
       </div>
     </>
   );

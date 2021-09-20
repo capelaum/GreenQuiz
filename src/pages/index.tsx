@@ -1,27 +1,33 @@
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import Logo from "../../public/Logo.svg";
 
-import { Quiz } from "../components/Quiz";
-import { useQuestion } from "../hooks/useQuestion";
+import styles from "../styles/Menu.module.scss";
 
-import styles from "../styles/Home.module.scss";
-
-export default function Home() {
-  const { question, questionsIds, score, getNextQuestionId } = useQuestion();
-
+export default function Menu() {
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Head>
         <title>Green Quiz</title>
-        <meta name="description" content="Next Quiz" />
+        <meta name="description" content="Green Quiz | Menu" />
       </Head>
 
-      <div className={`${styles.stats} ${styles.score}`}>Score: {score}</div>
-      <div className={styles.stats}>
-        Pergunta:{" "}
-        {`${questionsIds.indexOf(question?.id) + 1}/${questionsIds.length}`}
-      </div>
+      <Image src={Logo} alt="GreenQuiz Logo" />
 
-      <Quiz />
+      <h2 className={styles.welcomeMsg}>Bem vindo(a), Fulano</h2>
+
+      <ul className={styles.menuList}>
+        <li>
+          <Link href="/quizInfo">
+            <a>Iniciar Quiz</a>
+          </Link>
+        </li>
+        <li>Ranking</li>
+        <li>Prêmios</li>
+        <li>Instruções</li>
+        <li className={styles.exitButton}>Sair</li>
+      </ul>
     </div>
   );
 }

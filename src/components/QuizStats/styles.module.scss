@@ -1,24 +1,14 @@
-.statistic {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin: 60px 20px;
+.stats {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+  padding: 10px 15px;
+  color: #fff;
+  background-color: var(--purple);
+  border-radius: 7px;
 }
 
-.value {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  font-size: 4rem;
-}
-
-.text {
-  color: #ddd;
-  font-size: 1.7rem;
-  font-weight: 400;
-  margin-bottom: 20px;
+.score {
+  top: 50px;
 }

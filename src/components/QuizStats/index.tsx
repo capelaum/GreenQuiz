@@ -1,25 +1,17 @@
+import { useQuestion } from "../../hooks/useQuestion";
+
 import styles from "./styles.module.scss";
 
-interface QuizStatsProps {
-  value: any;
-  text: string;
-  bgColor?: string;
-  fontColor?: string;
-}
+export function QuizStats() {
+  const { question, questionsIds, score } = useQuestion();
 
-export function QuizStats({ value, text, bgColor, fontColor }: QuizStatsProps) {
   return (
-    <div className={styles.statistic}>
-      <h3 className={styles.text}>{text}</h3>
-      <div
-        className={styles.value}
-        style={{
-          backgroundColor: bgColor ?? "#FDD60F",
-          color: fontColor ?? "#333",
-        }}
-      >
-        {value}
+    <>
+      <div className={`${styles.stats} ${styles.score}`}>Score: {score}</div>
+      <div className={styles.stats}>
+        Pergunta:{" "}
+        {`${questionsIds.indexOf(question?.id) + 1}/${questionsIds.length}`}
       </div>
-    </div>
+    </>
   );
 }

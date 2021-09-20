@@ -1,0 +1,47 @@
+.welcomeMsg {
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+.menuList {
+  li {
+    display: flex;
+    justify-content: center;
+
+    background-color: #fff;
+    border-radius: 8px;
+
+    font-weight: 600;
+    font-size: 20px;
+
+    transition: 0.3s;
+
+    & + li {
+      margin-top: 30px;
+    }
+
+    &:not(:last-child):hover {
+      cursor: pointer;
+      background-color: var(--purple);
+      color: #fff;
+    }
+
+    &:not(:last-child) {
+      padding: 15px 30px;
+    }
+  }
+
+  .exitButton {
+    color: #fff;
+    background-color: var(--red);
+    width: 60%;
+    margin: auto;
+    padding: 10px;
+    margin-top: 30px;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(0.9);
+    }
+  }
+}

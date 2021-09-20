@@ -18,26 +18,26 @@ export default function Menu() {
       <h2 className={styles.welcomeMsg}>Bem vindo(a), Fulano</h2>
 
       <ul className={styles.menuList}>
-        <li>
-          <Link href="/quizInfo">
+        <Link href="/quizInfo" passHref>
+          <li>
             <a>Iniciar Quiz</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/ranking">
+          </li>
+        </Link>
+        <Link href="/ranking" passHref>
+          <li>
             <a>Ranking</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/awards">
+          </li>
+        </Link>
+        <Link href="/awards" passHref>
+          <li>
             <a>Prêmios</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/instructions">
+          </li>
+        </Link>
+        <Link href="/instructions" passHref>
+          <li>
             <a>Instruções</a>
-          </Link>
-        </li>
+          </li>
+        </Link>
         <li className={styles.exitButton}>Sair</li>
       </ul>
     </div>

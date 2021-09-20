@@ -1,6 +1,6 @@
-# Next-Quiz
+# Green Quiz
 
-Quiz web application made with Next.js.
+Quiz web application with an ecological and sustainability theme.
 
 ## Features
 

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Button } from "../components/Button";
-import { QuizStats } from "../components/QuizStats";
+import { ResultStatistic } from "../components/ResultStatistic";
 import { useQuestion } from "../hooks/useQuestion";
 
 import styles from "../styles/Result.module.scss";
@@ -22,10 +22,10 @@ export default function Result() {
       </Head>
       <div className={styles.result}>
         <h1>🎉 Resultado 🎉</h1>
-        <div className={styles.quizStatsContainer}>
-          <QuizStats text={"Perguntas"} value={total} />
-          <QuizStats text={"Score"} value={score} bgColor="#9CD2A4" />
-          <QuizStats
+        <div className={styles.resultStatisticsContainer}>
+          <ResultStatistic text={"Perguntas"} value={total} />
+          <ResultStatistic text={"Score"} value={score} bgColor="#9CD2A4" />
+          <ResultStatistic
             text={"Percentual"}
             value={`${percent}%`}
             bgColor="#DE6A33"

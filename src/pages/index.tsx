@@ -6,7 +6,7 @@ import { useQuestion } from "../hooks/useQuestion";
 import styles from "../styles/Home.module.scss";
 
 export default function Home() {
-  const { question, questionsIds, score, getNextQuestionId } = useQuestion();
+  const { question, questionsIds, score } = useQuestion();
 
   return (
     <div className={styles.container}>

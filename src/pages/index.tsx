@@ -1,13 +1,12 @@
 import Head from "next/head";
+import React from "react";
 
 import { Quiz } from "../components/Quiz";
-import { useQuestion } from "../hooks/useQuestion";
+import { QuizStats } from "../components/QuizStats";
 
 import styles from "../styles/Home.module.scss";
 
 export default function Home() {
-  const { question, questionsIds, score } = useQuestion();
-
   return (
     <div className={styles.container}>
       <Head>
@@ -15,11 +14,7 @@ export default function Home() {
         <meta name="description" content="Next Quiz" />
       </Head>
 
-      <div className={`${styles.stats} ${styles.score}`}>Score: {score}</div>
-      <div className={styles.stats}>
-        Pergunta:{" "}
-        {`${questionsIds.indexOf(question?.id) + 1}/${questionsIds.length}`}
-      </div>
+      <QuizStats />
 
       <Quiz />
     </div>

@@ -17,8 +17,8 @@ export default function Result() {
   return (
     <>
       <Head>
-        <title>Next Quiz | Resultado</title>
-        <meta name="description" content="Next Quiz" />
+        <title>Green Quiz | Resultado</title>
+        <meta name="description" content="Green Quiz" />
       </Head>
       <div className={styles.result}>
         <h1>🎉 Resultado 🎉</h1>

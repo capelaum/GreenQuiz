@@ -10,7 +10,7 @@ export default function Menu() {
     <div className="container">
       <Head>
         <title>Green Quiz</title>
-        <meta name="description" content="GreenQuiz | Menu" />
+        <meta name="description" content="Green Quiz | Menu" />
       </Head>
 
       <Image src={Logo} alt="GreenQuiz Logo" />

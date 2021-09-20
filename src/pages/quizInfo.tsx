@@ -2,10 +2,13 @@ import Head from "next/head";
 import Image from "next/image";
 import Logo from "../../public/Logo.svg";
 import { Button } from "../components/Button";
+import { useQuestion } from "../hooks/useQuestion";
 
 import styles from "../styles/QuizInfo.module.scss";
 
 export default function QuizInfo() {
+  const { questionsIds } = useQuestion();
+
   return (
     <div className="container">
       <Head>
@@ -18,8 +21,9 @@ export default function QuizInfo() {
       <div className={styles.quizInfo}>
         <h2>Informações do Quiz</h2>
         <p>
-          Esse Quiz possui <strong>3 questões</strong> e um limite de tempo de{" "}
-          <strong>1 minuto</strong> para responder cada questão.
+          Esse Quiz possui <strong>{questionsIds.length} questões</strong> e um
+          limite de tempo de <strong>1 minuto</strong> para responder cada
+          questão.
           <br />
           <br />
           <span>ATENÇÃO</span>: Você só pode realizar{" "}

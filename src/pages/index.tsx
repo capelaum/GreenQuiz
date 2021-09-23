@@ -5,6 +5,8 @@ import Logo from "../../public/Logo.svg";
 
 import styles from "../styles/Menu.module.scss";
 
+import { signOutWithGoogle } from "../services/auth";
+
 export default function Menu() {
   return (
     <div className="container">
@@ -38,9 +40,9 @@ export default function Menu() {
             <a>Instruções</a>
           </li>
         </Link>
-        <Link href="/login" passHref>
-          <li className={styles.exitButton}>Sair</li>
-        </Link>
+        <li className={styles.exitButton} onClick={() => signOutWithGoogle}>
+          Sair
+        </li>
       </ul>
     </div>
   );

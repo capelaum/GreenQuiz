@@ -38,7 +38,9 @@ export default function Menu() {
             <a>Instruções</a>
           </li>
         </Link>
-        <li className={styles.exitButton}>Sair</li>
+        <Link href="/login" passHref>
+          <li className={styles.exitButton}>Sair</li>
+        </Link>
       </ul>
     </div>
   );

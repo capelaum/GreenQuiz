@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Button } from "../components/Button";
 import { ResultStatistic } from "../components/ResultStatistic";
-import { useQuestion } from "../hooks/useQuestion";
+import { useQuestion } from "../contexts/questionContext";
 
 import styles from "../styles/Result.module.scss";
 

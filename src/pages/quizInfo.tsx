@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Logo from "../../public/Logo.svg";
 import { Button } from "../components/Button";
-import { useQuestion } from "../hooks/useQuestion";
+import { useQuestion } from "../contexts/questionContext";
 
 import styles from "../styles/QuizInfo.module.scss";
 

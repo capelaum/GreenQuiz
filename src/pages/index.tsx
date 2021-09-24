@@ -6,7 +6,7 @@ import Logo from "../../public/Logo.svg";
 
 import styles from "../styles/Menu.module.scss";
 
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../contexts/authContext";
 
 export default function Menu() {
   const { user, signOutWithGoogle } = useAuth();

@@ -1,5 +1,5 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { useQuestion } from "../../hooks/useQuestion";
+import { useQuestion } from "../../contexts/questionContext";
 import styles from "./styles.module.scss";
 
 interface TimerProps {

@@ -1,4 +1,4 @@
-import { useQuestion } from "../../hooks/useQuestion";
+import { useQuestion } from "../../contexts/questionContext";
 
 import styles from "./styles.module.scss";
 

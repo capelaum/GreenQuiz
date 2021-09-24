@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuestion } from "../../hooks/useQuestion";
+import { useQuestion } from "../../contexts/questionContext";
 import { Option } from "../Option";
 import { QuestionText } from "../QuestionText";
 import { Timer } from "../Timer";

@@ -6,7 +6,7 @@ import Image from "next/image";
 import Logo from "../../public/Logo.svg";
 import Google from "../../public/Google.svg";
 
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../contexts/authContext";
 
 import styles from "../styles/Login.module.scss";
 

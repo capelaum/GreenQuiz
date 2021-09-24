@@ -5,8 +5,8 @@ import Nprogress from "nprogress";
 
 import { LoadingScreen } from "../components/LoadingScreen";
 
-import { QuestionProvider } from "../hooks/useQuestion";
-import { AuthProvider } from "../hooks/useAuth";
+import { QuestionProvider } from "../contexts/questionContext";
+import { AuthProvider } from "../contexts/authContext";
 
 import "../styles/globals.scss";
 

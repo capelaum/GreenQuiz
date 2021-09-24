@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
-import { useAuth } from "../hooks/useAuth";
 
 import Logo from "../../public/Logo.svg";
 import Google from "../../public/Google.svg";
+
+import { useAuth } from "../hooks/useAuth";
 
 import styles from "../styles/Login.module.scss";
 
 export default function Login() {
   const { user, sigInWithGoogle } = useAuth();
-  console.log("🚀 ~ user", user);
   const router = useRouter();
 
   useEffect(() => {

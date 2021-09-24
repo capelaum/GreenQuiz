@@ -12,10 +12,10 @@ import {
   GoogleAuthProvider,
   signOut,
   Auth,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import nookies from "nookies";
-import firebaseClient from "../services/firebase";
 import Router from "next/router";
 
 interface AuthProviderProps {
@@ -35,7 +35,6 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  firebaseClient();
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
@@ -48,12 +47,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       Router.push("/login");
     }
 
-    console.log(user);
+    console.log("~Logged User: ", user);
 
     // const token = await user.getIdToken();
     // setUser(user);
     // nookies.set(undefined, "token", token);
   }, [user]);
+
+  onAuthStateChanged(auth, user => {
+    console.log("~ Firebase user", user);
+  });
 
   const sigInWithGoogle = async () => {
     await signInWithPopup(auth, provider)

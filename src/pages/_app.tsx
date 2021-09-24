@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import Nprogress from "nprogress";
 
 import { LoadingScreen } from "../components/LoadingScreen";
+
+import "../services/firebase";
 
 import { QuestionProvider } from "../hooks/useQuestion";
 import { AuthProvider } from "../hooks/useAuth";

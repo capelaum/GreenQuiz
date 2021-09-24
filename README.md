@@ -1,12 +1,14 @@
-# Green Quiz
-
-Quiz web application with an ecological and sustainability theme.
+<div align="center">
+  <img src=".public/../public/Logo.svg" />
+  <h4>Quiz web application with an ecological and sustainability theme.</h4>
+</div>
 
 ## Features
 
 - Random choices
 - Random questions
 - Timer
+- Ranking
 
 ## Technologies
 
@@ -16,10 +18,13 @@ Quiz web application with an ecological and sustainability theme.
 - [Nookies][nookies]
 - [Sass][sass]
 - [React Countdown Circle Timer][react_timer]
+- [React Loader Spinner][react_loader]
 
-[next]: https://nextjs.org/docs
 [sass]: https://sass-lang.com
-[typescript]: https://www.typescriptlang.org
-[react_timer]: https://www.npmjs.com/package/react-countdown-circle-timer
+[next]: https://nextjs.org/docs
 [firebase]: https://firebase.google.com
+[typescript]: https://www.typescriptlang.org
 [nookies]: https://www.npmjs.com/package/nookies
+[nookies]: https://www.npmjs.com/package/nookies
+[react_loader]: https://www.npmjs.com/package/react-loader-spinner
+[nprogress]: https://www.npmjs.com/package/nprogress

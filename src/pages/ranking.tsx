@@ -5,17 +5,18 @@ import { Button } from "../components/Button";
 
 export default function Ranking() {
   return (
-    <div className="container">
+    <>
       <Head>
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz | Ranking" />
       </Head>
+      <div className="container">
+        <Image src={Logo} alt="GreenQuiz Logo" />
 
-      <Image src={Logo} alt="GreenQuiz Logo" />
+        <h2>Ranking</h2>
 
-      <h2>Ranking</h2>
-
-      <Button text="Menu" href="/" />
-    </div>
+        <Button text="Menu" href="/" />
+      </div>
+    </>
   );
 }

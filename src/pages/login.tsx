@@ -21,20 +21,22 @@ export default function Login() {
   }, [user, router]);
 
   return (
-    <div className="container">
+    <>
       <Head>
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz | Login" />
       </Head>
-      <Image src={Logo} alt="GreenQuiz Logo" />
+      <div className="container">
+        <Image src={Logo} alt="GreenQuiz Logo" />
 
-      <div className={styles.loginBox}>
-        <h3>Login</h3>
-        <div className={styles.googleLogin} onClick={sigInWithGoogle}>
-          <Image src={Google} alt="Google Logo" />
-          <span>Login com Google</span>
+        <div className={styles.loginBox}>
+          <h3>Login</h3>
+          <div className={styles.googleLogin} onClick={sigInWithGoogle}>
+            <Image src={Google} alt="Google Logo" />
+            <span>Login com Google</span>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

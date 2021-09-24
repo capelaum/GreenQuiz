@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 
 interface ResultStatisticProps {
-  value: any;
+  value: number | string;
   text: string;
   bgColor?: string;
   fontColor?: string;
@@ -19,8 +19,8 @@ export function ResultStatistic({
       <div
         className={styles.value}
         style={{
-          backgroundColor: bgColor ?? "#FDD60F",
-          color: fontColor ?? "#333",
+          backgroundColor: bgColor ?? "var(--purple)",
+          color: fontColor ?? "#FFF",
         }}
       >
         {value}

@@ -10,18 +10,19 @@ import styles from "../styles/Quiz.module.scss";
 
 export default function QuizPage() {
   return (
-    <div className="container">
+    <>
       <Head>
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz" />
       </Head>
+      <div className="container">
+        <div className={styles.logo}>
+          <Image src={Logo} alt="GreenQuiz Logo" />
+        </div>
 
-      <div className={styles.logo}>
-        <Image src={Logo} alt="GreenQuiz Logo" />
+        <QuizStats />
+        <Quiz />
       </div>
-
-      <QuizStats />
-      <Quiz />
-    </div>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 .button {
-  background-color: #6c54d8;
+  background-color: var(--purple);
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -11,7 +11,7 @@
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: #261864;
+    background-color: var(--dark-purple);
     transform: scale(1.1);
   }
 }

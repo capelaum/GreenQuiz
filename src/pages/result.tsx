@@ -10,9 +10,13 @@ export default function Result() {
   const router = useRouter();
   const { resetQuiz } = useQuestion();
 
-  const total = +router.query.total;
-  const score = +router.query.score;
-  const percent = Math.round((score / total) * 100);
+  const checkNaNValue = (value: number) => {
+    return Number.isNaN(value) ? 0 : value;
+  };
+
+  const total = checkNaNValue(+router.query.total);
+  const score = checkNaNValue(+router.query.score);
+  const percent = checkNaNValue(Math.round((score / total) * 100));
 
   return (
     <>
@@ -24,12 +28,8 @@ export default function Result() {
         <h1>🎉 Resultado 🎉</h1>
         <div className={styles.resultStatisticsContainer}>
           <ResultStatistic text={"Perguntas"} value={total} />
-          <ResultStatistic text={"Score"} value={score} bgColor="#9CD2A4" />
-          <ResultStatistic
-            text={"Percentual"}
-            value={`${percent}%`}
-            bgColor="#DE6A33"
-          />
+          <ResultStatistic text={"Score"} value={score} bgColor="#5603AD" />
+          <ResultStatistic text={"Percentual"} value={`${percent}%`} />
         </div>
         <Button onClick={resetQuiz} text="Menu" />
       </div>

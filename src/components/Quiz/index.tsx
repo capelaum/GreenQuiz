@@ -17,7 +17,7 @@ export function Quiz() {
   useEffect(() => {
     setTimeout(() => {
       setPageLoading(false);
-    }, 1000);
+    }, 3000);
 
     setPageLoading(true);
   }, [router, question?.id]);

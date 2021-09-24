@@ -5,8 +5,6 @@ import Nprogress from "nprogress";
 
 import { LoadingScreen } from "../components/LoadingScreen";
 
-import "../services/firebase";
-
 import { QuestionProvider } from "../hooks/useQuestion";
 import { AuthProvider } from "../hooks/useAuth";
 
@@ -31,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setTimeout(() => {
       setPageLoading(false);
-    }, 2000);
+    }, 1000);
 
     router.events.on("routeChangeStart", () => handleStart);
     router.events.on("routeChangeComplete", () => handleComplete);

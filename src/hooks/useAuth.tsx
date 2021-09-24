@@ -6,14 +6,17 @@ import {
   ReactNode,
 } from "react";
 
+import { firebaseApp } from "../services/firebase";
+
 import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
-  Auth,
-  onAuthStateChanged,
+  onIdTokenChanged,
 } from "firebase/auth";
+
+import { getFirestore } from "firebase/firestore";
 
 import nookies from "nookies";
 import Router from "next/router";
@@ -35,28 +38,25 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const auth = getAuth();
-  const provider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
+  const auth = getAuth(firebaseApp);
+  const provider = new GoogleAuthProvider();
 
   useEffect(() => {
-    // return getAuth().onIdTokenChanged(async user => {
-    if (!user) {
-      setUser(null);
-      nookies.destroy(undefined, "token");
-      Router.push("/login");
-    }
+    return onIdTokenChanged(auth, async user => {
+      if (!user) {
+        setUser(null);
+        nookies.set(undefined, "token", "", {});
+        return Router.push("/login");
+      }
 
-    console.log("~Logged User: ", user);
+      console.log("~Logged User: ", user);
 
-    // const token = await user.getIdToken();
-    // setUser(user);
-    // nookies.set(undefined, "token", token);
-  }, [user]);
-
-  onAuthStateChanged(auth, user => {
-    console.log("~ Firebase user", user);
-  });
+      const token = await user.getIdToken();
+      setUser(user);
+      nookies.set(undefined, "token", token, {});
+    });
+  }, [auth]);
 
   const sigInWithGoogle = async () => {
     await signInWithPopup(auth, provider)

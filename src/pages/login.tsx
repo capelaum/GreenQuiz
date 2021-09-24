@@ -35,8 +35,6 @@ export default function Login() {
           <span>Login com Google</span>
         </div>
       </div>
-
-      {user ? <pre>{JSON.stringify(user, null, 2)}</pre> : false}
     </div>
   );
 }

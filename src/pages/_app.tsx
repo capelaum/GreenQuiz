@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setTimeout(() => {
       setPageLoading(false);
-    }, 1000);
+    }, 2000);
 
     router.events.on("routeChangeStart", () => handleStart);
     router.events.on("routeChangeComplete", () => handleComplete);

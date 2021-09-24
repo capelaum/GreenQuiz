@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../../public/Logo.svg";
 
-import styles from "../styles/Menu.module.scss";
+import { LoadingScreen } from "../components/LoadingScreen";
 
 import { useAuth } from "../contexts/authContext";
-import { LoadingScreen } from "../components/LoadingScreen";
+
+import styles from "../styles/Menu.module.scss";
 
 export default function Menu() {
   const { user, signOutWithGoogle } = useAuth();

@@ -20,6 +20,7 @@ import { getFirestore } from "firebase/firestore";
 
 import nookies from "nookies";
 import Router from "next/router";
+import { LoadingScreen } from "../components/LoadingScreen";
 
 interface AuthProviderProps {
   children: ReactNode;

@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
-
 import Logo from "../../public/Logo.svg";
 import Google from "../../public/Google.svg";
 

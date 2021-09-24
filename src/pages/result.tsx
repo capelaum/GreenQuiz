@@ -1,7 +1,11 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+
 import { Button } from "../components/Button";
+import { LoadingScreen } from "../components/LoadingScreen";
 import { ResultStatistic } from "../components/ResultStatistic";
+
+import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
 
 import styles from "../styles/Result.module.scss";
@@ -17,6 +21,12 @@ export default function Result() {
   const total = checkNaNValue(+router.query.total);
   const score = checkNaNValue(+router.query.score);
   const percent = checkNaNValue(Math.round((score / total) * 100));
+
+  const { user } = useAuth();
+
+  if (!user) {
+    return <LoadingScreen />;
+  }
 
   return (
     <>

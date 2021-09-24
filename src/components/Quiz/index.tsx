@@ -20,7 +20,7 @@ export function Quiz() {
     }, 1000);
 
     setPageLoading(true);
-  }, [router, question.id]);
+  }, [router, question?.id]);
 
   return (
     <>

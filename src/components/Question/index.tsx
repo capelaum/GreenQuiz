@@ -1,8 +1,8 @@
-import React from "react";
-import { useQuestion } from "../../contexts/questionContext";
 import { Option } from "../Option";
 import { QuestionText } from "../QuestionText";
 import { Timer } from "../Timer";
+
+import { useQuestion } from "../../contexts/questionContext";
 
 import styles from "./styles.module.scss";
 
@@ -33,7 +33,7 @@ export function Question() {
   return (
     <div className={styles.question}>
       <QuestionText text={question.text} />
-      <Timer key={question.id} duration={300} />
+      <Timer key={question.id} duration={5} />
       {renderOptions()}
     </div>
   );

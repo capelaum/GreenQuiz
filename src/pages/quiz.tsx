@@ -1,14 +1,22 @@
 import Head from "next/head";
 import Image from "next/image";
-
 import Logo from "../../public/Logo.svg";
 
+import { LoadingScreen } from "../components/LoadingScreen";
 import { Quiz } from "../components/Quiz";
 import { QuizStats } from "../components/QuizStats";
+
+import { useAuth } from "../contexts/authContext";
 
 import styles from "../styles/Quiz.module.scss";
 
 export default function QuizPage() {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <LoadingScreen />;
+  }
+
   return (
     <>
       <Head>

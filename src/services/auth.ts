@@ -4,8 +4,12 @@ import {
   GoogleAuthProvider,
   signOut,
 } from "firebase/auth";
+
+import firebaseClient from "./firebase";
+
 import { redirect } from "next/dist/next-server/server/api-utils";
 
+firebaseClient();
 export const auth = getAuth();
 export const provider = new GoogleAuthProvider();
 
@@ -17,8 +21,7 @@ export const sigInWithGoogle = async () => {
       const token = credential.accessToken;
 
       // The signed-in user info.
-      const user = result.user;
-      return user;
+      return result.user;
     })
     .catch(error => {
       // Handle Errors here.
@@ -36,7 +39,7 @@ export const sigInWithGoogle = async () => {
 };
 
 export const signOutWithGoogle = async () => {
-  await signOut(auth)
+  return await signOut(auth)
     .then(() => {
       // Sign-out successful.
       return {

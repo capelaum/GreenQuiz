@@ -3,13 +3,15 @@ import { QuestionProvider } from "../hooks/useQuestion";
 
 import "../styles/globals.scss";
 
-import "../services/firebase";
+import { AuthProvider } from "../hooks/useAuth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QuestionProvider>
-      <Component {...pageProps} />
-    </QuestionProvider>
+    <AuthProvider>
+      <QuestionProvider>
+        <Component {...pageProps} />
+      </QuestionProvider>
+    </AuthProvider>
   );
 }
 

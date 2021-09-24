@@ -5,9 +5,11 @@ import Logo from "../../public/Logo.svg";
 
 import styles from "../styles/Menu.module.scss";
 
-import { signOutWithGoogle } from "../services/auth";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Menu() {
+  const { user, signOutWithGoogle } = useAuth();
+
   return (
     <div className="container">
       <Head>
@@ -17,7 +19,9 @@ export default function Menu() {
 
       <Image src={Logo} alt="GreenQuiz Logo" />
 
-      <h2 className={styles.welcomeMsg}>Bem vindo(a), Fulano</h2>
+      <h2 className={styles.welcomeMsg}>
+        Bem vindo(a), {user ? user.displayName : "Usuário"}
+      </h2>
 
       <ul className={styles.menuList}>
         <Link href="/quizInfo" passHref>
@@ -40,7 +44,7 @@ export default function Menu() {
             <a>Instruções</a>
           </li>
         </Link>
-        <li className={styles.exitButton} onClick={() => signOutWithGoogle}>
+        <li className={styles.exitButton} onClick={signOutWithGoogle}>
           Sair
         </li>
       </ul>

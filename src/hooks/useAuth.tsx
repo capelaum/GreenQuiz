@@ -71,11 +71,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .catch(error => {
         // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        // The email of the user's account used.
-        const email = error.email;
+        const { code, message, email } = error;
+        console.log(message);
 
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
@@ -85,13 +82,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signOutWithGoogle = async () => {
     await signOut(auth)
       .then(() => {
-        // Sign-out successful.
         setUser(null);
         nookies.destroy(undefined, "token");
         Router.push("/login");
       })
       .catch(error => {
-        // An error happened.
         console.log(error.message);
       });
   };

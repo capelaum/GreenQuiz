@@ -25,6 +25,6 @@
 [firebase]: https://firebase.google.com
 [typescript]: https://www.typescriptlang.org
 [nookies]: https://www.npmjs.com/package/nookies
-[nookies]: https://www.npmjs.com/package/nookies
+[react_timer]: https://www.npmjs.com/package/react-countdown-circle-timer
 [react_loader]: https://www.npmjs.com/package/react-loader-spinner
 [nprogress]: https://www.npmjs.com/package/nprogress

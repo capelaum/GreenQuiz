@@ -16,18 +16,21 @@ import {
   onIdTokenChanged,
 } from "firebase/auth";
 
-import { getFirestore } from "firebase/firestore";
+import { db, addUser, getUsers, getUserByEmail } from "../services/firestore";
 
 import nookies from "nookies";
 import Router from "next/router";
-import { LoadingScreen } from "../components/LoadingScreen";
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 type User = {
-  displayName: string;
+  uid: string;
+  name: string;
+  email: string;
+  authProvider: string;
+  answeredQuiz: boolean;
 };
 
 interface AuthContextData {
@@ -40,8 +43,9 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState(null);
-  const auth = getAuth(firebaseApp);
+
   const provider = new GoogleAuthProvider();
+  const auth = getAuth(firebaseApp);
 
   useEffect(() => {
     return onIdTokenChanged(auth, async user => {
@@ -51,8 +55,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         return Router.push("/login");
       }
 
-      console.log("~Logged User: ", user);
-
+      console.log("~ Logged User: ", user);
       const token = await user.getIdToken();
       setUser(user);
       nookies.set(undefined, "token", token, {});
@@ -61,19 +64,42 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const sigInWithGoogle = async () => {
     await signInWithPopup(auth, provider)
-      .then(result => {
+      .then(async result => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         nookies.set(undefined, "token", "", token);
 
-        // The signed-in user info.
-        setUser(result.user);
+        const { uid, displayName: name, email } = result.user;
+        const findUser = await getUserByEmail(email);
+        console.log("findedUser:", findUser);
+
+        if (findUser.length === 0) {
+          const newUser = {
+            uid,
+            name,
+            email,
+            authProvider: "google",
+            answeredQuiz: false,
+          };
+
+          addUser(newUser);
+          setUser(newUser);
+        }
+
+        if (findUser.length === 1) {
+          const user = findUser[0].data();
+          console.log("~ user data:", findUser[0].data());
+          setUser(user);
+        }
+
+        if (findUser.length > 1) {
+          throw new Error("Não pode ter 2 emails iguais no Firestore!!");
+        }
       })
       .catch(error => {
-        // Handle Errors here.
         const { code, message, email } = error;
-        console.log(message);
+        console.error(message);
 
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);

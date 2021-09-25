@@ -16,7 +16,7 @@ import {
   onIdTokenChanged,
 } from "firebase/auth";
 
-import { db, addUser, getUsers, getUserByEmail } from "../services/firestore";
+import { addUser, getUserByEmail } from "../services/firestore";
 
 import nookies from "nookies";
 import Router from "next/router";
@@ -48,6 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const auth = getAuth(firebaseApp);
 
   useEffect(() => {
+    //! O user do parametro do onIdTokenChanged é diferente!
     return onIdTokenChanged(auth, async user => {
       if (!user) {
         setUser(null);
@@ -72,9 +73,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
         const { uid, displayName: name, email } = result.user;
         const findUser = await getUserByEmail(email);
-        console.log("findedUser:", findUser);
+        console.log("~ findUser:", findUser);
 
-        if (findUser.length === 0) {
+        if (!findUser) {
           const newUser = {
             uid,
             name,
@@ -87,14 +88,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           setUser(newUser);
         }
 
-        if (findUser.length === 1) {
-          const user = findUser[0].data();
-          console.log("~ user data:", findUser[0].data());
-          setUser(user);
-        }
-
-        if (findUser.length > 1) {
-          throw new Error("Não pode ter 2 emails iguais no Firestore!!");
+        if (findUser) {
+          setUser(findUser.data());
         }
       })
       .catch(error => {

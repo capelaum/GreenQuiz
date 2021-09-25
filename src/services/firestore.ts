@@ -1,12 +1,14 @@
 import { firebaseApp } from "./firebase";
 import {
+  getFirestore,
+  Firestore,
   collection,
   addDoc,
-  getFirestore,
   getDocs,
-  Firestore,
-  where,
   query,
+  where,
+  doc,
+  setDoc,
 } from "firebase/firestore";
 
 const db = getFirestore(firebaseApp);
@@ -30,7 +32,7 @@ const addUser = async (user: User) => {
   }
 };
 
-const getUsers = async (db: Firestore) => {
+const getUsers = async () => {
   const usersCollection = collection(db, "users");
   const usersSnapshot = await getDocs(usersCollection);
   const usersList = usersSnapshot.docs.map(doc => doc.data());
@@ -42,9 +44,38 @@ const getUserByEmail = async (email: string) => {
   const usersCollection = collection(db, "users");
   const q = query(usersCollection, where("email", "==", email));
   const querySnapshot = await getDocs(q);
-  const user = querySnapshot.docs;
+  const userList = querySnapshot.docs;
 
-  return user;
+  if (userList.length === 0) return;
+
+  if (userList.length === 1) {
+    const user = userList[0];
+    return user;
+  }
+
+  if (userList.length > 1) {
+    throw new Error("Não pode ter 2 emails iguais no Firestore!!");
+  }
 };
 
-export { db, addUser, getUsers, getUserByEmail };
+const setUserResult = async (user: User, score: number) => {
+  console.log("User & Score:", user, score);
+
+  const { uid, displayName: name, email } = user;
+  console.log("uid, name, email, authProvider", uid, name, email);
+  const userToUpdate = await getUserByEmail(user.email);
+
+  const docRef = userToUpdate.id;
+  console.log("🚀 ~ docRef", docRef);
+
+  await setDoc(doc(db, "users", docRef), {
+    uid,
+    name,
+    email,
+    authProvider: "google",
+    score,
+    answeredQuiz: true,
+  });
+};
+
+export { db, addUser, getUsers, getUserByEmail, setUserResult };

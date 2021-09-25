@@ -103,10 +103,6 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   function finishQuiz() {
     router.push({
       pathname: "/result",
-      query: {
-        total: questionsIds.length,
-        score,
-      },
     });
   }
 

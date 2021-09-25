@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useCallback, useEffect } from "react";
 
 import { Button } from "../components/Button";
 import { LoadingScreen } from "../components/LoadingScreen";
@@ -8,21 +9,24 @@ import { ResultStatistic } from "../components/ResultStatistic";
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
 
+import { setUserResult } from "../services/firestore";
+
 import styles from "../styles/Result.module.scss";
 
 export default function Result() {
   const router = useRouter();
-  const { resetQuiz } = useQuestion();
+  const { user } = useAuth();
+  console.log("🚀 ~ user", user);
+  const { resetQuiz, score, questionsIds } = useQuestion();
 
   const checkNaNValue = (value: number) => {
     return Number.isNaN(value) ? 0 : value;
   };
 
-  const total = checkNaNValue(+router.query.total);
-  const score = checkNaNValue(+router.query.score);
+  const total = questionsIds.length;
   const percent = checkNaNValue(Math.round((score / total) * 100));
 
-  const { user } = useAuth();
+  setUserResult(user, score);
 
   if (!user) {
     return <LoadingScreen />;
@@ -38,7 +42,11 @@ export default function Result() {
         <h1>🎉 Resultado 🎉</h1>
         <div className={styles.resultStatisticsContainer}>
           <ResultStatistic text={"Perguntas"} value={total} />
-          <ResultStatistic text={"Score"} value={score} bgColor="#5603AD" />
+          <ResultStatistic
+            text={"Score"}
+            value={score}
+            bgColor={"var(--dark-purple)"}
+          />
           <ResultStatistic text={"Percentual"} value={`${percent}%`} />
         </div>
         <Button onClick={resetQuiz} text="Menu" />

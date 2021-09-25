@@ -26,16 +26,6 @@ export default function Menu() {
         <Image src={Logo} alt="GreenQuiz Logo" />
 
         <h2 className={styles.welcomeMsg}>
-          {user ? (
-            <>
-              <li>{user.uid}</li>
-              <li>{user.name}</li>
-              <li>{user.email}</li>
-              <li>{user.authProvider}</li>
-            </>
-          ) : (
-            false
-          )}
           Bem vindo(a), {user ? user.name : "Usuário"}
         </h2>
 

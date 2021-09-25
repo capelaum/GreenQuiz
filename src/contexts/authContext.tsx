@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const auth = getAuth(firebaseApp);
 
   useEffect(() => {
-    //! O user do parametro do onIdTokenChanged é diferente!
+    //! O parametro user do onIdTokenChanged é diferente!
     return onIdTokenChanged(auth, async userAuth => {
       if (!userAuth) {
         setUserAuth(null);
@@ -66,17 +66,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     });
   }, [auth]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        if (userAuth) {
+          const findUser = await getUserByEmail(userAuth.email);
+          if (findUser) setUser(findUser.data());
+        }
+      } catch (error) {
+        console.error("Um erro aconteceu ao buscar informações do usuário!");
+      }
+    })();
+  }, [userAuth]);
+
   const sigInWithGoogle = async () => {
     await signInWithPopup(auth, googleProvider)
       .then(async result => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        nookies.set(undefined, "token", "", token);
+        nookies.set(undefined, "token", token, {});
 
         const { uid, displayName: name, email } = result.user;
         const findUser = await getUserByEmail(email);
-        console.log("~ findUser:", findUser);
 
         if (!findUser) {
           const newUser = {
@@ -112,7 +124,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         Router.push("/login");
       })
       .catch(error => {
-        console.log(error.message);
+        console.error(error.message);
       });
   };
 

@@ -1,6 +1,5 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 
 import { Button } from "../components/Button";
 import { LoadingScreen } from "../components/LoadingScreen";
@@ -14,21 +13,20 @@ import { setUserResult } from "../services/firestore";
 import styles from "../styles/Result.module.scss";
 
 export default function Result() {
-  const router = useRouter();
-  const { user, userAuth } = useAuth();
-  console.log("🚀 ~ user", user);
   const { resetQuiz, score, questionsIds } = useQuestion();
-
-  const checkNaNValue = (value: number) => {
-    return Number.isNaN(value) ? 0 : value;
-  };
+  const { user, userAuth } = useAuth();
 
   const total = questionsIds.length;
-  const percent = checkNaNValue(Math.round((score / total) * 100));
+  const percentValue = Math.round(score / total) * 100;
+  const percent = Number.isNaN(percentValue) ? 0 : percentValue;
 
-  if (user) {
-    setUserResult(user, score);
-  }
+  useEffect(() => {
+    (async () => {
+      if (user) {
+        await setUserResult(user, score);
+      }
+    })();
+  }, [user, score]);
 
   if (!userAuth) {
     return <LoadingScreen />;
@@ -42,6 +40,7 @@ export default function Result() {
       </Head>
       <div className={styles.result}>
         <h1>🎉 Resultado 🎉</h1>
+        <h2>{user ? user.name : "Usuário"}</h2>
         <div className={styles.resultStatisticsContainer}>
           <ResultStatistic text={"Perguntas"} value={total} />
           <ResultStatistic

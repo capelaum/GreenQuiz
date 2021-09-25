@@ -54,27 +54,21 @@ const getUserByEmail = async (email: string) => {
   }
 
   if (userList.length > 1) {
-    throw new Error("Não pode ter 2 emails iguais no Firestore!!");
+    throw new Error("Não pode ter 2 usuários com mesmo email!");
   }
 };
 
 const setUserResult = async (user: User, score: number) => {
-  console.log("User & Score:", user, score);
+  const { uid, name, email } = user;
 
-  const { uid, displayName: name, email } = user;
-  console.log("uid, name, email, authProvider", uid, name, email);
   const userToUpdate = await getUserByEmail(user.email);
 
   const docRef = userToUpdate.id;
-  console.log("🚀 ~ docRef", docRef);
+  // console.log("🚀 ~ docRef", docRef);
 
   await setDoc(doc(db, "users", docRef), {
-    uid,
-    name,
-    email,
-    authProvider: "google",
+    ...user,
     score,
-    answeredQuiz: true,
   });
 };
 

@@ -15,7 +15,7 @@ import styles from "../styles/Result.module.scss";
 
 export default function Result() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, userAuth } = useAuth();
   console.log("🚀 ~ user", user);
   const { resetQuiz, score, questionsIds } = useQuestion();
 
@@ -26,9 +26,11 @@ export default function Result() {
   const total = questionsIds.length;
   const percent = checkNaNValue(Math.round((score / total) * 100));
 
-  setUserResult(user, score);
+  if (user) {
+    setUserResult(user, score);
+  }
 
-  if (!user) {
+  if (!userAuth) {
     return <LoadingScreen />;
   }
 

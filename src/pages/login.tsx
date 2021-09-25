@@ -10,14 +10,14 @@ import { useAuth } from "../contexts/authContext";
 import styles from "../styles/Login.module.scss";
 
 export default function Login() {
-  const { user, sigInWithGoogle } = useAuth();
+  const { user, userAuth, sigInWithGoogle } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
+    if (userAuth) {
       router.push("/");
     }
-  }, [user, router]);
+  }, [userAuth, router]);
 
   return (
     <>

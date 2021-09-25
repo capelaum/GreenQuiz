@@ -14,6 +14,7 @@ import {
   GoogleAuthProvider,
   signOut,
   onIdTokenChanged,
+  NextOrObserver,
 } from "firebase/auth";
 
 import { addUser, getUserByEmail } from "../services/firestore";
@@ -35,6 +36,7 @@ type User = {
 
 interface AuthContextData {
   user: User;
+  userAuth: NextOrObserver<User>;
   sigInWithGoogle: () => Promise<void>;
   signOutWithGoogle: () => Promise<void>;
 }
@@ -43,28 +45,29 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState(null);
+  const [userAuth, setUserAuth] = useState(null);
 
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
   const auth = getAuth(firebaseApp);
 
   useEffect(() => {
     //! O user do parametro do onIdTokenChanged é diferente!
-    return onIdTokenChanged(auth, async user => {
-      if (!user) {
-        setUser(null);
+    return onIdTokenChanged(auth, async userAuth => {
+      if (!userAuth) {
+        setUserAuth(null);
         nookies.set(undefined, "token", "", {});
         return Router.push("/login");
       }
 
-      console.log("~ Logged User: ", user);
-      const token = await user.getIdToken();
-      setUser(user);
+      console.log("~ userAuth:", userAuth);
+      const token = await userAuth.getIdToken();
       nookies.set(undefined, "token", token, {});
+      setUserAuth(userAuth);
     });
   }, [auth]);
 
   const sigInWithGoogle = async () => {
-    await signInWithPopup(auth, provider)
+    await signInWithPopup(auth, googleProvider)
       .then(async result => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -104,7 +107,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signOutWithGoogle = async () => {
     await signOut(auth)
       .then(() => {
-        setUser(null);
+        setUserAuth(null);
         nookies.destroy(undefined, "token");
         Router.push("/login");
       })
@@ -114,7 +117,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, sigInWithGoogle, signOutWithGoogle }}>
+    <AuthContext.Provider
+      value={{ user, userAuth, sigInWithGoogle, signOutWithGoogle }}
+    >
       {children}
     </AuthContext.Provider>
   );

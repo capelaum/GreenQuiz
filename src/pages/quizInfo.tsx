@@ -12,9 +12,9 @@ import styles from "../styles/QuizInfo.module.scss";
 
 export default function QuizInfo() {
   const { questionsIds } = useQuestion();
-  const { user } = useAuth();
+  const { userAuth } = useAuth();
 
-  if (!user) {
+  if (!userAuth) {
     return <LoadingScreen />;
   }
 

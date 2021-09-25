@@ -11,9 +11,9 @@ import { useAuth } from "../contexts/authContext";
 import styles from "../styles/Quiz.module.scss";
 
 export default function QuizPage() {
-  const { user } = useAuth();
+  const { userAuth } = useAuth();
 
-  if (!user) {
+  if (!userAuth) {
     return <LoadingScreen />;
   }
 

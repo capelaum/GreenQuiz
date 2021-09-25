@@ -10,9 +10,9 @@ import { useAuth } from "../contexts/authContext";
 import styles from "../styles/Menu.module.scss";
 
 export default function Menu() {
-  const { user, signOutWithGoogle } = useAuth();
+  const { user, userAuth, signOutWithGoogle } = useAuth();
 
-  if (!user) {
+  if (!userAuth) {
     return <LoadingScreen />;
   }
 
@@ -26,6 +26,16 @@ export default function Menu() {
         <Image src={Logo} alt="GreenQuiz Logo" />
 
         <h2 className={styles.welcomeMsg}>
+          {user ? (
+            <>
+              <li>{user.uid}</li>
+              <li>{user.name}</li>
+              <li>{user.email}</li>
+              <li>{user.authProvider}</li>
+            </>
+          ) : (
+            false
+          )}
           Bem vindo(a), {user ? user.name : "Usuário"}
         </h2>
 

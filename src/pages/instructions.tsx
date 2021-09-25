@@ -8,9 +8,9 @@ import { LoadingScreen } from "../components/LoadingScreen";
 import { useAuth } from "../contexts/authContext";
 
 export default function Ranking() {
-  const { user } = useAuth();
+  const { userAuth } = useAuth();
 
-  if (!user) {
+  if (!userAuth) {
     return <LoadingScreen />;
   }
 

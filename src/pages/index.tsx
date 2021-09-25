@@ -26,7 +26,7 @@ export default function Menu() {
         <Image src={Logo} alt="GreenQuiz Logo" />
 
         <h2 className={styles.welcomeMsg}>
-          Bem vindo(a), {user ? user.displayName : "Usuário"}
+          Bem vindo(a), {user ? user.name : "Usuário"}
         </h2>
 
         <ul className={styles.menuList}>

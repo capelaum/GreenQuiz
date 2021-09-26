@@ -103,15 +103,11 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   function finishQuiz() {
     router.push({
       pathname: "/result",
-      query: {
-        total: questionsIds.length,
-        score,
-      },
     });
   }
 
   function resetQuiz() {
-    setScore(0);
+    // setScore(0);
     loadQuestion(questionsIds[0]);
 
     router.push("/");

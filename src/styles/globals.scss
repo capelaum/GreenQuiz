@@ -1,3 +1,5 @@
+@import "./libraries/nprogress";
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -7,16 +9,19 @@
 :root {
   --bg-color: #70df7c;
   --purple: #6c54d8;
+  --dark-purple: #5603ad;
   --green: #2baa6d;
   --red: #e44a4c;
+  --yellow: #ffd60a;
+  --blue: #a2d6f9;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: var(--bg-color);
   color: #333;
 
-  background-image: url("/recycle-people.png"), url("/recycle-symbol.png");
+  background-image: url("/recycle-people.svg"), url("/recycle-symbol.png");
   background-position: right bottom, left;
   background-repeat: no-repeat;
   background-size: 50vh, 40vh;
@@ -61,7 +66,19 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 80px;
-  // justify-content: center;
-  position: relative;
+  padding: 40px 0;
+  overflow: hidden;
+
+  animation: fadeIn 0.5s both;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    top: 40px;
+  }
+  100% {
+    opacity: 1;
+    top: 20px;
+  }
 }

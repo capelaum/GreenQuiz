@@ -1,8 +1,8 @@
-import React from "react";
-import { useQuestion } from "../../hooks/useQuestion";
 import { Option } from "../Option";
 import { QuestionText } from "../QuestionText";
 import { Timer } from "../Timer";
+
+import { useQuestion } from "../../contexts/questionContext";
 
 import styles from "./styles.module.scss";
 

@@ -34,6 +34,9 @@ export default function QuizInfo() {
             um limite de tempo de <strong>1 minuto</strong> para responder cada
             questão.
             <br />
+            <br />A <strong>duração</strong> da realização do quiz será
+            utilizada como critério de desempate no ranking.
+            <br />
             <br />
             <span>ATENÇÃO</span>: Você só pode realizar{" "}
             <strong>1 tentativa</strong>!
@@ -45,7 +48,7 @@ export default function QuizInfo() {
 
         <div className={styles.buttonsContainer}>
           <Button text="Menu" href="/" />
-          <Button text="Prosseguir" href="/quiz" />
+          <Button text="Iniciar" href="/quiz" />
         </div>
       </div>
     </>

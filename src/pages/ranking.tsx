@@ -8,24 +8,17 @@ import { LoadingScreen } from "../components/LoadingScreen";
 
 import { useQuestion } from "../contexts/questionContext";
 import { useAuth } from "../contexts/authContext";
-import { getUsers } from "../services/firestore";
+import { getUsers, User } from "../services/firestore";
 
 import styles from "../styles/Ranking.module.scss";
 
-type User = {
-  uid: string;
-  name: string;
-  email: string;
-  authProvider: string;
-  answeredQuiz: boolean;
-  score?: Number;
-};
-
 export default function Ranking() {
-  const { questionsIds } = useQuestion();
-  const total = questionsIds.length;
   const { userAuth } = useAuth();
+  const { questionsIds } = useQuestion();
   const [users, setUsers] = useState<User[]>([]);
+  const [pageLoading, setPageLoading] = useState<boolean>(true);
+
+  const total = questionsIds.length;
 
   useEffect(() => {
     (async () => {
@@ -35,12 +28,34 @@ export default function Ranking() {
     })();
   }, []);
 
-  function sortUsersByScore(users: User[]) {
-    return users.sort((a, b) => b.score.valueOf() - a.score.valueOf());
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      setPageLoading(false);
+    }, 2000);
+
+    setPageLoading(true);
+  }, []);
 
   if (!userAuth) {
     return <LoadingScreen />;
+  }
+
+  function sortUsersByScore(users: User[]) {
+    return users.sort((a, b) => {
+      const result = b.score.valueOf() - a.score.valueOf();
+
+      if (result === 0) {
+        return a.duration - b.duration;
+      }
+
+      return result;
+    });
+  }
+
+  function millisToMinutesAndSeconds(millis: number) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return `${minutes}m ${+seconds < 10 ? "0" : ""}${seconds}s`;
   }
 
   return (
@@ -54,37 +69,46 @@ export default function Ranking() {
 
         <h2>Ranking</h2>
 
-        <div className={styles.rankingContainer}>
-          <table className={styles.rankingTable} cellSpacing="0">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th className={styles.score}>Score</th>
-                <th className={styles.position}>Posição</th>
-              </tr>
-            </thead>
-            <tbody className={styles.tablebody}>
-              {users &&
-                users.map((user, index) => {
-                  if (user.answeredQuiz) {
-                    return (
-                      <tr key={user.uid}>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td className={styles.score}>
-                          {user.score}/{total}
-                        </td>
-                        <td className={styles.position}>{index + 1}º</td>
-                      </tr>
-                    );
-                  }
-                })}
-            </tbody>
-          </table>
-        </div>
-
-        <Button text="Menu" href="/" />
+        {pageLoading ? (
+          <LoadingScreen />
+        ) : (
+          <>
+            <div className={styles.rankingContainer}>
+              <table className={styles.rankingTable} cellSpacing="0">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th className={styles.center}>Score</th>
+                    <th className={styles.center}>Posição</th>
+                    <th className={styles.center}>Duração</th>
+                  </tr>
+                </thead>
+                <tbody className={styles.tablebody}>
+                  {users &&
+                    users.map((user, index) => {
+                      if (user.answeredQuiz) {
+                        return (
+                          <tr key={user.uid}>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td className={styles.center}>
+                              {user.score}/{total}
+                            </td>
+                            <td className={styles.center}>{index + 1}º</td>
+                            <td className={styles.center}>
+                              {millisToMinutesAndSeconds(user.duration)}
+                            </td>
+                          </tr>
+                        );
+                      }
+                    })}
+                </tbody>
+              </table>
+            </div>
+            <Button text="Menu" href="/" />
+          </>
+        )}
       </div>
     </>
   );

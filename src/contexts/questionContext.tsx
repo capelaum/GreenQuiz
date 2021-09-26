@@ -107,7 +107,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   }
 
   function resetQuiz() {
-    // setScore(0);
+    setScore(0);
     loadQuestion(questionsIds[0]);
 
     router.push("/");

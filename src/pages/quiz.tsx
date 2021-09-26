@@ -14,12 +14,12 @@ import styles from "../styles/Quiz.module.scss";
 
 export default function QuizPage() {
   const { userAuth, user } = useAuth();
-  user.answeredQuiz = true;
-  user.startTime = Date.now();
 
   useEffect(() => {
     (async () => {
       if (user) {
+        user.answeredQuiz = true;
+        user.startTime = Date.now();
         await updateUser(user);
       }
     })();

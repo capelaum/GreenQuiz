@@ -15,9 +15,6 @@ import styles from "../styles/Result.module.scss";
 export default function Result() {
   const { resetQuiz, score, questionsIds } = useQuestion();
   const { user, userAuth } = useAuth();
-  user.endTime = Date.now();
-  user.duration = user.endTime - user.startTime;
-  user.score = score;
 
   const total = questionsIds.length;
   const percent = Math.round((score / total) * 100);
@@ -25,10 +22,13 @@ export default function Result() {
   useEffect(() => {
     (async () => {
       if (user) {
+        user.endTime = Date.now();
+        user.duration = user.endTime - user.startTime;
+        user.score = score;
         await updateUser(user);
       }
     })();
-  });
+  }, []);
 
   if (!userAuth) {
     return <LoadingScreen />;

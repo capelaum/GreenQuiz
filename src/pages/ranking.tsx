@@ -16,6 +16,8 @@ export default function Ranking() {
   const { userAuth } = useAuth();
   const { questionsIds } = useQuestion();
   const [users, setUsers] = useState<User[]>([]);
+  const [pageLoading, setPageLoading] = useState<boolean>(true);
+
   const total = questionsIds.length;
 
   useEffect(() => {
@@ -24,6 +26,14 @@ export default function Ranking() {
       const sortedUsers = sortUsersByScore(users);
       setUsers(sortedUsers);
     })();
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPageLoading(false);
+    }, 2000);
+
+    setPageLoading(true);
   }, []);
 
   if (!userAuth) {
@@ -59,41 +69,46 @@ export default function Ranking() {
 
         <h2>Ranking</h2>
 
-        <div className={styles.rankingContainer}>
-          <table className={styles.rankingTable} cellSpacing="0">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th className={styles.center}>Score</th>
-                <th className={styles.center}>Posição</th>
-                <th className={styles.center}>Duração</th>
-              </tr>
-            </thead>
-            <tbody className={styles.tablebody}>
-              {users &&
-                users.map((user, index) => {
-                  if (user.answeredQuiz) {
-                    return (
-                      <tr key={user.uid}>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td className={styles.center}>
-                          {user.score}/{total}
-                        </td>
-                        <td className={styles.center}>{index + 1}º</td>
-                        <td className={styles.center}>
-                          {millisToMinutesAndSeconds(user.duration)}
-                        </td>
-                      </tr>
-                    );
-                  }
-                })}
-            </tbody>
-          </table>
-        </div>
-
-        <Button text="Menu" href="/" />
+        {pageLoading ? (
+          <LoadingScreen />
+        ) : (
+          <>
+            <div className={styles.rankingContainer}>
+              <table className={styles.rankingTable} cellSpacing="0">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th className={styles.center}>Score</th>
+                    <th className={styles.center}>Posição</th>
+                    <th className={styles.center}>Duração</th>
+                  </tr>
+                </thead>
+                <tbody className={styles.tablebody}>
+                  {users &&
+                    users.map((user, index) => {
+                      if (user.answeredQuiz) {
+                        return (
+                          <tr key={user.uid}>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td className={styles.center}>
+                              {user.score}/{total}
+                            </td>
+                            <td className={styles.center}>{index + 1}º</td>
+                            <td className={styles.center}>
+                              {millisToMinutesAndSeconds(user.duration)}
+                            </td>
+                          </tr>
+                        );
+                      }
+                    })}
+                </tbody>
+              </table>
+            </div>
+            <Button text="Menu" href="/" />
+          </>
+        )}
       </div>
     </>
   );

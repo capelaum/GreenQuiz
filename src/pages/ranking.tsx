@@ -50,27 +50,31 @@ export default function Ranking() {
         <h2>Ranking</h2>
 
         <div className={styles.rankingContainer}>
-          <div className={styles.rankingHeader}>
-            <h4>Nome</h4>
-            <h4>E-mail</h4>
-            <h4>Score</h4>
-            <h4>Posição</h4>
-          </div>
-          <div className={styles.rankingTable}>
-            {users &&
-              users.map(user => {
-                if (user.answeredQuiz) {
-                  return (
-                    <div key={user.uid} className={styles.rankingUser}>
-                      <li>{user.name}</li>
-                      <li>{user.email}</li>
-                      <li>{user.score}</li>
-                      <li>1º</li>
-                    </div>
-                  );
-                }
-              })}
-          </div>
+          <table className={styles.rankingTable} cellSpacing="0">
+            <thead>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th className={styles.score}>Score</th>
+              <th className={styles.position}>Posição</th>
+            </thead>
+            <tbody className={styles.tablebody}>
+              {users &&
+                users.map(user => {
+                  if (user.answeredQuiz) {
+                    return (
+                      <tr key={user.uid}>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td className={styles.score}>
+                          {user.score}/{total}
+                        </td>
+                        <td className={styles.position}>1º</td>
+                      </tr>
+                    );
+                  }
+                })}
+            </tbody>
+          </table>
         </div>
 
         <Button text="Menu" href="/" />

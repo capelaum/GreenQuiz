@@ -1,5 +1,6 @@
 .rankingContainer {
   width: 70%;
+  max-width: 1000px;
   margin: 40px 0;
   display: flex;
   flex-direction: column;
@@ -7,32 +8,39 @@
 }
 
 .rankingTable {
+  border-collapse: collapse;
   width: 100%;
+
+  th,
+  td {
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  th {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  tr {
+    height: 40px;
+    border-bottom: 1px solid #333;
+  }
+
+  td {
+    font-size: 1rem;
+  }
+
+  .score,
+  .position {
+    text-align: center;
+  }
+}
+
+.tablebody {
   background-color: #fff;
   border-radius: 8px;
-  padding: 20px;
-  margin-top: 5px;
-}
+  // display: block;
 
-.rankingHeader {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 20px;
-  h4 {
-    font-weight: 500;
-    font-size: 1.1rem;
-  }
-}
-
-.rankingUser {
-  border-bottom: 1px solid #333;
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-
-  li {
-    font-size: 1rem;
-    padding-right: 20px;
-  }
+  padding: 10px 0;
 }

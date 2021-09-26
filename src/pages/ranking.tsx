@@ -26,12 +26,20 @@ export default function Ranking() {
     })();
   }, []);
 
-  function sortUsersByScore(users: User[]) {
-    return users.sort((a, b) => b.score.valueOf() - a.score.valueOf());
-  }
-
   if (!userAuth) {
     return <LoadingScreen />;
+  }
+
+  function sortUsersByScore(users: User[]) {
+    return users.sort((a, b) => {
+      const result = b.score.valueOf() - a.score.valueOf();
+
+      if (result === 0) {
+        return a.duration - b.duration;
+      }
+
+      return result;
+    });
   }
 
   function millisToMinutesAndSeconds(millis: number) {

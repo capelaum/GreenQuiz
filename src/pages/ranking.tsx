@@ -34,6 +34,10 @@ export default function Ranking() {
     })();
   }, []);
 
+  function sortUsersByScore(users: User[]) {
+    return users.sort((a, b) => a.score.valueOf() - b.score.valueOf());
+  }
+
   if (!userAuth) {
     return <LoadingScreen />;
   }
@@ -59,7 +63,7 @@ export default function Ranking() {
             </thead>
             <tbody className={styles.tablebody}>
               {users &&
-                users.map(user => {
+                users.map((user, index) => {
                   if (user.answeredQuiz) {
                     return (
                       <tr key={user.uid}>
@@ -68,7 +72,7 @@ export default function Ranking() {
                         <td className={styles.score}>
                           {user.score}/{total}
                         </td>
-                        <td className={styles.position}>1º</td>
+                        <td className={styles.position}>{index + 1}º</td>
                       </tr>
                     );
                   }

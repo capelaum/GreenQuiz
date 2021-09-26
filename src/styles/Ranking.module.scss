@@ -24,6 +24,9 @@
 
   tr {
     height: 40px;
+  }
+
+  tr:not(:last-child) {
     border-bottom: 1px solid #333;
   }
 
@@ -40,7 +43,7 @@
 .tablebody {
   background-color: #fff;
   border-radius: 8px;
-  // display: block;
+  padding: 20px 0;
 
-  padding: 10px 0;
+  // display: block; //! faz ter border-radius, mas ferra o header
 }

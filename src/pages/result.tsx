@@ -8,13 +8,16 @@ import { ResultStatistic } from "../components/ResultStatistic";
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
 
-import { setUserResult } from "../services/firestore";
+import { updateUser } from "../services/firestore";
 
 import styles from "../styles/Result.module.scss";
 
 export default function Result() {
   const { resetQuiz, score, questionsIds } = useQuestion();
   const { user, userAuth } = useAuth();
+  user.endTime = Date.now();
+  user.duration = user.endTime - user.startTime;
+  user.score = score;
 
   const total = questionsIds.length;
   const percent = Math.round((score / total) * 100);
@@ -22,7 +25,7 @@ export default function Result() {
   useEffect(() => {
     (async () => {
       if (user) {
-        await setUserResult(user, score);
+        await updateUser(user);
       }
     })();
   });

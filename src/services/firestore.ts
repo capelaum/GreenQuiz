@@ -13,13 +13,16 @@ import {
 
 const db = getFirestore(firebaseApp);
 
-type User = {
+export type User = {
   uid: string;
   name: string;
   email: string;
   authProvider: string;
   answeredQuiz: boolean;
-  score?: Number;
+  score?: number;
+  startTime?: number;
+  endTime?: number;
+  duration?: number;
 };
 
 const addUser = async (user: User) => {
@@ -59,15 +62,12 @@ const getUserByEmail = async (email: string) => {
   }
 };
 
-const setUserResult = async (user: User, score: number) => {
+const updateUser = async (user: User) => {
   const userToUpdate = await getUserByEmail(user.email);
   const docRef = userToUpdate.id;
-  // console.log("🚀 ~ docRef", docRef);
 
-  await setDoc(doc(db, "users", docRef), {
-    ...user,
-    score,
-  });
+  const updatedUser = { ...user };
+  await setDoc(doc(db, "users", docRef), updatedUser);
 };
 
-export { db, addUser, getUsers, getUserByEmail, setUserResult };
+export { db, addUser, getUsers, getUserByEmail, updateUser };

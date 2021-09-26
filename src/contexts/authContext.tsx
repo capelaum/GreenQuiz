@@ -5,8 +5,11 @@ import {
   useContext,
   ReactNode,
 } from "react";
+import Router from "next/router";
+import nookies from "nookies";
 
 import { firebaseApp } from "../services/firebase";
+import { addUser, getUserByEmail, User } from "../services/firestore";
 
 import {
   getAuth,
@@ -17,22 +20,9 @@ import {
   NextOrObserver,
 } from "firebase/auth";
 
-import { addUser, getUserByEmail } from "../services/firestore";
-
-import nookies from "nookies";
-import Router from "next/router";
-
 interface AuthProviderProps {
   children: ReactNode;
 }
-
-type User = {
-  uid: string;
-  name: string;
-  email: string;
-  authProvider: string;
-  answeredQuiz: boolean;
-};
 
 interface AuthContextData {
   user: User;

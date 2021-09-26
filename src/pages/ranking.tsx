@@ -8,24 +8,15 @@ import { LoadingScreen } from "../components/LoadingScreen";
 
 import { useQuestion } from "../contexts/questionContext";
 import { useAuth } from "../contexts/authContext";
-import { getUsers } from "../services/firestore";
+import { getUsers, User } from "../services/firestore";
 
 import styles from "../styles/Ranking.module.scss";
 
-type User = {
-  uid: string;
-  name: string;
-  email: string;
-  authProvider: string;
-  answeredQuiz: boolean;
-  score?: Number;
-};
-
 export default function Ranking() {
-  const { questionsIds } = useQuestion();
-  const total = questionsIds.length;
   const { userAuth } = useAuth();
+  const { questionsIds } = useQuestion();
   const [users, setUsers] = useState<User[]>([]);
+  const total = questionsIds.length;
 
   useEffect(() => {
     (async () => {
@@ -41,6 +32,12 @@ export default function Ranking() {
 
   if (!userAuth) {
     return <LoadingScreen />;
+  }
+
+  function millisToMinutesAndSeconds(millis: number) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return `${minutes}m ${+seconds < 10 ? "0" : ""}${seconds}s`;
   }
 
   return (
@@ -60,8 +57,9 @@ export default function Ranking() {
               <tr>
                 <th>Nome</th>
                 <th>E-mail</th>
-                <th className={styles.score}>Score</th>
-                <th className={styles.position}>Posição</th>
+                <th className={styles.center}>Score</th>
+                <th className={styles.center}>Posição</th>
+                <th className={styles.center}>Duração</th>
               </tr>
             </thead>
             <tbody className={styles.tablebody}>
@@ -72,10 +70,13 @@ export default function Ranking() {
                       <tr key={user.uid}>
                         <td>{user.name}</td>
                         <td>{user.email}</td>
-                        <td className={styles.score}>
+                        <td className={styles.center}>
                           {user.score}/{total}
                         </td>
-                        <td className={styles.position}>{index + 1}º</td>
+                        <td className={styles.center}>{index + 1}º</td>
+                        <td className={styles.center}>
+                          {millisToMinutesAndSeconds(user.duration)}
+                        </td>
                       </tr>
                     );
                   }

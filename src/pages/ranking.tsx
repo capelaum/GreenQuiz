@@ -30,12 +30,13 @@ export default function Ranking() {
   useEffect(() => {
     (async () => {
       const users = await getUsers();
-      setUsers(users);
+      const sortedUsers = sortUsersByScore(users);
+      setUsers(sortedUsers);
     })();
   }, []);
 
   function sortUsersByScore(users: User[]) {
-    return users.sort((a, b) => a.score.valueOf() - b.score.valueOf());
+    return users.sort((a, b) => b.score.valueOf() - a.score.valueOf());
   }
 
   if (!userAuth) {
@@ -56,10 +57,12 @@ export default function Ranking() {
         <div className={styles.rankingContainer}>
           <table className={styles.rankingTable} cellSpacing="0">
             <thead>
-              <th>Nome</th>
-              <th>E-mail</th>
-              <th className={styles.score}>Score</th>
-              <th className={styles.position}>Posição</th>
+              <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th className={styles.score}>Score</th>
+                <th className={styles.position}>Posição</th>
+              </tr>
             </thead>
             <tbody className={styles.tablebody}>
               {users &&

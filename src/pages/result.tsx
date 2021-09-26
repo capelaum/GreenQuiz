@@ -17,8 +17,7 @@ export default function Result() {
   const { user, userAuth } = useAuth();
 
   const total = questionsIds.length;
-  const percentValue = Math.round(score / total) * 100;
-  const percent = Number.isNaN(percentValue) ? 0 : percentValue;
+  const percent = Math.round((score / total) * 100);
 
   useEffect(() => {
     (async () => {
@@ -26,7 +25,7 @@ export default function Result() {
         await setUserResult(user, score);
       }
     })();
-  }, [user, score]);
+  });
 
   if (!userAuth) {
     return <LoadingScreen />;

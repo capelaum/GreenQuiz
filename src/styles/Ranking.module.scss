@@ -1,0 +1,38 @@
+.rankingContainer {
+  width: 70%;
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rankingTable {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 5px;
+}
+
+.rankingHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 20px;
+  h4 {
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+}
+
+.rankingUser {
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+
+  li {
+    font-size: 1rem;
+    padding-right: 20px;
+  }
+}

@@ -19,6 +19,7 @@ type User = {
   email: string;
   authProvider: string;
   answeredQuiz: boolean;
+  score?: Number;
 };
 
 const addUser = async (user: User) => {
@@ -35,7 +36,7 @@ const addUser = async (user: User) => {
 const getUsers = async () => {
   const usersCollection = collection(db, "users");
   const usersSnapshot = await getDocs(usersCollection);
-  const usersList = usersSnapshot.docs.map(doc => doc.data());
+  const usersList = usersSnapshot.docs.map(doc => doc.data() as User);
 
   return usersList;
 };
@@ -59,10 +60,7 @@ const getUserByEmail = async (email: string) => {
 };
 
 const setUserResult = async (user: User, score: number) => {
-  const { uid, name, email } = user;
-
   const userToUpdate = await getUserByEmail(user.email);
-
   const docRef = userToUpdate.id;
   // console.log("🚀 ~ docRef", docRef);
 

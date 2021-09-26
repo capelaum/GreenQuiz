@@ -1,6 +1,7 @@
 <div align="center">
   <img src=".public/../public/Logo.svg" />
   <h4>Quiz web application with an ecological and sustainability theme.</h4>
+  <span>🚧 Under Development 🚧</span>
 </div>
 
 ## Features

@@ -27,8 +27,8 @@ export default function QuizInfo() {
       <div className="container">
         <Image src={Logo} alt="GreenQuiz Logo" />
 
+        <h2>Informações do Quiz</h2>
         <div className={styles.quizInfo}>
-          <h2>Informações do Quiz</h2>
           <p>
             Esse Quiz possui <strong>{questionsIds.length} questões</strong> e
             um limite de tempo de <strong>1 minuto</strong> para responder cada

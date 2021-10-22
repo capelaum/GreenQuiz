@@ -1,0 +1,35 @@
+.instructions {
+  background-color: #fff;
+  max-width: 1000px;
+  padding: 40px;
+  margin: 40px 20px;
+
+  p {
+    font-size: 1.125rem;
+
+    & + p {
+      margin-top: 20px;
+    }
+
+    span {
+      color: var(--red);
+      font-weight: 500;
+    }
+
+    a {
+      color: blue;
+    }
+  }
+
+  border-radius: 8px;
+}
+
+@media (max-width: 576px) {
+  .instructions {
+    padding: 20px;
+
+    p {
+      font-size: 1rem;
+    }
+  }
+}

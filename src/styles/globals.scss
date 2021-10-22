@@ -70,6 +70,18 @@ li {
   overflow: hidden;
 
   animation: fadeIn 0.5s both;
+
+  &.-green {
+    background-color: var(--bg-color);
+  }
+
+  &.-yellow {
+    background-color: var(--yellow);
+  }
+
+  &.-blue {
+    background-color: var(--blue);
+  }
 }
 
 @keyframes fadeIn {

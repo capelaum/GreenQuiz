@@ -8,7 +8,7 @@ import { useQuestion } from "../../contexts/questionContext";
 
 import styles from "./styles.module.scss";
 
-export function Quiz() {
+export function Quiz(props) {
   const { question, getNextQuestionId, handleNextQuestion } = useQuestion();
   const [pageLoading, setPageLoading] = useState<boolean>(true);
 
@@ -16,6 +16,8 @@ export function Quiz() {
     setTimeout(() => {
       setPageLoading(false);
     }, 1000);
+
+    props.onQuestionChange()
 
     setPageLoading(true);
   }, [question?.id]);

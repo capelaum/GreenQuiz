@@ -12,7 +12,7 @@
     border-radius: 8px;
 
     font-weight: 600;
-    font-size: 20px;
+    font-size: 1.3rem;
 
     transition: 0.3s;
 
@@ -44,4 +44,16 @@
       filter: brightness(0.9);
     }
   }
+}
+
+@media (max-width: 576px) {
+  .welcomeMsg {
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .menuList {
+    width: 80%;
+  }
+
 }

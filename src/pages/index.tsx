@@ -31,22 +31,22 @@ export default function Menu() {
 
         <ul className={styles.menuList}>
           <Link href="/quizInfo" passHref>
-            <li>
+            <li className={styles.menuBtn}>
               <a>Iniciar Quiz</a>
             </li>
           </Link>
           <Link href="/ranking" passHref>
-            <li>
+            <li className={styles.menuBtn}>
               <a>Ranking</a>
             </li>
           </Link>
           <Link href="/awards" passHref>
-            <li>
+            <li className={styles.menuBtn}>
               <a>Prêmios</a>
             </li>
           </Link>
           <Link href="/instructions" passHref>
-            <li>
+            <li className={styles.menuBtn}>
               <a>Instruções</a>
             </li>
           </Link>

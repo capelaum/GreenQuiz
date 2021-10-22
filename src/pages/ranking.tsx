@@ -41,6 +41,11 @@ export default function Ranking() {
   }
 
   function sortUsersByScore(users: User[]) {
+    users.map((user: User) => {
+      !user.score ? (user.score = 0) : user.score;
+      !user.duration ? (user.duration = 0) : user.duration;
+    });
+
     return users.sort((a, b) => {
       const result = b.score.valueOf() - a.score.valueOf();
 

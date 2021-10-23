@@ -26,7 +26,11 @@ export default function QuizPage() {
   });
 
   const onQuestionChange = useCallback(() => {
-    if (question.category === "recycle") {
+    if (!question) {
+      router.push("/");
+    }
+
+    if (question?.category === "recycle") {
       setBgColor("bg-green");
       imgProps.recycle = true;
       imgProps.water = false;
@@ -34,7 +38,7 @@ export default function QuizPage() {
       setImgProps(imgProps);
     }
 
-    if (question.category === "energy") {
+    if (question?.category === "energy") {
       setBgColor("bg-yellow");
       imgProps.energy = true;
       imgProps.water = false;
@@ -42,20 +46,14 @@ export default function QuizPage() {
       setImgProps(imgProps);
     }
 
-    if (question.category === "water") {
+    if (question?.category === "water") {
       setBgColor("bg-blue");
       imgProps.water = true;
       imgProps.energy = false;
       imgProps.recycle = false;
       setImgProps(imgProps);
     }
-  }, [question?.category, imgProps]);
-
-  useEffect(() => {
-    if (!question) {
-      router.push("/");
-    }
-  }, [question, router]);
+  }, [question, imgProps, router]);
 
   useEffect(() => {
     onQuestionChange();
@@ -63,6 +61,10 @@ export default function QuizPage() {
 
   if (!userAuth) {
     return <LoadingScreen />;
+  }
+
+  if (!question) {
+    router.push("/");
   }
 
   return (

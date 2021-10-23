@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useEffect } from "react";
 
 import { Button } from "../components/Button";
 import { LoadingScreen } from "../components/LoadingScreen";

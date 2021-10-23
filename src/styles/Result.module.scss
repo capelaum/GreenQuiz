@@ -1,17 +1,18 @@
-.result {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-size: 2rem;
-
-  h1,
-  h3 {
-    color: #333;
-  }
+.resultMessage {
+  margin-top: 40px;
+  text-align: center;
 }
 
 .resultStatisticsContainer {
   display: flex;
+}
+
+@media (max-width: 420px) {
+  .resultMessage {
+    margin-bottom: 40px;
+  }
+
+  .resultStatisticsContainer {
+    flex-direction: column;
+  }
 }

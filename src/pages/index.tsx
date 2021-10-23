@@ -1,9 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
-import Logo from "../../public/Logo.svg";
 
 import { LoadingScreen } from "../components/LoadingScreen";
+import { MainImages } from "../components/MainImages";
 
 import { useAuth } from "../contexts/authContext";
 
@@ -23,7 +22,7 @@ export default function Menu() {
         <meta name="description" content="Green Quiz | Menu" />
       </Head>
       <div className="container">
-        <Image src={Logo} alt="GreenQuiz Logo" />
+        <MainImages recycle recyclePeople />
 
         <h2 className={styles.welcomeMsg}>
           Bem vindo(a), {user ? user.name : "Usuário"}

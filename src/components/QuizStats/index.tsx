@@ -7,10 +7,12 @@ export function QuizStats() {
 
   return (
     <>
-      <div className={`${styles.stats} ${styles.score}`}>Score: {score}</div>
       <div className={styles.stats}>
-        Pergunta:{" "}
-        {`${questionsIds.indexOf(question?.id) + 1}/${questionsIds.length}`}
+        <p>
+          Pergunta:{" "}
+          {`${questionsIds.indexOf(question?.id) + 1}/${questionsIds.length}`}
+        </p>
+        <p>Score: {score}</p>
       </div>
     </>
   );

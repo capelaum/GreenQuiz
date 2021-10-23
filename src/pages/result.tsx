@@ -29,7 +29,7 @@ export default function Result() {
         await updateUser(user);
       }
     })();
-  });
+  }, []);
 
   if (!userAuth) {
     return <LoadingScreen />;

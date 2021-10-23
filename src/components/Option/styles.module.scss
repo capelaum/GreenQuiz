@@ -97,3 +97,9 @@
     font-weight: 700;
   }
 }
+
+@media (max-width: 576px) {
+  .option {
+    min-width: 0px;
+  }
+}

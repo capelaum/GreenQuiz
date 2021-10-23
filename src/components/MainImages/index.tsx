@@ -6,6 +6,7 @@ import Recycle from "../../../public/symbols/recycle.svg";
 import Trophy from "../../../public/symbols/trophy.svg";
 
 interface MainImagesProps {
+  isQuizPage?: boolean;
   recycle?: boolean;
   recyclePeople?: boolean;
   trophy?: boolean;
@@ -13,6 +14,7 @@ interface MainImagesProps {
 }
 
 export function MainImages({
+  isQuizPage,
   recycle,
   recyclePeople,
   trophy,
@@ -20,7 +22,7 @@ export function MainImages({
 }: MainImagesProps) {
   return (
     <>
-      <Image src={Logo} alt="GreenQuiz Logo" />
+      {!isQuizPage && <Image src={Logo} alt="GreenQuiz Logo" />}
 
       {recycle && (
         <div className="asideImg">

@@ -4,3 +4,12 @@
   left: 20px;
   width: 250px;
 }
+
+@media (max-width: 576px) {
+  .logo {
+    position: absolute;
+    left: 50%;
+    margin-left: -120px;
+    top: 0;
+  }
+}

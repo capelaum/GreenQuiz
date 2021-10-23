@@ -12,12 +12,14 @@ import { LoadingScreen } from "../components/LoadingScreen";
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
 
+import { updateUser } from "../services/firestore";
+
 import styles from "../styles/Quiz.module.scss";
 
 export default function QuizPage() {
   const router = useRouter();
   const { question } = useQuestion();
-  const { userAuth } = useAuth();
+  const { userAuth, user } = useAuth();
   const [bgColor, setBgColor] = useState("bg-green");
   const [imgProps, setImgProps] = useState({
     recycle: true,
@@ -25,9 +27,14 @@ export default function QuizPage() {
     water: false,
   });
 
-  const onQuestionChange = useCallback(() => {
-    if (!question) {
-      router.push("/");
+  const onQuestionChange = useCallback(async () => {
+    if (!question && user) {
+      user.endTime = Date.now();
+      user.duration = user.endTime - user.startTime;
+      await updateUser(user);
+      router.push({
+        pathname: "/result",
+      });
     }
 
     if (question?.category === "recycle") {
@@ -53,7 +60,7 @@ export default function QuizPage() {
       imgProps.recycle = false;
       setImgProps(imgProps);
     }
-  }, [question, imgProps, router]);
+  }, [question, imgProps, user, router]);
 
   useEffect(() => {
     onQuestionChange();
@@ -61,10 +68,6 @@ export default function QuizPage() {
 
   if (!userAuth) {
     return <LoadingScreen />;
-  }
-
-  if (!question) {
-    router.push("/");
   }
 
   return (

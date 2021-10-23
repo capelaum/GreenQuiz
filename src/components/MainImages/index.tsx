@@ -4,12 +4,16 @@ import RecyclePeople from "../../../public/recycle-people.svg";
 import Result from "../../../public/result.svg";
 import Recycle from "../../../public/symbols/recycle.svg";
 import Trophy from "../../../public/symbols/trophy.svg";
+import Water from "../../../public/symbols/water.svg";
+import Energy from "../../../public/symbols/energy.svg";
 
 interface MainImagesProps {
   isQuizPage?: boolean;
   recycle?: boolean;
   recyclePeople?: boolean;
   trophy?: boolean;
+  water?: boolean;
+  energy?: boolean;
   result?: boolean;
 }
 
@@ -18,6 +22,8 @@ export function MainImages({
   recycle,
   recyclePeople,
   trophy,
+  water,
+  energy,
   result,
 }: MainImagesProps) {
   return (
@@ -33,6 +39,18 @@ export function MainImages({
       {trophy && (
         <div className="asideImg">
           <Image src={Trophy} alt="Trophy Symbol" />
+        </div>
+      )}
+
+      {energy && (
+        <div className="asideImg">
+          <Image src={Energy} alt="Energy Symbol" />
+        </div>
+      )}
+
+      {water && (
+        <div className="asideImg">
+          <Image src={Water} alt="Water Symbol" />
         </div>
       )}
 

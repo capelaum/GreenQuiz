@@ -2,7 +2,7 @@
   background-color: #fff;
   max-width: 1000px;
   padding: 40px;
-  margin: 40px 20px;
+  margin: 40px 0px;
   border-radius: 8px;
 
   p {
@@ -26,9 +26,10 @@
 @media (max-width: 576px) {
   .instructions {
     padding: 20px;
+    margin: 40px 0px;
 
     p {
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
   }
 }

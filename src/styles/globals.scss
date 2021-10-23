@@ -70,15 +70,27 @@ li {
   width: 100%;
   padding: 40px 20px;
   overflow: hidden;
+  position: relative;
 
   animation: fadeIn 0.5s both;
-  position: relative;
+
+  &.bg-green {
+    background-color: var(--bg-color);
+  }
+
+  &.bg-yellow {
+    background-color: var(--yellow);
+  }
+
+  &.bg-blue {
+    background-color: var(--blue);
+  }
 }
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    top: 40px;
+    top: 20px;
   }
   100% {
     opacity: 1;

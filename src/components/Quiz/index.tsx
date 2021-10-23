@@ -18,7 +18,7 @@ export function Quiz() {
     }, 1000);
 
     setPageLoading(true);
-  }, [question?.id]);
+  }, [question.id]);
 
   return (
     <>

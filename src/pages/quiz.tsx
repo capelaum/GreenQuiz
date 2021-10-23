@@ -11,6 +11,7 @@ import { useAuth } from "../contexts/authContext";
 import { updateUser } from "../services/firestore";
 
 import styles from "../styles/Quiz.module.scss";
+import { MainImages } from "../components/MainImages";
 
 const COLORS = ['-green', '-yellow', '-blue']
 
@@ -47,6 +48,7 @@ export default function QuizPage() {
         <div className={styles.logo}>
           <Image src={Logo} alt="GreenQuiz Logo" />
         </div>
+        <MainImages recycle recyclePeople isQuizPage />
 
         <QuizStats />
         <Quiz onQuestionChange={onQuestionChange} />

@@ -4,3 +4,9 @@
   margin: 40px 0;
   color: #fff;
 }
+
+@media (max-width: 576px) {
+  .timer {
+    margin: 20px 0;
+  }
+}

@@ -17,8 +17,30 @@
 }
 
 .text {
-  color: #ddd;
+  color: #333;
   font-size: 1.7rem;
   font-weight: 400;
   margin-bottom: 20px;
+}
+
+@media (max-width: 650px) {
+  .value {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 420px) {
+  .value {
+    width: 150px;
+    height: 150px;
+  }
+
+  .statistic {
+    margin: 10px 20px;
+
+    &:last-child {
+      margin-bottom: 40px;
+    }
+  }
 }

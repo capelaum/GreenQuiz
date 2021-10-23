@@ -1,5 +1,5 @@
 .rankingContainer {
-  width: 70%;
+  width: 80%;
   max-width: 1000px;
   margin: 40px 0;
   display: flex;
@@ -10,6 +10,7 @@
 .rankingTable {
   border-collapse: collapse;
   width: 100%;
+  min-width: 800px;
   // display: block;
 
   th,
@@ -47,4 +48,31 @@
   padding: 1px 0;
 
   // display: block; //! faz ter border-radius, mas ferra o header
+}
+
+@media (max-width: 1000px) {
+  .rankingContainer {
+    overflow-x: scroll;
+
+    scrollbar-width: thin;
+    scrollbar-color: rebeccapurple #fff;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+      color: rebeccapurple;
+      background-color: #aaa;
+    }
+
+    &::-webkit-scrollbar-button {
+      display: none;
+    }
+    &::-webkit-scrollbar-track-piece {
+      background-color: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rebeccapurple;
+    }
+
+  }
 }

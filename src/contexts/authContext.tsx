@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const auth = getAuth(firebaseApp);
 
   useEffect(() => {
-    //! O parametro user do onIdTokenChanged é diferente!
+    // O parametro user do onIdTokenChanged é diferente!
     return onIdTokenChanged(auth, async userAuth => {
       if (!userAuth) {
         setUserAuth(null);
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         return Router.push("/login");
       }
 
-      console.log("~ userAuth:", userAuth);
+      // console.log("~ userAuth:", userAuth);
       const token = await userAuth.getIdToken();
       nookies.set(undefined, "token", token, {});
       setUserAuth(userAuth);

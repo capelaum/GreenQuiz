@@ -1,14 +1,22 @@
 .stats {
+  color: #fff;
   position: absolute;
   top: 0;
   right: 0;
   margin: 20px;
-  padding: 10px 15px;
-  color: #fff;
+  padding: 10px 20px;
   background-color: var(--purple);
   border-radius: 7px;
+  font-size: 1.4rem;
 }
 
-.score {
-  top: 50px;
+@media (max-width: 576px) {
+  .stats {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+
+  }
 }

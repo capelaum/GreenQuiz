@@ -1,14 +1,9 @@
 .quizInfo {
   background-color: #fff;
   max-width: 700px;
-  margin-top: 40px;
   padding: 20px;
-
-  h2 {
-    font-weight: 500;
-    font-size: 24px;
-    padding-bottom: 20px;
-  }
+  margin: 40px 20px;
+  border-radius: 8px;
 
   p {
     font-size: 18px;
@@ -18,13 +13,9 @@
       font-weight: 500;
     }
   }
-
-  border-radius: 8px;
 }
 
 .buttonsContainer {
-  margin-top: 40px;
-
   button {
     margin: 0 20px;
   }

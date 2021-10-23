@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
-import Logo from "../../public/Logo.svg";
 
 import { Button } from "../components/Button";
 import { LoadingScreen } from "../components/LoadingScreen";
+import { MainImages } from "../components/MainImages";
 
 import { useQuestion } from "../contexts/questionContext";
 import { useAuth } from "../contexts/authContext";
@@ -41,6 +40,11 @@ export default function Ranking() {
   }
 
   function sortUsersByScore(users: User[]) {
+    users.map((user: User) => {
+      !user.score ? (user.score = 0) : user.score;
+      !user.duration ? (user.duration = 0) : user.duration;
+    });
+
     return users.sort((a, b) => {
       const result = b.score.valueOf() - a.score.valueOf();
 
@@ -65,8 +69,7 @@ export default function Ranking() {
         <meta name="description" content="Green Quiz | Ranking" />
       </Head>
       <div className="container">
-        <Image src={Logo} alt="GreenQuiz Logo" />
-
+        <MainImages recycle recyclePeople />
         <h2>Ranking</h2>
 
         {pageLoading ? (

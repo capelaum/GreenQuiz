@@ -1,9 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
-import Logo from "../../public/Logo.svg";
 
 import { Button } from "../components/Button";
 import { LoadingScreen } from "../components/LoadingScreen";
+import { MainImages } from "../components/MainImages";
 
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
@@ -25,10 +24,10 @@ export default function QuizInfo() {
         <meta name="description" content="GreenQuiz | Info" />
       </Head>
       <div className="container">
-        <Image src={Logo} alt="GreenQuiz Logo" />
+        <MainImages recycle recyclePeople />
+        <h2>Informações do Quiz</h2>
 
         <div className={styles.quizInfo}>
-          <h2>Informações do Quiz</h2>
           <p>
             Esse Quiz possui <strong>{questionsIds.length} questões</strong> e
             um limite de tempo de <strong>1 minuto</strong> para responder cada

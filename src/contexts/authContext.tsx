@@ -99,8 +99,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           setUser(userFound.data());
         }
 
-        toast.success(`Bem vindo ${user.name}! 😄`, {
-          theme: "colored",
+        toast.success(`Bem vindo ${user.name}!`, {
+          theme: "light",
+          icon: "😄",
         });
       })
       .catch(error => {
@@ -117,8 +118,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .then(() => {
         setUserAuth(null);
         nookies.destroy(undefined, "token");
-        toast.info("Até mais 👋", {
-          theme: "colored",
+        toast.info("Até mais", {
+          theme: "light",
+          icon: "👋",
         });
         Router.push("/login");
       })

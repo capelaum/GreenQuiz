@@ -61,9 +61,10 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     //   return router.push("/");
     // }
 
-    toast.success("Boa sorte! 🍀", {
+    toast.success("Boa sorte!", {
       theme: "light",
       position: "top-left",
+      icon: "🍀",
     });
 
     user.answeredQuiz = true;
@@ -137,8 +138,9 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   }
 
   async function finishQuiz() {
-    toast(`Parabéns ${user.name}, você finalizou o quiz!! 🎉`, {
+    toast(`Parabéns ${user.name}, você finalizou o quiz!!`, {
       theme: "light",
+      icon: "🎉",
     });
     user.endTime = Date.now();
     user.duration = user.endTime - user.startTime;

@@ -4,6 +4,23 @@
   <span>🚧 Under Development 🚧</span>
 </div>
 
+## Instalation
+
+In the project root, install the dependencies with `yarn` or `npm install`:
+
+```bash
+yarn
+# or with npm
+npm i
+```
+
+Run in dev mode:
+
+```bash
+yarn dev
+```
+
+
 ## Features
 
 - Random choices
@@ -18,8 +35,10 @@
 - [Firebase][firebase]
 - [Nookies][nookies]
 - [Sass][sass]
-- [React Countdown Circle Timer][react_timer]
+- [NProgress bar][nprogress]
+- [React Toastify][toastify]
 - [React Loader Spinner][react_loader]
+- [React Countdown Circle Timer][react_timer]
 
 [sass]: https://sass-lang.com
 [next]: https://nextjs.org/docs
@@ -29,3 +48,4 @@
 [react_timer]: https://www.npmjs.com/package/react-countdown-circle-timer
 [react_loader]: https://www.npmjs.com/package/react-loader-spinner
 [nprogress]: https://www.npmjs.com/package/nprogress
+[toastify]: https://www.npmjs.com/package/react-toastify

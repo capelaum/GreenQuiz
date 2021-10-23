@@ -33,7 +33,7 @@ export function Question() {
   return (
     <div className={styles.question}>
       <QuestionText text={question.text} />
-      <Timer key={question.id} duration={5} />
+      <Timer key={question.id} duration={30} />
       {renderOptions()}
     </div>
   );

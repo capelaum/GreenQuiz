@@ -7,6 +7,8 @@ import {
   useRef,
   useState,
 } from "react";
+import { toast } from "react-toastify";
+
 import QuestionModel from "../models/question";
 import { useAuth } from "./authContext";
 import { updateUser } from "../services/firestore";
@@ -23,6 +25,7 @@ interface QuestionContextData {
   finishedTime: () => void;
   selectOption: (index: number) => void;
   startQuiz: () => void;
+  finishQuiz: () => void;
 }
 
 const QuestionContext = createContext<QuestionContextData>(
@@ -51,6 +54,18 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   }
 
   async function startQuiz() {
+    // if (user.answeredQuiz) {
+    //   toast.warn("Você já realizou esse quiz.. 😅", {
+    //     theme: "colored",
+    //   });
+    //   return router.push("/");
+    // }
+
+    toast.success("Boa sorte! 🍀", {
+      theme: "light",
+      position: "top-left",
+    });
+
     user.answeredQuiz = true;
     user.startTime = Date.now();
     user.score = 0;
@@ -60,9 +75,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
       await loadQuestion(questionsIds[0]);
     }
 
-    router.push({
-      pathname: "/quiz",
-    });
+    router.push("/quiz");
   }
 
   async function loadQuestion(questionId: number) {
@@ -81,6 +94,15 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
       const answeredQuestion = question.selectOption(index);
       setQuestion(answeredQuestion);
       // setScore(score + (answeredQuestion.isRight ? 1 : 0));
+      answeredQuestion.isRight
+        ? toast.success("Você acertou!", {
+            theme: "colored",
+            position: "top-left",
+          })
+        : toast.error("Você errou..", {
+            theme: "colored",
+            position: "top-left",
+          });
       user.score += answeredQuestion.isRight ? 1 : 0;
       await updateUser(user);
     }
@@ -100,7 +122,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     const finishedTimeQuestionId = questionRef.current.id;
 
     if (questionRef.current.isNotAnswered) {
-      setQuestion(question.selectOption(-1));
+      selectOption(-1);
     }
 
     setTimeout(() => {
@@ -115,6 +137,9 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   }
 
   async function finishQuiz() {
+    toast(`Parabéns ${user.name}, você finalizou o quiz!! 🎉`, {
+      theme: "light",
+    });
     user.endTime = Date.now();
     user.duration = user.endTime - user.startTime;
     await updateUser(user);
@@ -133,6 +158,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
         selectOption,
         finishedTime,
         startQuiz,
+        finishQuiz,
       }}
     >
       {children}

@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import Logo from "../../public/Logo.svg";
@@ -12,13 +11,10 @@ import { LoadingScreen } from "../components/LoadingScreen";
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
 
-import { updateUser } from "../services/firestore";
-
 import styles from "../styles/Quiz.module.scss";
 
 export default function QuizPage() {
-  const router = useRouter();
-  const { question } = useQuestion();
+  const { question, finishQuiz } = useQuestion();
   const { userAuth, user } = useAuth();
   const [bgColor, setBgColor] = useState("bg-green");
   const [imgProps, setImgProps] = useState({
@@ -29,12 +25,7 @@ export default function QuizPage() {
 
   const onQuestionChange = useCallback(async () => {
     if (!question && user) {
-      user.endTime = Date.now();
-      user.duration = user.endTime - user.startTime;
-      await updateUser(user);
-      router.push({
-        pathname: "/result",
-      });
+      finishQuiz();
     }
 
     if (question?.category === "recycle") {
@@ -60,7 +51,7 @@ export default function QuizPage() {
       imgProps.recycle = false;
       setImgProps(imgProps);
     }
-  }, [question, imgProps, user, router]);
+  }, [question, imgProps, user, finishQuiz]);
 
   useEffect(() => {
     onQuestionChange();

@@ -1,11 +1,13 @@
 import { AppProps } from "next/app";
 import Router from "next/router";
 import Nprogress from "nprogress";
+import { ToastContainer } from "react-toastify";
 
 import { QuestionProvider } from "../contexts/questionContext";
 import { AuthProvider } from "../contexts/authContext";
 
 import "../styles/globals.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 Nprogress.configure({ showSpinner: false });
 
@@ -18,6 +20,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     <AuthProvider>
       <QuestionProvider>
         <Component {...pageProps} />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </QuestionProvider>
     </AuthProvider>
   );

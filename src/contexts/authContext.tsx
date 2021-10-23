@@ -7,6 +7,7 @@ import {
 } from "react";
 import Router from "next/router";
 import nookies from "nookies";
+import { toast } from "react-toastify";
 
 import { firebaseApp } from "../services/firebase";
 import { addUser, getUserByEmail, User } from "../services/firestore";
@@ -97,6 +98,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         if (userFound) {
           setUser(userFound.data());
         }
+
+        toast.success(`Bem vindo ${user.name}!`, {
+          theme: "light",
+          icon: "😄",
+        });
       })
       .catch(error => {
         const { code, message, email } = error;
@@ -112,6 +118,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .then(() => {
         setUserAuth(null);
         nookies.destroy(undefined, "token");
+        toast.info("Até mais", {
+          theme: "light",
+          icon: "👋",
+        });
         Router.push("/login");
       })
       .catch(error => {

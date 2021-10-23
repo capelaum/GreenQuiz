@@ -1,0 +1,77 @@
+.awardsContainer {
+  background-color: #fff;
+  max-width: 1000px;
+  width: 600px;
+  margin: 40px 0px;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.awardItem {
+  width: 90%;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+
+  & + & {
+    border-top: 1px solid #000;
+  }
+
+  .place {
+    font-weight: bold;
+    margin-left: 20px;
+    white-space: nowrap;
+  }
+
+  .info {
+    width: 60%;
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 20px;
+      white-space: nowrap;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .awardsContainer {
+    width: 90%;
+  }
+
+  .awardItem {
+    justify-content: space-between;
+    font-size: 1.2rem;
+
+    .info {
+      width: 60%;
+      span {
+        white-space: nowrap;
+      }
+
+      & > div > div > img {
+        width: 30px !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .awardItem {
+    font-size: 1rem;
+    .info > div > div > img {
+      display: none !important;
+    }
+
+    .info span {
+      white-space: normal;
+    }
+  }
+}

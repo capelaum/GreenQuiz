@@ -3,6 +3,7 @@
   max-width: 1000px;
   padding: 40px;
   margin: 40px 20px;
+  border-radius: 8px;
 
   p {
     font-size: 1.125rem;
@@ -20,8 +21,6 @@
       color: blue;
     }
   }
-
-  border-radius: 8px;
 }
 
 @media (max-width: 576px) {

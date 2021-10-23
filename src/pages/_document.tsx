@@ -5,6 +5,12 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt-br">
         <Head>
+          <meta charSet="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
           <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -15,7 +21,11 @@ export default class MyDocument extends Document {
             name="description"
             content="♻ Green Quiz - O quiz sustentável!"
           />
+          <meta property="og:title" content="Green Quiz" />
+          <meta property="og:type" content="web app"/>
           <meta property="og:image" content="/public/leaf.png" />
+          <meta property="og:url" content="https://green-quiz.vercel.app" />
+          <meta property="og:description" content="♻ Green Quiz - O quiz sustentável!">
         </Head>
         <body>
           <Main />

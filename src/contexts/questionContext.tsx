@@ -37,8 +37,15 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   const router = useRouter();
   const { user } = useAuth();
 
+  useEffect(() => {
+    loadQuestionsIds();
+  }, []);
+
+  useEffect(() => {
+    questionRef.current = question;
+  }, [question]);
+
   async function loadQuestionsIds() {
-    // get quiz questions ids
     const response = await fetch("api/quiz");
     const questionIds = await response.json();
     setQuestionsIds(questionIds);
@@ -60,19 +67,15 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   }
 
   async function loadQuestion(questionId: number) {
-    const response = await fetch(`api/questions/${questionId}`);
-    const question = await response.json();
-    const newQuestion = QuestionModel.createInstanceFromObject(question);
-    setQuestion(newQuestion);
+    try {
+      const response = await fetch(`api/questions/${questionId}`);
+      const question = await response.json();
+      const newQuestion = QuestionModel.createInstanceFromObject(question);
+      setQuestion(newQuestion);
+    } catch (error) {
+      console.error(`Error loading question ${questionId}:`, error.message);
+    }
   }
-
-  useEffect(() => {
-    loadQuestionsIds();
-  }, []);
-
-  useEffect(() => {
-    questionRef.current = question;
-  }, [question]);
 
   async function selectOption(index: number) {
     if (question.isNotAnswered) {

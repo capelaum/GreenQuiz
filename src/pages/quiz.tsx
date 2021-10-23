@@ -51,11 +51,11 @@ export default function QuizPage() {
     }
   }, [question?.category, imgProps]);
 
-  // useEffect(() => {
-  //   if (!question) {
-  //     router.push("/");
-  //   }
-  // }, [question, router]);
+  useEffect(() => {
+    if (!question) {
+      router.push("/");
+    }
+  }, [question, router]);
 
   useEffect(() => {
     onQuestionChange();
@@ -77,8 +77,12 @@ export default function QuizPage() {
         </div>
 
         <MainImages isQuizPage {...imgProps} />
-        <QuizStats />
-        <Quiz />
+        {question && (
+          <>
+            <QuizStats />
+            <Quiz />
+          </>
+        )}
       </div>
     </>
   );

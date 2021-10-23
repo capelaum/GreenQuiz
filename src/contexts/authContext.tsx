@@ -78,13 +78,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         nookies.set(undefined, "token", token, {});
 
         const { uid, displayName: name, email } = result.user;
-        const findUser = await getUserByEmail(email);
+        const userFound = await getUserByEmail(email);
 
-        if (!findUser) {
+        if (!userFound) {
           const newUser = {
             uid,
             name,
             email,
+            score: 0,
             authProvider: "google",
             answeredQuiz: false,
           };
@@ -93,8 +94,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           setUser(newUser);
         }
 
-        if (findUser) {
-          setUser(findUser.data());
+        if (userFound) {
+          setUser(userFound.data());
         }
       })
       .catch(error => {

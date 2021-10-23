@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import Logo from "../../public/Logo.svg";
@@ -10,13 +11,15 @@ import { LoadingScreen } from "../components/LoadingScreen";
 
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
+
 import { updateUser } from "../services/firestore";
 
 import styles from "../styles/Quiz.module.scss";
 
 export default function QuizPage() {
-  const { userAuth, user } = useAuth();
+  const router = useRouter();
   const { question } = useQuestion();
+  const { userAuth, user } = useAuth();
   const [bgColor, setBgColor] = useState("bg-green");
   const [imgProps, setImgProps] = useState({
     recycle: true,
@@ -24,8 +27,17 @@ export default function QuizPage() {
     water: false,
   });
 
-  const onQuestionChange = useCallback(() => {
-    if (question.category === "recycle") {
+  const onQuestionChange = useCallback(async () => {
+    if (!question && user) {
+      user.endTime = Date.now();
+      user.duration = user.endTime - user.startTime;
+      await updateUser(user);
+      router.push({
+        pathname: "/result",
+      });
+    }
+
+    if (question?.category === "recycle") {
       setBgColor("bg-green");
       imgProps.recycle = true;
       imgProps.water = false;
@@ -33,7 +45,7 @@ export default function QuizPage() {
       setImgProps(imgProps);
     }
 
-    if (question.category === "energy") {
+    if (question?.category === "energy") {
       setBgColor("bg-yellow");
       imgProps.energy = true;
       imgProps.water = false;
@@ -41,28 +53,18 @@ export default function QuizPage() {
       setImgProps(imgProps);
     }
 
-    if (question.category === "water") {
+    if (question?.category === "water") {
       setBgColor("bg-blue");
       imgProps.water = true;
       imgProps.energy = false;
       imgProps.recycle = false;
       setImgProps(imgProps);
     }
-  }, [question?.category, imgProps]);
+  }, [question, imgProps, user, router]);
 
   useEffect(() => {
     onQuestionChange();
   }, [onQuestionChange]);
-
-  useEffect(() => {
-    (async () => {
-      if (user) {
-        user.answeredQuiz = true;
-        user.startTime = Date.now();
-        await updateUser(user);
-      }
-    })();
-  }, []);
 
   if (!userAuth) {
     return <LoadingScreen />;
@@ -80,8 +82,12 @@ export default function QuizPage() {
         </div>
 
         <MainImages isQuizPage {...imgProps} />
-        <QuizStats />
-        <Quiz />
+        {question && (
+          <>
+            <QuizStats />
+            <Quiz />
+          </>
+        )}
       </div>
     </>
   );

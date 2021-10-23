@@ -6,6 +6,7 @@ export default class QuestionModel {
     private _id: number,
     private _text: string,
     private _options: OptionModel[],
+    private _category: string,
     private _isRight: boolean = false
   ) {}
 
@@ -25,6 +26,10 @@ export default class QuestionModel {
     return this._isRight;
   }
 
+  get category() {
+    return this._category;
+  }
+
   get isAnswered() {
     for (let option of this.options) {
       if (option.isRevealed) return true;
@@ -42,7 +47,13 @@ export default class QuestionModel {
     const hasRevealed = this.options.some(option => option.isRevealed);
 
     if (hasRevealed)
-      return new QuestionModel(this.id, this.text, this.options, isRight);
+      return new QuestionModel(
+        this.id,
+        this.text,
+        this.options,
+        this.category,
+        isRight
+      );
 
     const options = this.options.map((option, i) => {
       const selectedOption = index === i;
@@ -50,12 +61,24 @@ export default class QuestionModel {
       return shouldReveal ? option.reveal() : option;
     });
 
-    return new QuestionModel(this.id, this.text, options, isRight);
+    return new QuestionModel(
+      this.id,
+      this.text,
+      options,
+      this.category,
+      isRight
+    );
   }
 
   shuffleOptions() {
     let shuffledOptions = shuffleOptions(this.options);
-    return new QuestionModel(this.id, this.text, shuffledOptions, this.isRight);
+    return new QuestionModel(
+      this.id,
+      this.text,
+      shuffledOptions,
+      this.category,
+      this.isRight
+    );
   }
 
   static createInstanceFromObject(question: QuestionModel): QuestionModel {
@@ -67,6 +90,7 @@ export default class QuestionModel {
       question._id,
       question._text,
       options,
+      question._category,
       question._isRight
     );
   }

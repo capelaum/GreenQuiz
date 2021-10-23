@@ -3,10 +3,10 @@ import Head from "next/head";
 import Image from "next/image";
 import Logo from "../../public/Logo.svg";
 
-import { LoadingScreen } from "../components/LoadingScreen";
 import { Quiz } from "../components/Quiz";
 import { QuizStats } from "../components/QuizStats";
 import { MainImages } from "../components/MainImages";
+import { LoadingScreen } from "../components/LoadingScreen";
 
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
@@ -14,26 +14,41 @@ import { updateUser } from "../services/firestore";
 
 import styles from "../styles/Quiz.module.scss";
 
-const quizBgColors = ["bg-green", "bg-yellow", "bg-blue"];
-
 export default function QuizPage() {
   const { userAuth, user } = useAuth();
   const { question } = useQuestion();
-  const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
+  const [bgColor, setBgColor] = useState("bg-green");
+  const [imgProps, setImgProps] = useState({
+    recycle: true,
+    energy: false,
+    water: false,
+  });
 
   const onQuestionChange = useCallback(() => {
-    if (question.category === "water") {
-      setBackgroundColorIndex(2);
+    if (question.category === "recycle") {
+      setBgColor("bg-green");
+      imgProps.recycle = true;
+      imgProps.water = false;
+      imgProps.energy = false;
+      setImgProps(imgProps);
     }
 
     if (question.category === "energy") {
-      setBackgroundColorIndex(1);
+      setBgColor("bg-yellow");
+      imgProps.energy = true;
+      imgProps.water = false;
+      imgProps.recycle = false;
+      setImgProps(imgProps);
     }
 
-    if (question.category === "recycle") {
-      setBackgroundColorIndex(0);
+    if (question.category === "water") {
+      setBgColor("bg-blue");
+      imgProps.water = true;
+      imgProps.energy = false;
+      imgProps.recycle = false;
+      setImgProps(imgProps);
     }
-  }, [question?.category]);
+  }, [question?.category, imgProps]);
 
   useEffect(() => {
     onQuestionChange();
@@ -47,9 +62,7 @@ export default function QuizPage() {
         await updateUser(user);
       }
     })();
-
-    // onQuestionChange();
-  });
+  }, []);
 
   if (!userAuth) {
     return <LoadingScreen />;
@@ -61,12 +74,12 @@ export default function QuizPage() {
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz" />
       </Head>
-      <div className={`container ${quizBgColors[backgroundColorIndex]}`}>
+      <div className={`container ${bgColor}`}>
         <div className={styles.logo}>
           <Image src={Logo} alt="GreenQuiz Logo" />
         </div>
-        <MainImages recycle recyclePeople isQuizPage />
 
+        <MainImages isQuizPage {...imgProps} />
         <QuizStats />
         <Quiz />
       </div>

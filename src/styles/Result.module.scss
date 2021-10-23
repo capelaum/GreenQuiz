@@ -6,3 +6,17 @@
 .resultStatisticsContainer {
   display: flex;
 }
+
+@media (max-width: 420px) {
+  .resultMessage {
+    margin-bottom: 40px;
+  }
+
+  .resultStatisticsContainer {
+    flex-direction: column;
+
+    &:last-child {
+      margin-bottom: 40px;
+    }
+  }
+}

@@ -23,7 +23,7 @@ export default class MyDocument extends Document {
           />
           <meta property="og:title" content="Green Quiz" />
           <meta property="og:type" content="web app" />
-          <meta property="og:image" content="/public/leaf.png" />
+          <meta property="og:image" content="leaf.png" />
           <meta property="og:url" content="https://green-quiz.vercel.app" />
           <meta
             property="og:description"

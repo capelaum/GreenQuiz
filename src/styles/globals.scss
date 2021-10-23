@@ -74,15 +74,15 @@ li {
 
   animation: fadeIn 0.5s both;
 
-  &.-green {
+  &.bg-green {
     background-color: var(--bg-color);
   }
 
-  &.-yellow {
+  &.bg-yellow {
     background-color: var(--yellow);
   }
 
-  &.-blue {
+  &.bg-blue {
     background-color: var(--blue);
   }
 }

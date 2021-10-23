@@ -8,7 +8,11 @@ import { useQuestion } from "../../contexts/questionContext";
 
 import styles from "./styles.module.scss";
 
-export function Quiz(props) {
+interface QuizProps {
+  onQuestionChange: () => void;
+}
+
+export function Quiz({ onQuestionChange }: QuizProps) {
   const { question, getNextQuestionId, handleNextQuestion } = useQuestion();
   const [pageLoading, setPageLoading] = useState<boolean>(true);
 
@@ -17,7 +21,7 @@ export function Quiz(props) {
       setPageLoading(false);
     }, 1000);
 
-    props.onQuestionChange()
+    onQuestionChange();
 
     setPageLoading(true);
   }, [question?.id]);

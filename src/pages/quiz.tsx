@@ -13,7 +13,7 @@ import { updateUser } from "../services/firestore";
 import styles from "../styles/Quiz.module.scss";
 import { MainImages } from "../components/MainImages";
 
-const COLORS = ['-green', '-yellow', '-blue']
+const quizBgColors = ["bg-green", "bg-yellow", "bg-blue"];
 
 export default function QuizPage() {
   const { userAuth, user } = useAuth();
@@ -21,8 +21,8 @@ export default function QuizPage() {
 
   const onQuestionChange = () => {
     const newBackgroundColorIndex = (backgroundColorIndex + 1) % 3;
-    setBackgroundColorIndex(newBackgroundColorIndex)
-  }
+    setBackgroundColorIndex(newBackgroundColorIndex);
+  };
 
   useEffect(() => {
     (async () => {
@@ -44,7 +44,7 @@ export default function QuizPage() {
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz" />
       </Head>
-      <div className={`container ${COLORS[backgroundColorIndex]}`}>
+      <div className={`container ${quizBgColors[backgroundColorIndex]}`}>
         <div className={styles.logo}>
           <Image src={Logo} alt="GreenQuiz Logo" />
         </div>

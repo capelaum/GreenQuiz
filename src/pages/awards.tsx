@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Image from "next/image";
-import Logo from "../../public/Logo.svg";
 import Jeep from "../../public/icons/jeep.svg";
 import Plant from "../../public/icons/plant.svg";
 import Book from "../../public/icons/book.svg";
@@ -11,6 +10,7 @@ import { LoadingScreen } from "../components/LoadingScreen";
 import { useAuth } from "../contexts/authContext";
 
 import styles from "../styles/Awards.module.scss";
+import { MainImages } from "../components/MainImages";
 
 const awardItens = [
   { place: 1, imgSrc: Jeep, imgAlt: "Jipe legal 🚗", info: "Visita ao safari" },
@@ -37,8 +37,7 @@ export default function Ranking() {
         <meta name="description" content="Green Quiz | Prêmios" />
       </Head>
       <div className="container">
-        <Image src={Logo} alt="GreenQuiz Logo" />
-
+        <MainImages trophy result />
         <h2>Prêmios</h2>
 
         <div className={styles.awardsContainer}>

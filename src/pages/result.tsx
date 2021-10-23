@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import { Button } from "../components/Button";
 import { LoadingScreen } from "../components/LoadingScreen";
+import { MainImages } from "../components/MainImages";
 import { ResultStatistic } from "../components/ResultStatistic";
 
 import { useAuth } from "../contexts/authContext";
@@ -28,7 +29,7 @@ export default function Result() {
         await updateUser(user);
       }
     })();
-  }, []);
+  });
 
   if (!userAuth) {
     return <LoadingScreen />;
@@ -40,9 +41,11 @@ export default function Result() {
         <title>Green Quiz | Resultado</title>
         <meta name="description" content="Green Quiz" />
       </Head>
-      <div className={styles.result}>
-        <h1>🎉 Resultado 🎉</h1>
-        <h2>{user ? user.name : "Usuário"}</h2>
+      <div className="container">
+        <MainImages trophy result />
+        <h2 className={styles.resultMessage}>
+          {user ? user.name : "Usuário"}, seu resultado nesse quiz foi..
+        </h2>
         <div className={styles.resultStatisticsContainer}>
           <ResultStatistic text={"Perguntas"} value={total} />
           <ResultStatistic

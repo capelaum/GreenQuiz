@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import Logo from "../../public/Logo.svg";
@@ -10,13 +11,13 @@ import { LoadingScreen } from "../components/LoadingScreen";
 
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
-import { updateUser } from "../services/firestore";
 
 import styles from "../styles/Quiz.module.scss";
 
 export default function QuizPage() {
-  const { userAuth, user } = useAuth();
+  const router = useRouter();
   const { question } = useQuestion();
+  const { userAuth } = useAuth();
   const [bgColor, setBgColor] = useState("bg-green");
   const [imgProps, setImgProps] = useState({
     recycle: true,
@@ -50,19 +51,15 @@ export default function QuizPage() {
     }
   }, [question?.category, imgProps]);
 
+  // useEffect(() => {
+  //   if (!question) {
+  //     router.push("/");
+  //   }
+  // }, [question, router]);
+
   useEffect(() => {
     onQuestionChange();
   }, [onQuestionChange]);
-
-  useEffect(() => {
-    (async () => {
-      if (user) {
-        user.answeredQuiz = true;
-        user.startTime = Date.now();
-        await updateUser(user);
-      }
-    })();
-  }, []);
 
   if (!userAuth) {
     return <LoadingScreen />;

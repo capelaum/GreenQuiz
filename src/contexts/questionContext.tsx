@@ -1,3 +1,4 @@
+import Router from "next/router";
 import { useRouter } from "next/router";
 import {
   createContext,
@@ -8,6 +9,8 @@ import {
   useState,
 } from "react";
 import QuestionModel from "../models/question";
+import { useAuth } from "./authContext";
+import { updateUser } from "../services/firestore";
 
 interface QuestionProviderProps {
   children: ReactNode;
@@ -16,12 +19,11 @@ interface QuestionProviderProps {
 interface QuestionContextData {
   question: QuestionModel;
   questionsIds: number[];
-  score: number;
   getNextQuestionId: () => void;
   handleNextQuestion: () => void;
   finishedTime: () => void;
   selectOption: (index: number) => void;
-  resetQuiz: () => void;
+  startQuiz: () => void;
 }
 
 const QuestionContext = createContext<QuestionContextData>(
@@ -29,18 +31,32 @@ const QuestionContext = createContext<QuestionContextData>(
 );
 
 export function QuestionProvider({ children }: QuestionProviderProps) {
-  const router = useRouter();
-
   const [question, setQuestion] = useState<QuestionModel>();
   const [questionsIds, setQuestionsIds] = useState<number[]>([]);
-  const [score, setScore] = useState<number>(0);
   const questionRef = useRef<QuestionModel>();
+  const router = useRouter();
+  const { user } = useAuth();
 
   async function loadQuestionsIds() {
+    // get quiz questions ids
     const response = await fetch("api/quiz");
     const questionIds = await response.json();
-
     setQuestionsIds(questionIds);
+  }
+
+  async function startQuiz() {
+    user.answeredQuiz = true;
+    user.startTime = Date.now();
+    user.score = 0;
+    await updateUser(user);
+
+    if (questionsIds.length > 0) {
+      loadQuestion(questionsIds[0]);
+    }
+
+    router.push({
+      pathname: "/quiz",
+    });
   }
 
   async function loadQuestion(questionId: number) {
@@ -55,20 +71,16 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   }, []);
 
   useEffect(() => {
-    if (questionsIds.length > 0) {
-      loadQuestion(questionsIds[0]);
-    }
-  }, [questionsIds]);
-
-  useEffect(() => {
     questionRef.current = question;
   }, [question]);
 
-  function selectOption(index: number) {
+  async function selectOption(index: number) {
     if (question.isNotAnswered) {
       const answeredQuestion = question.selectOption(index);
       setQuestion(answeredQuestion);
-      setScore(score + (answeredQuestion.isRight ? 1 : 0));
+      // setScore(score + (answeredQuestion.isRight ? 1 : 0));
+      user.score += answeredQuestion.isRight ? 1 : 0;
+      await updateUser(user);
     }
   }
 
@@ -100,17 +112,13 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     }, 5000);
   }
 
-  function finishQuiz() {
+  async function finishQuiz() {
+    user.endTime = Date.now();
+    user.duration = user.endTime - user.startTime;
+    await updateUser(user);
     router.push({
       pathname: "/result",
     });
-  }
-
-  function resetQuiz() {
-    setScore(0);
-    loadQuestion(questionsIds[0]);
-
-    router.push("/");
   }
 
   return (
@@ -118,12 +126,11 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
       value={{
         question,
         questionsIds,
-        score,
         handleNextQuestion,
         getNextQuestionId,
         selectOption,
         finishedTime,
-        resetQuiz,
+        startQuiz,
       }}
     >
       {children}

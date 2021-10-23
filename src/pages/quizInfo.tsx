@@ -10,7 +10,7 @@ import { useQuestion } from "../contexts/questionContext";
 import styles from "../styles/QuizInfo.module.scss";
 
 export default function QuizInfo() {
-  const { questionsIds } = useQuestion();
+  const { questionsIds, startQuiz } = useQuestion();
   const { userAuth } = useAuth();
 
   if (!userAuth) {
@@ -47,7 +47,7 @@ export default function QuizInfo() {
 
         <div className={styles.buttonsContainer}>
           <Button text="Menu" href="/" />
-          <Button text="Iniciar" href="/quiz" />
+          <Button text="Iniciar" onClick={startQuiz} />
         </div>
       </div>
     </>

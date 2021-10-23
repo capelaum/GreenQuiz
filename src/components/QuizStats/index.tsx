@@ -1,9 +1,11 @@
 import { useQuestion } from "../../contexts/questionContext";
+import { useAuth } from "../../contexts/authContext";
 
 import styles from "./styles.module.scss";
 
 export function QuizStats() {
-  const { question, questionsIds, score } = useQuestion();
+  const { question, questionsIds } = useQuestion();
+  const { user } = useAuth();
 
   return (
     <>
@@ -12,7 +14,7 @@ export function QuizStats() {
           Pergunta:{" "}
           {`${questionsIds.indexOf(question?.id) + 1}/${questionsIds.length}`}
         </p>
-        <p>Score: {score}</p>
+        <p>Score: {user.score}</p>
       </div>
     </>
   );

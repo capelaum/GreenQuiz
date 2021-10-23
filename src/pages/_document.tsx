@@ -11,6 +11,11 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700&display=swap"
             rel="stylesheet"
           />
+          <meta
+            name="description"
+            content="♻ Green Quiz - O quiz sustentável!"
+          />
+          <meta property="og:image" content="/public/leaf.png" />
         </Head>
         <body>
           <Main />

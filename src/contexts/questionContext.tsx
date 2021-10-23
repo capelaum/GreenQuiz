@@ -58,7 +58,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     await updateUser(user);
 
     if (questionsIds.length > 0) {
-      loadQuestion(questionsIds[0]);
+      await loadQuestion(questionsIds[0]);
     }
 
     router.push({

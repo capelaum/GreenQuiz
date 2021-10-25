@@ -30,7 +30,7 @@ export default function QuizInfo() {
         <div className={styles.quizInfo}>
           <p>
             Esse Quiz possui <strong>{questionsIds.length} questões</strong> e
-            um limite de tempo de <strong>1 minuto</strong> para responder cada
+            um limite de tempo de <strong>30 segundos</strong> para responder cada
             questão.
             <br />
             <br />A <strong>duração</strong> da realização do quiz será

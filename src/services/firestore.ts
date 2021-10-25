@@ -30,6 +30,7 @@ const addUser = async (user: User) => {
     const usersCollection = collection(db, "users");
     const docRef = await addDoc(usersCollection, user);
 
+    console.log("User: ", user.name);
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);

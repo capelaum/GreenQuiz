@@ -22,7 +22,8 @@ export default function Ranking() {
   useEffect(() => {
     (async () => {
       const users = await getUsers();
-      const sortedUsers = sortUsersByScore(users);
+      const usersThatAnsweredQuiz = users.filter(user => user.answeredQuiz);
+      const sortedUsers = sortUsersByScore(usersThatAnsweredQuiz);
       setUsers(sortedUsers);
     })();
   }, []);

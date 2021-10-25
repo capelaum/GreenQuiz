@@ -15,6 +15,10 @@
 
 #### :brazil: Language: (pt_br) brazilian portuguese
 
+## 💻 Project
+
+This project user the google social login and it's main objective is to test your knowledge of sustainability using a quiz, with 4 asnwer options per question. After finishing the quiz, it saves your score and result stats in a ranking.
+
 ## Running locally
 
 ### Firebase configuration
@@ -52,8 +56,8 @@ yarn dev
 
 ## Features
 
-- Random questions
-- Random choices
+- Random questions order
+- Random options order
 - Timer
 - Ranking
 
@@ -73,7 +77,7 @@ Você pode visualizar o layout do projeto através [desse link][figma_layout]. �
 - [React Loader Spinner][react_loader]
 - [React Countdown Circle Timer][react_timer]
 
-## :memo: Licença
+## :memo: Licence
 
 This project is under the MIT license. See the file [LICENSE](.github/LICENSE) for more details.
 

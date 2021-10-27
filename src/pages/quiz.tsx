@@ -30,28 +30,31 @@ export default function QuizPage() {
 
     if (question?.category === "recycle") {
       setBgColor("bg-green");
-      imgProps.recycle = true;
-      imgProps.water = false;
-      imgProps.energy = false;
-      setImgProps(imgProps);
+      setImgProps({
+        recycle: true,
+        energy: false,
+        water: false,
+      });
     }
 
     if (question?.category === "energy") {
       setBgColor("bg-yellow");
-      imgProps.energy = true;
-      imgProps.water = false;
-      imgProps.recycle = false;
-      setImgProps(imgProps);
+      setImgProps({
+        recycle: false,
+        energy: true,
+        water: false,
+      });
     }
 
     if (question?.category === "water") {
       setBgColor("bg-blue");
-      imgProps.water = true;
-      imgProps.energy = false;
-      imgProps.recycle = false;
-      setImgProps(imgProps);
+      setImgProps({
+        recycle: false,
+        energy: false,
+        water: true,
+      });
     }
-  }, [question, imgProps, user, finishQuiz]);
+  }, [question, user, finishQuiz]);
 
   useEffect(() => {
     onQuestionChange();

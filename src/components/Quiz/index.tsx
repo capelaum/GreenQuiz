@@ -30,6 +30,7 @@ export function Quiz() {
 
           <Button
             onClick={handleNextQuestion}
+            disabled={!question.isAnswered}
             text={getNextQuestionId() === undefined ? "Finalizar" : "Próxima"}
           />
         </div>

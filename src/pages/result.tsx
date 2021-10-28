@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import { Button } from "../components/Button";
+import { Container } from "../components/Container";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { MainImages } from "../components/MainImages";
 import { ResultStatistic } from "../components/ResultStatistic";
@@ -27,7 +28,7 @@ export default function Result() {
         <title>Green Quiz | Resultado</title>
         <meta name="description" content="Green Quiz" />
       </Head>
-      <div className="container">
+      <Container>
         <MainImages trophy result />
         <h2 className={styles.resultMessage}>
           {user ? user.name : "Usuário"}, seu resultado nesse quiz foi..
@@ -42,7 +43,7 @@ export default function Result() {
           <ResultStatistic text={"Percentual"} value={`${percent}%`} />
         </div>
         <Button href="/" text="Menu" />
-      </div>
+      </Container>
     </>
   );
 }

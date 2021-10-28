@@ -11,6 +11,7 @@ import { useAuth } from "../contexts/authContext";
 
 import styles from "../styles/Awards.module.scss";
 import { MainImages } from "../components/MainImages";
+import { Container } from "../components/Container";
 
 const awardItens = [
   { place: 1, imgSrc: Jeep, imgAlt: "Jipe legal 🚗", info: "Visita ao safari" },
@@ -36,7 +37,7 @@ export default function Ranking() {
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz | Prêmios" />
       </Head>
-      <div className="container">
+      <Container>
         <MainImages trophy result />
         <h2>Prêmios</h2>
 
@@ -53,7 +54,7 @@ export default function Ranking() {
         </div>
 
         <Button text="Menu" href="/" />
-      </div>
+      </Container>
     </>
   );
 }

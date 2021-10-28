@@ -1,0 +1,31 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  padding: 40px 20px;
+  overflow: hidden;
+  position: relative;
+
+  animation: fadeIn 0.5s both;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    top: 20px;
+  }
+  100% {
+    opacity: 1;
+    top: 0px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 20px;
+  }
+}

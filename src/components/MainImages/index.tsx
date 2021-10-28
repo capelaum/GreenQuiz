@@ -7,6 +7,8 @@ import Trophy from "../../../public/symbols/trophy.svg";
 import Water from "../../../public/symbols/water.svg";
 import Energy from "../../../public/symbols/energy.svg";
 
+import styles from "./styles.module.scss";
+
 interface MainImagesProps {
   isQuizPage?: boolean;
   recycle?: boolean;
@@ -31,37 +33,37 @@ export function MainImages({
       {!isQuizPage && <Image src={Logo} alt="GreenQuiz Logo" />}
 
       {recycle && (
-        <div className="asideImg">
+        <div className={styles.asideImg}>
           <Image src={Recycle} alt="Recycle Symbol" />
         </div>
       )}
 
       {trophy && (
-        <div className="asideImg">
+        <div className={styles.asideImg}>
           <Image src={Trophy} alt="Trophy Symbol" />
         </div>
       )}
 
       {energy && (
-        <div className="asideImg">
+        <div className={styles.asideImg}>
           <Image src={Energy} alt="Energy Symbol" />
         </div>
       )}
 
       {water && (
-        <div className="asideImg">
+        <div className={styles.asideImg}>
           <Image src={Water} alt="Water Symbol" />
         </div>
       )}
 
       {recyclePeople && (
-        <div className="bottomImg">
+        <div className={styles.bottomImg}>
           <Image src={RecyclePeople} alt="Recycle People" />
         </div>
       )}
 
       {result && (
-        <div className="bottomImg">
+        <div className={styles.bottomImg}>
           <Image src={Result} alt="Win!" />
         </div>
       )}

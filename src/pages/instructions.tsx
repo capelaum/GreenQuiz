@@ -2,6 +2,7 @@ import Head from "next/head";
 import React from "react";
 
 import { Button } from "../components/Button";
+import { Container } from "../components/Container";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { MainImages } from "../components/MainImages";
 
@@ -22,7 +23,7 @@ export default function Ranking() {
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz | Instruções" />
       </Head>
-      <div className="container">
+      <Container>
         <MainImages recycle recyclePeople />
         <h2>Instruções</h2>
 
@@ -69,7 +70,7 @@ export default function Ranking() {
         </div>
 
         <Button text="Menu" href="/" />
-      </div>
+      </Container>
     </>
   );
 }

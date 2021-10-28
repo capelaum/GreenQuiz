@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import { Button } from "../components/Button";
+import { Container } from "../components/Container";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { MainImages } from "../components/MainImages";
 
@@ -23,15 +24,15 @@ export default function QuizInfo() {
         <title>Green Quiz | Quiz Info</title>
         <meta name="description" content="GreenQuiz | Info" />
       </Head>
-      <div className="container">
+      <Container>
         <MainImages recycle recyclePeople />
         <h2>Informações do Quiz</h2>
 
         <div className={styles.quizInfo}>
           <p>
             Esse Quiz possui <strong>{questionsIds.length} questões</strong> e
-            um limite de tempo de <strong>30 segundos</strong> para responder cada
-            questão.
+            um limite de tempo de <strong>30 segundos</strong> para responder
+            cada questão.
             <br />
             <br />A <strong>duração</strong> da realização do quiz será
             utilizada como critério de desempate no ranking.
@@ -49,7 +50,7 @@ export default function QuizInfo() {
           <Button text="Menu" href="/" />
           <Button text="Iniciar" onClick={startQuiz} />
         </div>
-      </div>
+      </Container>
     </>
   );
 }

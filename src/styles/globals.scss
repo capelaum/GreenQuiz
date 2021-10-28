@@ -20,12 +20,6 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: var(--bg-color);
   color: #333;
-  // min-height: 100vh;
-
-  // background-image: url("/recycle-people.svg"), url("/recycle-symbol.png");
-  // background-position: right bottom, left;
-  // background-repeat: no-repeat;
-  // background-size: 50vh, 40vh;
 }
 
 @media (max-width: 1080px) {
@@ -61,66 +55,14 @@ li {
   list-style: none;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  height: 100%;
-  width: 100%;
-  padding: 40px 20px;
-  overflow: hidden;
-  position: relative;
-
-  animation: fadeIn 0.5s both;
-
-  &.bg-green {
-    background-color: var(--bg-color);
-  }
-
-  &.bg-yellow {
-    background-color: var(--yellow);
-  }
-
-  &.bg-blue {
-    background-color: var(--blue);
-  }
+.bg-green {
+  background-color: var(--bg-color);
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    top: 20px;
-  }
-  100% {
-    opacity: 1;
-    top: 0px;
-  }
+.bg-yellow {
+  background-color: var(--yellow);
 }
 
-.asideImg {
-  position: absolute;
-  left: 0;
-  top: 15%;
-  z-index: -3;
-}
-
-.bottomImg {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 600px;
-  z-index: -1;
-}
-
-@media (max-width: 1200px) {
-  .bottomImg {
-    width: 450px;
-  }
-}
-
-@media (max-width: 576px) {
-  .container {
-    padding: 20px;
-  }
+.bg-blue {
+  background-color: var(--blue);
 }

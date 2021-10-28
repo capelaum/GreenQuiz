@@ -8,6 +8,7 @@ import { MainImages } from "../components/MainImages";
 import { useAuth } from "../contexts/authContext";
 
 import styles from "../styles/Login.module.scss";
+import { Container } from "../components/Container";
 
 export default function Login() {
   const { userAuth, sigInWithGoogle } = useAuth();
@@ -25,7 +26,7 @@ export default function Login() {
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz | Login" />
       </Head>
-      <div className="container">
+      <Container>
         <MainImages recycle recyclePeople />
 
         <div className={styles.loginBox}>
@@ -35,7 +36,7 @@ export default function Login() {
             <span>Login com Google</span>
           </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 }

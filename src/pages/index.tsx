@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { Container } from "../components/Container";
 
 import { LoadingScreen } from "../components/LoadingScreen";
 import { MainImages } from "../components/MainImages";
@@ -21,7 +22,7 @@ export default function Menu() {
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz | Menu" />
       </Head>
-      <div className="container">
+      <Container>
         <MainImages recycle recyclePeople />
 
         <h2 className={styles.welcomeMsg}>
@@ -53,7 +54,7 @@ export default function Menu() {
             Sair
           </li>
         </ul>
-      </div>
+      </Container>
     </>
   );
 }

@@ -1,0 +1,21 @@
+
+.asideImg {
+  position: absolute;
+  left: 0;
+  top: 15%;
+  z-index: -3;
+}
+
+.bottomImg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 600px;
+  z-index: -1;
+}
+
+@media (max-width: 1200px) {
+  .bottomImg {
+    width: 450px;
+  }
+}

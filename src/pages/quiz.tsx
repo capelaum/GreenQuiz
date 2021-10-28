@@ -5,6 +5,7 @@ import Logo from "../../public/Logo.svg";
 
 import { Quiz } from "../components/Quiz";
 import { QuizStats } from "../components/QuizStats";
+import { Container } from "../components/Container";
 import { MainImages } from "../components/MainImages";
 import { LoadingScreen } from "../components/LoadingScreen";
 
@@ -70,7 +71,7 @@ export default function QuizPage() {
         <title>Green Quiz</title>
         <meta name="description" content="Green Quiz" />
       </Head>
-      <div className={`container ${bgColor}`}>
+      <Container bgColor={bgColor}>
         <div className={styles.logo}>
           <Image src={Logo} alt="GreenQuiz Logo" />
         </div>
@@ -82,7 +83,7 @@ export default function QuizPage() {
             <Quiz />
           </>
         )}
-      </div>
+      </Container>
     </>
   );
 }

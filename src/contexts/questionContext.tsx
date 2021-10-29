@@ -9,9 +9,10 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 
-import QuestionModel from "../models/question";
 import { useAuth } from "./authContext";
 import { updateUser } from "../services/firestore";
+
+import QuestionModel from "../models/question";
 
 interface QuestionProviderProps {
   children: ReactNode;

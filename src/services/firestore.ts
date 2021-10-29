@@ -1,7 +1,6 @@
 import { firebaseApp } from "./firebase";
 import {
   getFirestore,
-  Firestore,
   collection,
   addDoc,
   getDocs,
@@ -11,7 +10,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 
-const db = getFirestore(firebaseApp);
+export const db = getFirestore(firebaseApp);
 
 export type User = {
   uid: string;
@@ -71,4 +70,4 @@ const updateUser = async (user: User) => {
   await setDoc(doc(db, "users", docRef), updatedUser);
 };
 
-export { db, addUser, getUsers, getUserByEmail, updateUser };
+export { addUser, getUsers, getUserByEmail, updateUser };

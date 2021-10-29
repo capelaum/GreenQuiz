@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+
 import Head from "next/head";
 import Image from "next/image";
 import Logo from "../../public/Logo.svg";
@@ -9,12 +10,19 @@ import { Container } from "../components/Container";
 import { MainImages } from "../components/MainImages";
 import { LoadingScreen } from "../components/LoadingScreen";
 
+import QuestionModel from "../models/question";
+
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
 
 import styles from "../styles/Quiz.module.scss";
 
-export default function QuizPage() {
+interface QuizPageProps {
+  questionsIds?: number[];
+  newQuestion?: QuestionModel;
+}
+
+export default function QuizPage({ questionsIds, newQuestion }: QuizPageProps) {
   const { question, finishQuiz } = useQuestion();
   const { userAuth, user } = useAuth();
   const [bgColor, setBgColor] = useState("bg-green");
@@ -23,6 +31,8 @@ export default function QuizPage() {
     energy: false,
     water: false,
   });
+
+  console.log(questionsIds, newQuestion);
 
   const onQuestionChange = useCallback(async () => {
     if (!question && user) {
@@ -87,3 +97,20 @@ export default function QuizPage() {
     </>
   );
 }
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   try {
+//     const questions = await getQuestionsDb();
+//     const questionsIds = shuffleNumbers(questions.map(question => question.id));
+
+//   } catch (error) {
+//     console.error(
+//       "Ocorreu um erro ao pegar as questões da api:",
+//       error.message
+//     );
+//   }
+
+//   return {
+//     props: {},
+//   };
+// };

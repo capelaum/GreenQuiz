@@ -32,8 +32,6 @@ export default function QuizPage({ questionsIds, newQuestion }: QuizPageProps) {
     water: false,
   });
 
-  console.log(questionsIds, newQuestion);
-
   const onQuestionChange = useCallback(async () => {
     if (!question && user) {
       finishQuiz();

@@ -27,6 +27,7 @@ interface QuestionContextData {
   selectOption: (index: number) => void;
   startQuiz: () => void;
   finishQuiz: () => void;
+  loadQuestionsIds: () => void;
 }
 
 const QuestionContext = createContext<QuestionContextData>(
@@ -39,10 +40,6 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   const questionRef = useRef<QuestionModel>();
   const router = useRouter();
   const { user } = useAuth();
-
-  useEffect(() => {
-    loadQuestionsIds();
-  }, []);
 
   useEffect(() => {
     questionRef.current = question;
@@ -162,6 +159,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
         finishedTime,
         startQuiz,
         finishQuiz,
+        loadQuestionsIds,
       }}
     >
       {children}

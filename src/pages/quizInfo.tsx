@@ -12,12 +12,12 @@ import { useQuestion } from "../contexts/questionContext";
 import styles from "../styles/QuizInfo.module.scss";
 
 export default function QuizInfo() {
-  const { questionsIds, startQuiz, loadQuestionsIds } = useQuestion();
+  const { questions, startQuiz, loadQuestions } = useQuestion();
   const { userAuth } = useAuth();
 
   useEffect(() => {
-    console.log("Pegando questionsIds");
-    loadQuestionsIds();
+    console.log("Load questions");
+    loadQuestions();
   }, []);
 
   if (!userAuth) {
@@ -36,9 +36,9 @@ export default function QuizInfo() {
 
         <div className={styles.quizInfo}>
           <p>
-            Esse Quiz possui <strong>{questionsIds.length} questões</strong> e
-            um limite de tempo de <strong>30 segundos</strong> para responder
-            cada questão.
+            Esse Quiz possui <strong>{questions.length} questões</strong> e um
+            limite de tempo de <strong>30 segundos</strong> para responder cada
+            questão.
             <br />
             <br />A <strong>duração</strong> da realização do quiz será
             utilizada como critério de desempate no ranking.

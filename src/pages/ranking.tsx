@@ -14,11 +14,11 @@ import styles from "../styles/Ranking.module.scss";
 
 export default function Ranking() {
   const { userAuth } = useAuth();
-  const { questionsIds } = useQuestion();
+  const { questions } = useQuestion();
   const [users, setUsers] = useState<User[]>([]);
   const [pageLoading, setPageLoading] = useState<boolean>(true);
 
-  const total = questionsIds.length;
+  const total = questions.length;
 
   useEffect(() => {
     (async () => {

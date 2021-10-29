@@ -17,12 +17,7 @@ import { useQuestion } from "../contexts/questionContext";
 
 import styles from "../styles/Quiz.module.scss";
 
-interface QuizPageProps {
-  questionsIds?: number[];
-  newQuestion?: QuestionModel;
-}
-
-export default function QuizPage({ questionsIds, newQuestion }: QuizPageProps) {
+export default function QuizPage() {
   const { question, finishQuiz } = useQuestion();
   const { userAuth, user } = useAuth();
   const [bgColor, setBgColor] = useState("bg-green");

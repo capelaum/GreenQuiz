@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { shuffleNumbers } from "../../../functions/arrayFunctions";
-import { getQuestionsDb } from "../questionsDb";
+import { getQuestionsDb } from "../../../services/questions";
 
 export default async function getQuiz(
   req: NextApiRequest,

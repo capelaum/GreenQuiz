@@ -12,10 +12,10 @@ import { useQuestion } from "../contexts/questionContext";
 import styles from "../styles/Result.module.scss";
 
 export default function Result() {
-  const { questionsIds } = useQuestion();
+  const { questions } = useQuestion();
   const { user, userAuth } = useAuth();
 
-  const total = questionsIds.length;
+  const total = questions.length;
   const percent = Math.round((user?.score / total) * 100);
 
   if (!userAuth) {

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getQuestionsDb } from "../questionsDb";
+import { getQuestionsDb } from "../../../services/questions";
 
 export default async function getAllQuestions(
   req: NextApiRequest,

@@ -10,6 +10,10 @@ import {
 
 import { db } from "./firestore";
 
+import OptionModel from "../models/option";
+import QuestionModel from "../models/question";
+import { shuffleNumbers, shuffleQuestions } from "../functions/arrayFunctions";
+
 export type Option = {
   text: string;
   isCorrect: boolean;
@@ -34,7 +38,7 @@ const addQuestion = async (question: Question) => {
   }
 };
 
-const getQuestions = async () => {
+const getQuestionsDb = async () => {
   const questionsCollection = collection(db, "questions");
   const questionsSnapshot = await getDocs(questionsCollection);
   const questionsList = questionsSnapshot.docs.map(
@@ -43,6 +47,24 @@ const getQuestions = async () => {
 
   return questionsList;
 };
+
+async function getQuestions() {
+  const firestoreQuestions = await getQuestionsDb();
+
+  const questions = firestoreQuestions.map(
+    ({ id, text, options, category }) => {
+      const questionOptions = options.map(({ text, isCorrect }) => {
+        return isCorrect
+          ? OptionModel.isCorrect(text)
+          : OptionModel.isWrong(text);
+      });
+
+      return new QuestionModel(id, text, questionOptions, category);
+    }
+  );
+
+  return shuffleQuestions(questions);
+}
 
 const getQuestionById = async (questionId: number) => {
   const questionsCollection = collection(db, "questions");
@@ -70,4 +92,11 @@ const updateQuestion = async (question: Question) => {
   await setDoc(doc(db, "questions", docRef), updatedQuestion);
 };
 
-export { db, addQuestion, getQuestions, getQuestionById, updateQuestion };
+export {
+  db,
+  addQuestion,
+  getQuestions,
+  getQuestionsDb,
+  getQuestionById,
+  updateQuestion,
+};

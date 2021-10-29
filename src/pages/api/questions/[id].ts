@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getQuestionsDb } from "../questionsDb";
+import { getQuestions } from "../../../services/questions";
 
 export default async function getQuestion(
   req: NextApiRequest,
@@ -7,8 +7,7 @@ export default async function getQuestion(
 ) {
   const selectedId = +req.query.id;
   try {
-    const questions = await getQuestionsDb();
-
+    const questions = await getQuestions();
     const selectedQuestion = questions.find(
       question => question.id === selectedId
     );

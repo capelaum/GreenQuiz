@@ -13,6 +13,8 @@ import { useAuth } from "./authContext";
 import { updateUser } from "../services/firestore";
 
 import QuestionModel from "../models/question";
+import { getQuestions, getQuestionsDb, Question } from "../services/questions";
+import OptionModel from "../models/option";
 
 interface QuestionProviderProps {
   children: ReactNode;
@@ -20,14 +22,14 @@ interface QuestionProviderProps {
 
 interface QuestionContextData {
   question: QuestionModel;
-  questionsIds: number[];
+  questions: QuestionModel[];
   getNextQuestionId: () => void;
   handleNextQuestion: () => void;
   finishedTime: () => void;
   selectOption: (index: number) => void;
   startQuiz: () => void;
   finishQuiz: () => void;
-  loadQuestionsIds: () => void;
+  loadQuestions: () => void;
 }
 
 const QuestionContext = createContext<QuestionContextData>(
@@ -36,7 +38,8 @@ const QuestionContext = createContext<QuestionContextData>(
 
 export function QuestionProvider({ children }: QuestionProviderProps) {
   const [question, setQuestion] = useState<QuestionModel>();
-  const [questionsIds, setQuestionsIds] = useState<number[]>([]);
+  // const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [questions, setQuestions] = useState<QuestionModel[]>([]);
   const questionRef = useRef<QuestionModel>();
   const router = useRouter();
   const { user } = useAuth();
@@ -45,10 +48,9 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     questionRef.current = question;
   }, [question]);
 
-  async function loadQuestionsIds() {
-    const response = await fetch("api/quiz");
-    const questionIds = await response.json();
-    setQuestionsIds(questionIds);
+  async function loadQuestions() {
+    const questions = await getQuestions();
+    setQuestions(questions);
   }
 
   async function startQuiz() {
@@ -70,22 +72,15 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     user.score = 0;
     await updateUser(user);
 
-    if (questionsIds.length > 0) {
-      await loadQuestion(questionsIds[0]);
+    if (questions.length > 0) {
+      await loadQuestion(questions[0]);
     }
 
     router.push("/quiz");
   }
 
-  async function loadQuestion(questionId: number) {
-    try {
-      const response = await fetch(`api/questions/${questionId}`);
-      const question = await response.json();
-      const newQuestion = QuestionModel.createInstanceFromObject(question);
-      setQuestion(newQuestion);
-    } catch (error) {
-      console.error(`Error loading question ${questionId}:`, error.message);
-    }
+  async function loadQuestion(question: QuestionModel) {
+    setQuestion(question);
   }
 
   async function selectOption(index: number) {
@@ -108,13 +103,21 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
   }
 
   function getNextQuestionId() {
-    const nextQuestionIndex = questionsIds.indexOf(question?.id) + 1;
-    return questionsIds[nextQuestionIndex];
+    const currentQuestion = questions.find(
+      question => question.id === question.id
+    );
+    const nextQuestionIndex = questions.indexOf(currentQuestion) + 1;
+    setQuestion(questions[nextQuestionIndex]);
+    return nextQuestionIndex;
   }
 
   function handleNextQuestion() {
-    const nextQuestionId = getNextQuestionId();
-    nextQuestionId ? loadQuestion(nextQuestionId) : finishQuiz();
+    const nextQuestionIndex = getNextQuestionId();
+    console.log("NEXT QUESTION ID:", nextQuestionIndex);
+
+    nextQuestionIndex
+      ? loadQuestion(questions[nextQuestionIndex])
+      : finishQuiz();
   }
 
   function finishedTime() {
@@ -152,14 +155,14 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     <QuestionContext.Provider
       value={{
         question,
-        questionsIds,
+        questions,
         handleNextQuestion,
         getNextQuestionId,
         selectOption,
         finishedTime,
         startQuiz,
         finishQuiz,
-        loadQuestionsIds,
+        loadQuestions,
       }}
     >
       {children}

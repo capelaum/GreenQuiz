@@ -9,7 +9,8 @@ import { useQuestion } from "../../contexts/questionContext";
 import styles from "./styles.module.scss";
 
 export function Quiz() {
-  const { question, getNextQuestionId, handleNextQuestion } = useQuestion();
+  const { question, currentQuestionIndex, handleNextQuestion, questions } =
+    useQuestion();
   const [pageLoading, setPageLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -31,7 +32,11 @@ export function Quiz() {
           <Button
             onClick={handleNextQuestion}
             disabled={!question.isAnswered}
-            text={getNextQuestionId() === undefined ? "Finalizar" : "Próxima"}
+            text={
+              currentQuestionIndex === questions.length - 1
+                ? "Finalizar"
+                : "Próxima"
+            }
           />
         </div>
       )}

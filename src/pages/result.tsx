@@ -12,13 +12,14 @@ import { useQuestion } from "../contexts/questionContext";
 import styles from "../styles/Result.module.scss";
 
 export default function Result() {
-  const { questionsIds } = useQuestion();
+  const { questions } = useQuestion();
   const { user, userAuth } = useAuth();
 
-  const total = questionsIds.length;
+  const total = questions.length;
   const percent = Math.round((user?.score / total) * 100);
+  const userPercent = isNaN(percent) ? 0 : percent;
 
-  if (!userAuth) {
+  if (!userAuth || !questions) {
     return <LoadingScreen />;
   }
 
@@ -40,7 +41,7 @@ export default function Result() {
             value={user?.score}
             bgColor={"var(--dark-purple)"}
           />
-          <ResultStatistic text={"Percentual"} value={`${percent}%`} />
+          <ResultStatistic text={"Percentual"} value={`${userPercent}%`} />
         </div>
         <Button href="/" text="Menu" />
       </Container>

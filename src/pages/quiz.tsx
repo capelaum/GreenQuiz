@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+
 import Head from "next/head";
 import Image from "next/image";
 import Logo from "../../public/Logo.svg";
@@ -87,3 +88,20 @@ export default function QuizPage() {
     </>
   );
 }
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   try {
+//     const questions = await getQuestionsDb();
+//     const questionsIds = shuffleNumbers(questions.map(question => question.id));
+
+//   } catch (error) {
+//     console.error(
+//       "Ocorreu um erro ao pegar as questões da api:",
+//       error.message
+//     );
+//   }
+
+//   return {
+//     props: {},
+//   };
+// };

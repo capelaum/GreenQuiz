@@ -6,19 +6,17 @@ import { LoadingScreen } from "../components/LoadingScreen";
 import { MainImages } from "../components/MainImages";
 import { Container } from "../components/Container";
 
-import { useQuestion } from "../contexts/questionContext";
 import { useAuth } from "../contexts/authContext";
 import { getUsers, User } from "../services/firestore";
 
 import styles from "../styles/Ranking.module.scss";
+import { getQuestionsTotal } from "../services/questions";
 
 export default function Ranking() {
   const { userAuth } = useAuth();
-  const { questionsIds } = useQuestion();
   const [users, setUsers] = useState<User[]>([]);
   const [pageLoading, setPageLoading] = useState<boolean>(true);
-
-  const total = questionsIds.length;
+  const [questionsTotal, setQuestionsTotal] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -26,6 +24,9 @@ export default function Ranking() {
       const usersThatAnsweredQuiz = users.filter(user => user.answeredQuiz);
       const sortedUsers = sortUsersByScore(usersThatAnsweredQuiz);
       setUsers(sortedUsers);
+
+      const total = await getQuestionsTotal();
+      setQuestionsTotal(total);
     })();
   }, []);
 
@@ -98,7 +99,7 @@ export default function Ranking() {
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td className={styles.center}>
-                              {user.score}/{total}
+                              {user.score}/{questionsTotal}
                             </td>
                             <td className={styles.center}>{index + 1}º</td>
                             <td className={styles.center}>

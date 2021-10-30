@@ -9,9 +9,11 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 
-import QuestionModel from "../models/question";
 import { useAuth } from "./authContext";
 import { updateUser } from "../services/firestore";
+
+import QuestionModel from "../models/question";
+import { getQuestions } from "../services/questions";
 
 interface QuestionProviderProps {
   children: ReactNode;
@@ -19,13 +21,13 @@ interface QuestionProviderProps {
 
 interface QuestionContextData {
   question: QuestionModel;
-  questionsIds: number[];
-  getNextQuestionId: () => void;
+  questions: QuestionModel[];
   handleNextQuestion: () => void;
   finishedTime: () => void;
   selectOption: (index: number) => void;
   startQuiz: () => void;
   finishQuiz: () => void;
+  currentQuestionIndex: number;
 }
 
 const QuestionContext = createContext<QuestionContextData>(
@@ -34,23 +36,31 @@ const QuestionContext = createContext<QuestionContextData>(
 
 export function QuestionProvider({ children }: QuestionProviderProps) {
   const [question, setQuestion] = useState<QuestionModel>();
-  const [questionsIds, setQuestionsIds] = useState<number[]>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [questions, setQuestions] = useState<QuestionModel[]>([]);
   const questionRef = useRef<QuestionModel>();
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
-    loadQuestionsIds();
-  }, []);
-
-  useEffect(() => {
-    questionRef.current = question;
+    if (question) {
+      questionRef.current = question;
+    }
+    return () => {
+      questionRef.current = undefined;
+    };
   }, [question]);
 
-  async function loadQuestionsIds() {
-    const response = await fetch("api/quiz");
-    const questionIds = await response.json();
-    setQuestionsIds(questionIds);
+  useEffect(() => {
+    if (router.pathname === "/quizInfo") {
+      console.log("Loading questions...");
+      loadQuestions();
+    }
+  }, [router.pathname]);
+
+  async function loadQuestions() {
+    const questions = await getQuestions();
+    setQuestions(questions);
   }
 
   async function startQuiz() {
@@ -60,6 +70,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     //   });
     //   return router.push("/");
     // }
+    setCurrentQuestionIndex(0);
 
     toast.success("Boa sorte!", {
       theme: "light",
@@ -72,28 +83,16 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     user.score = 0;
     await updateUser(user);
 
-    if (questionsIds.length > 0) {
-      await loadQuestion(questionsIds[0]);
+    if (questions.length > 0) {
+      setQuestion(questions[currentQuestionIndex]);
     }
 
     router.push("/quiz");
   }
 
-  async function loadQuestion(questionId: number) {
-    try {
-      const response = await fetch(`api/questions/${questionId}`);
-      const question = await response.json();
-      const newQuestion = QuestionModel.createInstanceFromObject(question);
-      setQuestion(newQuestion);
-    } catch (error) {
-      console.error(`Error loading question ${questionId}:`, error.message);
-    }
-  }
-
   async function selectOption(index: number) {
     if (question.isNotAnswered) {
       const answeredQuestion = question.selectOption(index);
-      setQuestion(answeredQuestion);
       // setScore(score + (answeredQuestion.isRight ? 1 : 0));
       answeredQuestion.isRight
         ? toast.success("Você acertou!", {
@@ -104,19 +103,28 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
             theme: "colored",
             position: "top-left",
           });
+
+      const updatedQuestions = questions;
+      updatedQuestions[currentQuestionIndex] = answeredQuestion;
+
+      setQuestions(updatedQuestions);
+      setQuestion(questions[currentQuestionIndex]);
+
       user.score += answeredQuestion.isRight ? 1 : 0;
       await updateUser(user);
     }
   }
 
-  function getNextQuestionId() {
-    const nextQuestionIndex = questionsIds.indexOf(question?.id) + 1;
-    return questionsIds[nextQuestionIndex];
-  }
-
   function handleNextQuestion() {
-    const nextQuestionId = getNextQuestionId();
-    nextQuestionId ? loadQuestion(nextQuestionId) : finishQuiz();
+    if (currentQuestionIndex < questions.length) {
+      setQuestion(questions[currentQuestionIndex + 1]);
+    }
+
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+
+    if (currentQuestionIndex === questions.length) {
+      finishQuiz();
+    }
   }
 
   function finishedTime() {
@@ -154,13 +162,13 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     <QuestionContext.Provider
       value={{
         question,
-        questionsIds,
+        questions,
         handleNextQuestion,
-        getNextQuestionId,
         selectOption,
         finishedTime,
         startQuiz,
         finishQuiz,
+        currentQuestionIndex,
       }}
     >
       {children}

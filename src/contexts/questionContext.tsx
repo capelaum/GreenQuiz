@@ -23,13 +23,12 @@ interface QuestionProviderProps {
 interface QuestionContextData {
   question: QuestionModel;
   questions: QuestionModel[];
-  getNextQuestionId: () => void;
   handleNextQuestion: () => void;
   finishedTime: () => void;
   selectOption: (index: number) => void;
   startQuiz: () => void;
   finishQuiz: () => void;
-  loadQuestions: () => void;
+  currentQuestionIndex: number;
 }
 
 const QuestionContext = createContext<QuestionContextData>(
@@ -38,15 +37,27 @@ const QuestionContext = createContext<QuestionContextData>(
 
 export function QuestionProvider({ children }: QuestionProviderProps) {
   const [question, setQuestion] = useState<QuestionModel>();
-  // const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<QuestionModel[]>([]);
   const questionRef = useRef<QuestionModel>();
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
-    questionRef.current = question;
+    if (question) {
+      questionRef.current = question;
+    }
+    return () => {
+      questionRef.current = undefined;
+    };
   }, [question]);
+
+  useEffect(() => {
+    if (router.pathname === "/quizInfo") {
+      console.log("Loading questions");
+      loadQuestions();
+    }
+  }, [router.pathname]);
 
   async function loadQuestions() {
     const questions = await getQuestions();
@@ -60,6 +71,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     //   });
     //   return router.push("/");
     // }
+    setCurrentQuestionIndex(0);
 
     toast.success("Boa sorte!", {
       theme: "light",
@@ -73,20 +85,15 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     await updateUser(user);
 
     if (questions.length > 0) {
-      await loadQuestion(questions[0]);
+      setQuestion(questions[currentQuestionIndex]);
     }
 
     router.push("/quiz");
   }
 
-  async function loadQuestion(question: QuestionModel) {
-    setQuestion(question);
-  }
-
   async function selectOption(index: number) {
     if (question.isNotAnswered) {
       const answeredQuestion = question.selectOption(index);
-      setQuestion(answeredQuestion);
       // setScore(score + (answeredQuestion.isRight ? 1 : 0));
       answeredQuestion.isRight
         ? toast.success("Você acertou!", {
@@ -97,27 +104,29 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
             theme: "colored",
             position: "top-left",
           });
+
+      const updatedQuestions = questions;
+      updatedQuestions[currentQuestionIndex] = answeredQuestion;
+
+      setQuestions(updatedQuestions);
+      setQuestion(questions[currentQuestionIndex]);
+
       user.score += answeredQuestion.isRight ? 1 : 0;
       await updateUser(user);
     }
   }
 
-  function getNextQuestionId() {
-    const currentQuestion = questions.find(
-      question => question.id === question.id
-    );
-    const nextQuestionIndex = questions.indexOf(currentQuestion) + 1;
-    setQuestion(questions[nextQuestionIndex]);
-    return nextQuestionIndex;
-  }
+  async function handleNextQuestion() {
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    console.log("NEXT QUESTION ID:", currentQuestionIndex);
 
-  function handleNextQuestion() {
-    const nextQuestionIndex = getNextQuestionId();
-    console.log("NEXT QUESTION ID:", nextQuestionIndex);
+    if (currentQuestionIndex < questions.length) {
+      setQuestion(questions[currentQuestionIndex]);
+    }
 
-    nextQuestionIndex
-      ? loadQuestion(questions[nextQuestionIndex])
-      : finishQuiz();
+    if (currentQuestionIndex === questions.length) {
+      finishQuiz();
+    }
   }
 
   function finishedTime() {
@@ -157,12 +166,11 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
         question,
         questions,
         handleNextQuestion,
-        getNextQuestionId,
         selectOption,
         finishedTime,
         startQuiz,
         finishQuiz,
-        loadQuestions,
+        currentQuestionIndex,
       }}
     >
       {children}

@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useEffect } from "react";
 
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
@@ -12,13 +11,8 @@ import { useQuestion } from "../contexts/questionContext";
 import styles from "../styles/QuizInfo.module.scss";
 
 export default function QuizInfo() {
-  const { questions, startQuiz, loadQuestions } = useQuestion();
+  const { questions, startQuiz } = useQuestion();
   const { userAuth } = useAuth();
-
-  useEffect(() => {
-    console.log("Load questions");
-    loadQuestions();
-  }, []);
 
   if (!userAuth) {
     return <LoadingScreen />;

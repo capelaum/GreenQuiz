@@ -6,6 +6,8 @@ import {
   where,
   doc,
   setDoc,
+  QueryDocumentSnapshot,
+  DocumentData,
 } from "firebase/firestore";
 
 import { db } from "./firestore";
@@ -38,7 +40,7 @@ const addQuestion = async (question: Question) => {
   }
 };
 
-const getQuestionsDb = async () => {
+const getQuestionsDb = async (): Promise<Question[]> => {
   const questionsCollection = collection(db, "questions");
   const questionsSnapshot = await getDocs(questionsCollection);
   const questionsList = questionsSnapshot.docs.map(
@@ -48,7 +50,7 @@ const getQuestionsDb = async () => {
   return questionsList;
 };
 
-async function getQuestions() {
+const getQuestions = async (): Promise<QuestionModel[]> => {
   const firestoreQuestions = await getQuestionsDb();
 
   const questions = firestoreQuestions.map(
@@ -63,10 +65,18 @@ async function getQuestions() {
     }
   );
 
-  return shuffleQuestions(questions);
-}
+  return shuffleQuestions(questions.map(question => question.shuffleOptions()));
+};
 
-const getQuestionById = async (questionId: number) => {
+const getQuestionsTotal = async (): Promise<number> => {
+  const questionsCollection = collection(db, "questions");
+  const questionsSnapshot = await getDocs(questionsCollection);
+  return questionsSnapshot.size;
+};
+
+const getQuestionById = async (
+  questionId: number
+): Promise<QueryDocumentSnapshot<DocumentData>> => {
   const questionsCollection = collection(db, "questions");
   const q = query(questionsCollection, where("id", "==", questionId));
   const querySnapshot = await getDocs(q);
@@ -97,6 +107,7 @@ export {
   addQuestion,
   getQuestions,
   getQuestionsDb,
+  getQuestionsTotal,
   getQuestionById,
   updateQuestion,
 };

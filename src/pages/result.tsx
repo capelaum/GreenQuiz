@@ -17,6 +17,7 @@ export default function Result() {
 
   const total = questions.length;
   const percent = Math.round((user?.score / total) * 100);
+  const userPercent = isNaN(percent) ? 0 : percent;
 
   if (!userAuth) {
     return <LoadingScreen />;
@@ -40,7 +41,7 @@ export default function Result() {
             value={user?.score}
             bgColor={"var(--dark-purple)"}
           />
-          <ResultStatistic text={"Percentual"} value={`${percent}%`} />
+          <ResultStatistic text={"Percentual"} value={`${userPercent}%`} />
         </div>
         <Button href="/" text="Menu" />
       </Container>

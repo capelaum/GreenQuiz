@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
@@ -8,16 +9,25 @@ import { ResultStatistic } from "../components/ResultStatistic";
 
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
+import { getQuestionsTotal } from "../services/questions";
 
 import styles from "../styles/Result.module.scss";
 
 export default function Result() {
   const { questions } = useQuestion();
   const { user, userAuth } = useAuth();
+  const [questionsTotal, setQuestionsTotal] = useState(0);
+  const [userPercent, setUserPercent] = useState(0);
 
-  const total = questions.length;
-  const percent = Math.round((user?.score / total) * 100);
-  const userPercent = isNaN(percent) ? 0 : percent;
+  useEffect(() => {
+    (async () => {
+      const total = await getQuestionsTotal();
+      setQuestionsTotal(total);
+      const percent = Math.round((user?.score / total) * 100);
+      const userPercent = isNaN(percent) ? 0 : percent;
+      setUserPercent(userPercent);
+    })();
+  }, [user?.score]);
 
   if (!userAuth || !questions) {
     return <LoadingScreen />;
@@ -35,7 +45,7 @@ export default function Result() {
           {user ? user.name : "Usuário"}, seu resultado nesse quiz foi..
         </h2>
         <div className={styles.resultStatisticsContainer}>
-          <ResultStatistic text={"Perguntas"} value={total} />
+          <ResultStatistic text={"Perguntas"} value={questionsTotal} />
           <ResultStatistic
             text={"Score"}
             value={user?.score}

@@ -10,8 +10,6 @@ import { Container } from "../components/Container";
 import { MainImages } from "../components/MainImages";
 import { LoadingScreen } from "../components/LoadingScreen";
 
-import QuestionModel from "../models/question";
-
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
 

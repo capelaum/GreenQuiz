@@ -54,7 +54,7 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
 
   useEffect(() => {
     if (router.pathname === "/quizInfo") {
-      console.log("Loading questions");
+      console.log("Loading questions...");
       loadQuestions();
     }
   }, [router.pathname]);
@@ -116,13 +116,12 @@ export function QuestionProvider({ children }: QuestionProviderProps) {
     }
   }
 
-  async function handleNextQuestion() {
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
-    console.log("NEXT QUESTION ID:", currentQuestionIndex);
-
+  function handleNextQuestion() {
     if (currentQuestionIndex < questions.length) {
-      setQuestion(questions[currentQuestionIndex]);
+      setQuestion(questions[currentQuestionIndex + 1]);
     }
+
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
 
     if (currentQuestionIndex === questions.length) {
       finishQuiz();

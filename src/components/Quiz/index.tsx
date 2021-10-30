@@ -30,10 +30,10 @@ export function Quiz() {
           {question ? <Question /> : false}
 
           <Button
-            onClick={() => handleNextQuestion()}
+            onClick={handleNextQuestion}
             disabled={!question.isAnswered}
             text={
-              currentQuestionIndex === questions.length
+              currentQuestionIndex === questions.length - 1
                 ? "Finalizar"
                 : "Próxima"
             }

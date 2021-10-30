@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
@@ -7,14 +8,23 @@ import { MainImages } from "../components/MainImages";
 
 import { useAuth } from "../contexts/authContext";
 import { useQuestion } from "../contexts/questionContext";
+import { getQuestionsTotal } from "../services/questions";
 
 import styles from "../styles/QuizInfo.module.scss";
 
 export default function QuizInfo() {
-  const { questions, startQuiz } = useQuestion();
+  const [questionsTotal, setQuestionsTotal] = useState(0);
+  const { startQuiz } = useQuestion();
   const { userAuth } = useAuth();
 
-  if (!userAuth) {
+  useEffect(() => {
+    (async () => {
+      const total = await getQuestionsTotal();
+      setQuestionsTotal(total);
+    })();
+  }, []);
+
+  if (!userAuth || questionsTotal === 0) {
     return <LoadingScreen />;
   }
 
@@ -30,7 +40,7 @@ export default function QuizInfo() {
 
         <div className={styles.quizInfo}>
           <p>
-            Esse Quiz possui <strong>{questions.length} questões</strong> e um
+            Esse Quiz possui <strong>{questionsTotal} questões</strong> e um
             limite de tempo de <strong>30 segundos</strong> para responder cada
             questão.
             <br />

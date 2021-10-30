@@ -19,7 +19,7 @@ export default function Result() {
   const percent = Math.round((user?.score / total) * 100);
   const userPercent = isNaN(percent) ? 0 : percent;
 
-  if (!userAuth) {
+  if (!userAuth || !questions) {
     return <LoadingScreen />;
   }
 

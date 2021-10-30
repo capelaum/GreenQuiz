@@ -13,8 +13,7 @@ import { useAuth } from "./authContext";
 import { updateUser } from "../services/firestore";
 
 import QuestionModel from "../models/question";
-import { getQuestions, getQuestionsDb, Question } from "../services/questions";
-import OptionModel from "../models/option";
+import { getQuestions } from "../services/questions";
 
 interface QuestionProviderProps {
   children: ReactNode;

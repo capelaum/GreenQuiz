@@ -14,7 +14,7 @@ import { db } from "./firestore";
 
 import OptionModel from "../models/option";
 import QuestionModel from "../models/question";
-import { shuffleNumbers, shuffleQuestions } from "../functions/arrayFunctions";
+import { shuffleQuestions } from "../functions/arrayFunctions";
 
 export type Option = {
   text: string;

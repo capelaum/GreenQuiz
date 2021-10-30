@@ -6,7 +6,6 @@ import { LoadingScreen } from "../components/LoadingScreen";
 import { MainImages } from "../components/MainImages";
 import { Container } from "../components/Container";
 
-import { useQuestion } from "../contexts/questionContext";
 import { useAuth } from "../contexts/authContext";
 import { getUsers, User } from "../services/firestore";
 

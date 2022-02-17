@@ -23,20 +23,7 @@ This project user the google social login and it's main objective is to test you
 
 ### Firebase configuration
 
-First, you need to create a new firebase project. Then create a `.env.local` file in the project root, and define your env variables with your firebase project configuration values:
-
-```javascript
-# Firebase
-NEXT_PUBLIC_API_KEY="apiKey"
-NEXT_PUBLIC_AUTH_DOMAIN="authDomain"
-NEXT_PUBLIC_DATABASE_URL="databaseURL"
-NEXT_PUBLIC_PROJECT_ID="projectId"
-STORAGE_BUCKET="storageBucket"
-MESSAGING_SENDER_ID="messagingSenderId"
-APP_ID="appId"
-```
-
-Then you need to create a database in firestore and a collection named users. After that you are all set!
+Create your firebase app in [Firebase][firebase], then set the `.env.local` file with the needed variables as defined in `.env.example`
 
 ## Installation
 
@@ -63,7 +50,9 @@ yarn dev
 
 ## 🔖 Layout
 
-Você pode visualizar o layout do projeto através [desse link][figma_layout]. É necessário ter conta no [Figma](https://figma.com) para acessá-lo.
+You can access the layout prototype through this [link][figma_layout].
+
+You got to have a [Figma account](figma) to see the layout prototype.
 
 ## Technologies
 
@@ -91,3 +80,4 @@ This project is under the MIT license. See the file [LICENSE](.github/LICENSE) f
 [nprogress]: https://www.npmjs.com/package/nprogress
 [toastify]: https://www.npmjs.com/package/react-toastify
 [figma_layout]: https://www.figma.com/file/3C9xWVoZws4U0d3qu4jhGb/GreenQuiz
+[figma]: https://figma.com
